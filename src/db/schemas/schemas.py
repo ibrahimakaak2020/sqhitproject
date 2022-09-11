@@ -3,16 +3,34 @@ from typing import Optional
 from pydantic import BaseModel,EmailStr
 
 class ManufactureCreate( BaseModel ):
+
     company_name : str
 
     class Config:  # to convert non dict obj to json
         orm_mode = True
+
+# class Manufactureshow( BaseModel ):
+#     mid:int
+#     company_name : str
+
+#     class Config:  # to convert non dict obj to json
+#         orm_mode = True
  
 
 
 class EquipmentTypeCreate(BaseModel):
 
            equipment_type : str
+
+           class Config:  # to convert non dict obj to json
+             orm_mode = True
+
+
+class EquipmentModelCreate(BaseModel):
+
+           equipment_model : str
+           mid:int
+           eid:int
 
            class Config:  # to convert non dict obj to json
              orm_mode = True
@@ -40,11 +58,25 @@ class UserCreate(BaseModel):
     staffno:int
     staffname:str
     password:str
+    # admin_role:int
+
+    class Config:
+        orm_mode=True
+
+#------------------------------------------
+class CompanyUserCreate(BaseModel):
+    staffname:str
+    company_name_en:str
+    company_name_ar:str
+    contactnumber:str
+    # admin_role:int
 
     class Config:
         orm_mode=True
 
 
+
+#-------------------------------------------
 class EquipmentCreate(BaseModel):
     sn:str
     emid:int
