@@ -1,0 +1,64 @@
+{% block content %}
+
+<ul data-app-bar="true" data-role="materialtabs">
+    <li class="active"><a href="#local">Local Maintenance</a></li>
+    <li><a href="#send">Send To Company</a></li>
+    <li><a href="#waiting">Keep In Waiting List For Send </a></li>
+
+</ul>
+<div style="margin-top: 112px ;width: 100%">
+    <div id="local">
+        <form method="post" action="/locally">
+            <div class="row">
+                <input name="sn" value="{{sn}}">
+                <div class="cell-md-12">
+                    <p>Enter Your Notes :</p>
+                    <textarea name="activity_desc" data-role="textarea"></textarea>
+                </div>
+                <button class="button">
+                    <span class="icon mif-plus"></span>
+                    <span class="label">Save For Local Maintenance</span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div id="send">
+        <form method="post" action="/sentequipmenttoecompany">
+            <div class="row">
+                <input name="sn" value="{{sn}}">
+                <label for="model"><b>Select Company User:</b></label>
+                <select name="cid" data-role="select">
+                    {% for cuser in companyuser%}
+                    <option value="{{cuser.cid}}">{{cuser.staffname}}---{{cuser.company_name_en}}</option>
+
+                    {% endfor %}
+                </select>
+                <div class="cell-md-12">
+                    <p>Enter Your Notes :</p>
+                    <textarea name="activity_desc" data-role="textarea"></textarea>
+                </div>
+                <button class="button">
+                    <span class="icon mif-plus"></span>
+                    <span class="label">Send To Company</span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div id="waiting">
+        <form method="post" action="/waiting">
+            <div class="row">
+                <input name="sn" value="{{sn}}">
+                <div class="cell-md-12">
+                    <p>Enter Your Notes :</p>
+                    <textarea name="activity_desc" data-role="textarea"></textarea>
+                </div>
+                <button class="button">
+                    <span class="icon mif-plus"></span>
+                    <span class="label">Keep in Waiting for Sending</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock content %}

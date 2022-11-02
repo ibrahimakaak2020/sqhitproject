@@ -1,0 +1,40 @@
+{% block content %}
+<div class="container">
+    <div class="text-danger font-weight-bold">
+          {% for error in errors %}
+            <li>{{error}}</li>
+          {% endfor %}
+      </div>
+      <span class="span">Equipment Does Not Exist</span>
+      <h2>add Equipment </h2>
+      <form  class="formregisterequipment" action="/createequipmentmain"  method="post">
+        <input type="text" name="sn" value="{{search}}" hidden>
+       <label for="model"><b>Select Equipment Model:</b></label>
+        <select  name="emid" data-role="select">
+            {% for model in equipmnetmodel%}
+                <option value="{{model.mid}}">{{model.equipment_model}}</option>
+   
+            {% endfor %}
+        </select>
+       
+        <label for="model"><b>Select Equipment Location :</b></label>
+        <select name="locid" data-role="select">
+          {% for loc in locations%}
+              <option value="{{loc.locid}}">{{loc.building}} --> {{loc.loc_name}} --> {{loc.contact_number}}</option>
+  
+          {% endfor %}
+      </select>
+    
+   
+
+
+      <button type="submit">Add Equipment</button>
+    </form>
+    </div>
+
+
+
+  
+   
+
+{% endblock %}

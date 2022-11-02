@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        {%block header%}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+   <!-- <link href="{{ url_for('static', path='/css/modal.css') }}" rel="stylesheet"> -->
+   <link href="{{ url_for('static', path='/css/spectre.min.css') }}" rel="stylesheet">
+   <link href="{{ url_for('static', path='/css/spectre-exp.min.css') }}" rel="stylesheet">
+   <link href="{{ url_for('static', path='/css/spectre-icons.min.css') }}" rel="stylesheet">
+   <link href="{{ url_for('static', path='/metro4/css/metro-all.min.css') }}" rel="stylesheet">
+     
+   
+       {% block title %}
+
+    {% endblock %}
+    {%endblock header%}
+</head>
+
+<body>
+        {% include 'htmlmodels/nav.html' %}
+
+        <div class="container " scripts="overflow: scroll;">
+                {% block content %}
+                {% endblock content %}
+                <hr>
+                {% block result %}
+                {% endblock result %}
+                <hr>
+                {% block footer %}
+                <footer >
+                        <span >
+                                programmer ibrahim akaak
+                        </span>
+                </footer>
+                {% endblock footer %}
+        </div>
+        <script src="{{ url_for('static', path='/metro4/js/metro.min.js')}}"></script>
+        <!-- <script src="{{ url_for('static', path='my.js')}}"></script> -->
+        {% block scripts %}
+        {% endblock %}
+</body>
+</html>

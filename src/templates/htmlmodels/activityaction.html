@@ -1,0 +1,159 @@
+{% for value,result in activityaction(activity.activity_status).items()%}
+{%if result=="/send"%}
+    <td>
+    
+    <div class="interior">
+          <a class="btnmodal" href="#{{result}}">👋{{value}}</a>
+        </div>
+     
+      <div id="{{result}}" class="modal-window">
+        <div>
+          <a href="/?sn={{activity.equipmen_register.sn}}" title="Close" class="modal-close">Close</a>
+          <div>
+            <form method="post" action="/sentequipmenttoecompany">
+              <div class="row">
+                  <input name="sn" value="{{sn}}" hidden>
+                  <label for="model"><b>Select Company User:</b></label>
+                  <select name="cid" data-role="select">
+                      {% for cuser in companyuser%}
+                      <option value="{{cuser.cid}}">{{cuser.staffname}}---{{cuser.company_name_en}}</option>
+  
+                      {% endfor %}
+                  </select>
+                  <div class="cell-md-12">
+                      <p>Enter Your Notes :</p>
+                      <textarea name="activity_desc" data-role="textarea"></textarea>
+                  </div>
+                  <button class="button">
+                      <span class="icon mif-plus"></span>
+                      <span class="label">Send To Company</span>
+                  </button>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
+     
+      </div>
+    </td>
+    {%elif result=="/locally"%}
+    <td>
+    <div class="interior">
+        <a class="btnmodal" href="#{{result}}">👋{{value}}</a>
+      </div>
+   
+    <div id="{{result}}" class="modal-window">
+      <div>
+        <a href="/?sn={{activity.equipmen_register.sn}}" title="Close" class="modal-close">Close</a>
+        <div>
+          <form method="post" action="/locally">
+            <div class="row">
+                <input name="sn" value="{{sn}}">
+                <div class="cell-md-12">
+                    <p>Enter Your Notes :</p>
+                    <textarea name="activity_desc" data-role="textarea"></textarea>
+                </div>
+                <button class="button">
+                    <span class="icon mif-plus"></span>
+                    <span class="label">Save For Local Maintenance</span>
+                </button>
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+   
+    </div>
+  </td>
+  {%elif result=="/keepfor"%}
+  <td>
+  <div class="interior">
+      <a class="btnmodal" href="#{{result}}">👋{{value}}</a>
+    </div>
+ 
+  <div id="{{result}}" class="modal-window">
+    <div>
+      <a href="/?sn={{activity.equipmen_register.sn}}" title="Close" class="modal-close">Close</a>
+      <div>
+        <h1>head of popover</h1>
+        <p>{{result}}</p> 
+      </div>
+    </div>
+  </div>
+ 
+  </div>
+</td>
+{%elif result=="/return"%}
+<td>
+<div class="interior">
+    <a class="btnmodal" href="#{{result}}">👋{{value}}</a>
+  </div>
+
+<div id="{{result}}" class="modal-window">
+  <div>
+    <a href="/?sn={{activity.equipmen_register.sn}}" title="Close" class="modal-close">Close</a>
+    <div>
+      <h1>head of popover</h1>
+      <p>{{result}}</p>
+    </div>
+  </div>
+</div>
+
+</div>
+</td>
+{%elif result=="/candem"%}
+<td>
+<div class="interior">
+  <a class="btnmodal" href="#{{result}}">👋{{value}}</a>
+</div>
+
+<div id="{{result}}" class="modal-window">
+<div>
+  <a href="/?sn={{activity.equipmen_register.sn}}" title="Close" class="modal-close">Close</a>
+  <div>
+    <h1>head of popover</h1>
+    <p>{{result}}</p>
+  </div>
+</div>
+</div>
+
+</div>
+</td>
+{%elif result=="/repaired"%}
+<td>
+<div class="interior">
+<a class="btnmodal" href="#{{result}}">👋{{value}}</a>
+</div>
+
+<div id="{{result}}" class="modal-window">
+<div>
+<a href="/?sn={{activity.equipmen_register.sn}}" title="Close" class="modal-close">Close</a>
+<div>
+  <h1>head of popover</h1>
+  <p>{{result}}</p>
+</div>
+</div>
+</div>
+
+</div>
+</td>
+{%elif result=="/notrepaired"%}
+<td>
+<div class="interior">
+<a class="btnmodal" href="#{{result}}">👋{{value}}</a>
+</div>
+
+<div id="{{result}}" class="modal-window">
+<div>
+<a href="/?sn={{activity.equipmen_register.sn}}" title="Close" class="modal-close">Close</a>
+<div>
+<h1>head of popover</h1>
+<p>{{result}}</p>
+</div>
+</div>
+</div>
+
+</div>
+</td>
+  {%endif%}
+{%endfor%}
