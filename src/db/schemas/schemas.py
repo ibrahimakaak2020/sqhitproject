@@ -47,12 +47,7 @@ class LocationCreate(BaseModel):
     class Config:  # to convert non dict obj to json
         orm_mode = True
 
-class EquipmentCreate(BaseModel):
-    sn:str
-    emid:int
-    locid:int
-    class Config:
-        orm_mode=True
+
    
 class UserCreate(BaseModel):
     staffno:int
@@ -81,6 +76,8 @@ class EquipmentCreate(BaseModel):
     sn:str
     emid:int
     locid:int
+    standby:str="N"
+    candm_yn:str="N"
     class Config:
         orm_mode=True
 
@@ -91,7 +88,40 @@ class EquipmentRegisterCreate(BaseModel):
     sn:str
     register_by:int
     register_desc:str
-    workorderid:str
+    workorderid:str=None
+    date_of_register:Optional[datetime]=None
+    register_status:str="Y"
+   
+
+    class Config:
+        orm_mode=True
+
+class repairedupdate(BaseModel):
+    sn:str
+    recieve_note:str=None
+    recieve_by:str=None
+    recieve_date:datetime=None
+    next_activity:str="F"
+    maintaince_status:str=None
+    date_of_maintaince:datetime=datetime.now()
+    recieve_by:str=None
+    recieve_note:str=None
+
+
+class repairedcompanyupdate(BaseModel):
+    sn:str
+    recieve_note:str=None
+    recieve_by:str=None
+    recieve_date:datetime=None
+    next_activity:str="F"
+    maintaince_status:str=None
+    date_of_maintaince:datetime=datetime.now()
+    recieve_by:str=None
+    recieve_note:str=None
+    billid:str="0"
+    billamount:int=0
+
+
    
 
     class Config:
@@ -104,6 +134,7 @@ class EquipmentActivityCreate(BaseModel):
     create_by:int
     company_id:int=None
     activity_desc:str
+    activity_date:Optional[datetime]=None
     next_activity:str=None
     activity_status:str
     place_of_maintaince:str
@@ -119,3 +150,30 @@ class EquipmentActivityCreate(BaseModel):
 
     class Config:
         orm_mode=True
+
+class UserCreate(BaseModel):
+    staffno:str
+    staffname:str
+    password:str
+    admin_role:int=0
+    class Config:
+        orm_mode=True
+class UserShow(BaseModel):
+    staffno:str
+    staffname:str
+    admin_role:int=0
+    class Config:
+        orm_mode=True
+
+class SystemUser(BaseModel):
+    staffno:str
+    staffname:str
+
+    class Config:
+        orm_mode=True
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+

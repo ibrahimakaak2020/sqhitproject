@@ -1,0 +1,64 @@
+{%if activity.maintaince_status !="RR" %}
+<tr>
+    <td>{{activity.activity_date}}</td>
+    <td>{{activity.user.staffname}}</td>
+    {%if activity.place_of_maintaince =="L"%}
+    <td>IT Workshop</td>
+    {%else%}
+    <td>{{activity.company_user.company_name_en}}</td>
+    {%endif%}
+    <td>{{activity.activity_desc}}</td>
+    {% if activity.maintaince_status == None %}
+    <td>
+        <button class="button" id="collapse_toggle_2">Collapse block</button>
+        <div class="pos-relative">
+            <div class="bg-red fg-white" data-role="collapse" data-toggle-element="#collapse_toggle_2"
+                data-collapsed="true">
+
+                <a href="{{url_for('home')}}">Maintenance Status</a>
+    <td><a href="{{url_for('home')}}">Maintenance Status</a>
+    <td><a href="{{url_for('home')}}">Maintenance Status</a>
+
+
+
+        </div>
+        </div>
+    </td>
+
+    {% endif %}
+
+</tr>
+
+{%endfor%}
+{%else%}
+{%with activity=equipmentactivities[0]%}
+<tr>
+    <td>{{activity.activity_date}}</td>
+    <td>{{activity.user.staffname}}</td>
+    {%if activity.place_of_maintaince =="L"%}
+    <td>IT Workshop</td>
+    {%else%}
+    <td>{{activity.company_user.company_name_en}}</td>
+
+    {%endif%}
+    <td>{{activity.activity_desc}}</td>
+    {% if activity.maintaince_status == None %}
+    <td>
+        <button class="button" id="collapse_toggle_2">Collapse block</button>
+        <div class="pos-relative">
+            <div class="bg-red fg-white" data-role="collapse" data-toggle-element="#collapse_toggle_2"
+                data-collapsed="true">
+
+                <a href="{{url_for('home')}}">Maintenance Status</a>
+    <td><a href="{{url_for('home')}}">Maintenance Status</a>
+    <td><a href="{{url_for('home')}}">Maintenance Status</a>
+
+
+
+        </div>
+        </div>
+    </td>
+
+    {% endif %}
+
+</tr>

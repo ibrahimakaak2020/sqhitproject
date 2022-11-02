@@ -1,0 +1,49 @@
+nav{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right:30px;
+}
+
+.appnav ul{
+    display:flex;
+    
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+   
+}
+.appnav ul li{
+    width:max-content;
+    padding-left: 30px;
+
+}
+
+.appuser ul{
+    display:flex;
+    flex-direction: column;
+    text-align: left;
+    padding-left: 30px;
+    list-style-type:none;
+    /*background: #121314;*/
+    padding: 20px;
+}
+.appuser ul li{
+    width:max-content;
+    padding-left: 30px;
+
+}
+.logout{
+   width:max-content;
+   margin-top:20px;
+    border:none;
+    border-radius: 50px;
+    background-color: rgba(252, 129, 68,1);
+}
+.logout:hover{
+    background-color: rgba(252, 129, 68,.5);
+}
+
+nav li{
+    width:100px;
+}

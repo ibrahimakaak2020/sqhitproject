@@ -100,8 +100,11 @@ class EquipmentActivity(Base):
     activity_date = Column(DateTime,default=datetime.datetime.now) 
     create_by =  Column(Integer, ForeignKey('user.staffno'))
     user=relationship("User", back_populates="activities")
+    recieve_by =  Column(Integer)
+   
     next_activity=Column(String(3))# Yes(have another activity or NO  Finall activity or Conadmnations
     activity_desc = Column(String(300))
+    recieve_note = Column(String(300))
     activity_status = Column(String(3) ) # RR Repaired RO Not Repaired CC Condamnation
     maintaince_status=Column(String(3))
     date_of_maintaince = Column(DateTime)   
@@ -127,6 +130,9 @@ class User(Base):
     admin_role=Column(Integer,nullable=False)
     equipment_register = relationship("EquipmentRegister", back_populates="user")
     activities = relationship("EquipmentActivity", back_populates="user")
+
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
      
     def __repr__(self):
         return f"User (staff No ={self.staffno  !r}, staff Name={self.staffname !r})"

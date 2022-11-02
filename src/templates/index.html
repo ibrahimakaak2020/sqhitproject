@@ -1,0 +1,81 @@
+
+
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Manage Equipments Maintenence System </title>
+{% endblock %}
+
+{% block content %}
+ <!--  <div class="searchcontainer"> -->
+    
+
+
+
+  
+    
+    {% if msg %}
+    <div class="badge bg-success text-wrap font-weight-bold" style="font-size: large;">
+      {{msg}}
+    </div>
+    {% endif %}
+  <!-- </div> -->
+  {%if search%}
+  <div class="container">
+  <form method="post" >
+    
+      <!-- <input type='text' name="search" id='search'  data-role="input" data-prepend="<span class='mif-user'></span>" placeholder="Enter the serial number" value="{{sn}}"> -->
+      <!-- <input type='text' name="search" id='search'  data-role="input" data-prepend="<span class='mif-user'></span>" placeholder="Enter the serial number" value="{{sn}}"> -->
+      <div class="border bd-cyan border-radius-4 w-100" >
+        <input type="text" name="search" id='search' data-role="input" placeholder="Enter the serial number" value="{{sn}}" data-prepend="<span class='mif-search'></span>">
+    </div>
+   
+   
+  </form>
+</div>
+<hr>
+  {%if equipment%}
+{% include 'equipmentshow.html' %}
+
+          {%if equipmentregister%}
+              
+          {% include 'equipmentregistershow.html' %}
+                  {%if equipmentactivities %}
+                  {% include 'activityequipmentshow.html' %}
+                  {%else%}
+                  {% include 'createactivityequipment.html' %}
+                  {%endif%}
+
+          {%else%}
+          <hr>
+          {% include 'createregisterequipment.html' %}
+          {%endif%}
+{%else%}
+{% include 'createequipment.html' %}
+
+
+{%endif%}
+{%else%}
+
+<div class="container">
+  <form method="post" >
+    
+      <!-- <input type='text' name="search" id='search'  data-role="input" data-prepend="<span class='mif-user'></span>" placeholder="Enter the serial number" value="{{sn}}"> -->
+      <!-- <input type='text' name="search" id='search'  data-role="input" data-prepend="<span class='mif-user'></span>" placeholder="Enter the serial number" value="{{sn}}"> -->
+      <div class="border bd-cyan border-radius-4 w-100" >
+        <input type="text" name="search" id='search' data-role="input" placeholder="Enter the serial number"  data-prepend="<span class='mif-search'></span>">
+    </div>
+   
+   
+  </form>
+</div>
+
+{%endif%}
+
+  {% endblock %}
+
+
+
+
+
+ 

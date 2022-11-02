@@ -1,0 +1,32 @@
+
+
+{% block content %}
+<table class="table">
+    <thead>
+        <tr>
+            <td>Serial Number</td>
+            <td>Equipment Model</td>
+            <td>Manufacturer</td>
+            <td>Equipment Type</td>
+            <td>Equipment Location</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{equipment.sn}}</td>
+            <td>{{equipment.equipment_model.equipment_model}}</td>
+            <td>{{equipment.equipment_model.manufacture.company_name}}</td>
+            <td>{{equipment.equipment_model.equipment_type.equipment_type}}</td>
+            <td>
+                {{equipment.locations.building}} ---
+                {{equipment.locations.loc_name}}--
+                {{equipment.locations.contact_number}}
+
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock content %}  
+    

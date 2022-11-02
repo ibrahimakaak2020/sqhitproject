@@ -1,0 +1,18 @@
+
+{% block content %}
+
+    <form method="post" action="/registerequipment" class="form">
+          
+      <label for="workorderid"><b>Workorder ID:</b></label>
+      <input type="text" placeholder="Enter Workorder ID" name="workorderid" required>
+      <label for="register_desc"><b>Problem Description:</b></label>
+      <input type="text" placeholder="Enter Problem Description" name="register_desc" required>
+      <input type="text" name="register_by" value="{{user.staffno}}" hidden>
+      <input type="text" name="sn" value="{{search}}" hidden>
+
+
+      <button type="submit">Register</button>
+    </form>
+  
+    {% endblock content %}  
+    

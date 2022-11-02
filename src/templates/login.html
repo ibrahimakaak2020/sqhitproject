@@ -1,0 +1,43 @@
+
+
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Login</title>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="background-color:#fefeef">
+
+    <div class="text-danger font-weight-bold">
+          {% for error in errors %}
+            <li>{{error}}</li>
+          {% endfor %}
+      </div>
+
+
+   <h2>Login Form</h2>
+
+  <form  class="loginform" method="post">
+    <div class="imgcontainer">
+      <img src="{{ url_for('static', path='/img_avatar3.png') }}" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <label for="username"><b>Staff Number:</b></label>
+      <input type="text" placeholder="Enter Username" name="username" required>
+
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
+
+      <button type="submit">Login</button>
+
+    </div>
+
+
+
+  </form>
+
+
+   </div>
+  {% endblock %}

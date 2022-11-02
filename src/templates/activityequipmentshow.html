@@ -1,0 +1,192 @@
+{%block header%}
+<style>
+   .modal-window {
+	 position: fixed;
+	 background-color: rgba(255, 255, 255, 0.25);
+	 top: 0;
+	 right: 0;
+	 bottom: 0;
+	 left: 0;
+	 z-index: 999;
+	 visibility: hidden;
+	 opacity: 0;
+	 pointer-events: none;
+	 transition: all 0.3s;
+}
+ .modal-window:target {
+	 visibility: visible;
+	 opacity: 1;
+	 pointer-events: auto;
+}
+ .modal-window > div {
+	 width: 600px;
+	 position: absolute;
+	 top: 50%;
+	 left: 50%;
+	 transform: translate(-50%, -50%);
+	 padding: 2em;
+	 background: rgb(246, 211, 188);
+}
+ .modal-window header {
+	 font-weight: bold;
+}
+ .modal-window h1 {
+	 font-size: 150%;
+	 margin: 0 0 15px;
+}
+ .modal-close {
+	 color: #aaa;
+	 line-height: 50px;
+	 font-size: 80%;
+	 position: absolute;
+	 right: 0;
+	 text-align: center;
+	 top: 0;
+	 width: 100px;
+     height:40hv;
+	 text-decoration: none;
+}
+ .modal-close:hover {
+	 color: black;
+}
+/* Demo Styles */
+ /* html, body {
+	 height: 100%;
+} */
+ /* html {
+	 font-size: 18px;
+	 line-height: 1.4;
+} */
+ /* body {
+	 font-family: apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	 font-weight: 600;
+	 background-image: linear-gradient(to right, #7f53ac 0, #657ced 100%);
+	 color: black;
+} */
+ a {
+	 color: inherit;
+	 text-decoration: none;
+}
+ /* .container {
+	 display: grid;
+	 justify-content: center;
+	 align-items: center;
+	 height: 100vh;
+} */
+ .modal-window > div {
+	 border-radius: 1rem;
+}
+ /* .modal-window div:not(:last-of-type) {
+	 margin-bottom: 15px;
+} */
+ .logo {
+	 max-width: 150px;
+	 display: block;
+}
+ small {
+	 color: lightgray;
+}
+ .btnmodal {
+	 background-color: white;
+	 padding: 1em 1.5em;
+	 border-radius: 0.5rem;
+	 text-decoration: none;
+}
+ .btnmodal i {
+	 padding-right: 0.3em;
+}
+ 
+    </style>
+{%endblock%}
+
+{% block content %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Follow Date</td>
+            <td>Follow by</td>
+            <td>Equipment In</td>
+            <td>Follow up Notes</td>
+        </tr>
+    </thead>
+    <tbody>
+        {%if equipmentactivities | length > 1 %}
+
+
+        {%for activity in equipmentactivities%}
+
+        <tr>
+            <td>{{activity.activity_date}}</td>
+            <td>{{activity.user.staffname}}</td>
+            {%if activity.place_of_maintaince =="L"%}
+            <td>IT Workshop</td>
+            {%else%}
+            <td>{{activity.company_user.company_name_en}}</td>
+            {%endif%}
+            <td>{{activity.activity_desc}}</td>
+            </tr>
+            <tr>
+            {% if activity.maintaince_status == None %}
+           <!-- action shoud be taken to -->
+           {% include 'htmlmodels/activityaction.html' %}
+            {% endif %}
+        </tr>
+        {%endfor%}
+        {%else%}
+        {%with activity=equipmentactivities[0]%}
+        <tr>
+            <td>{{activity.activity_date}}</td>
+            <td>{{activity.user.staffname}}</td>
+            {%if activity.place_of_maintaince =="L"%}
+            <td>IT Workshop</td>
+            {%else%}
+            <td>{{activity.company_user.company_name_en}}</td>
+
+            {%endif%}
+            <td>{{activity.activity_desc}}</td>
+        </tr>
+    <tr>
+            {% if activity.maintaince_status == None %}
+            <!-- action shoud be taken to -->
+            {% include 'htmlmodels/activityaction.html' %}
+              
+            {% endif %}
+        </tr>
+
+
+        {%endwith%}
+        {%endif%}
+    </tbody>
+</table>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function () {
+        modal.style.display = "block";
+        var style = getComputedStyle(modal);
+        console.log(style.display);
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+
+    }
+</script>
+{% endblock content %}

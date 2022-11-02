@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Register Equipment</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+     <!-- </div>
+      </div> -->    
+   
+      <h2>Register New Equipment </h2>
+      <form  class="formregisterequipment"  method="post">
+
+        <label for="sn"><b>Serial Number:</b></label>
+        <input type="text" placeholder="Enter Serial Number" name="sn" required>
+        <label for="activity_desc"><b>Note:</b></label>
+        <input type="text" placeholder="Enter Note Description" name="activity_desc" required>
+        <label for="company_id"><b>Select Company User:</b></label>
+        <select  name="company_id" data-role="select">
+            {% for cuser in company_user%}
+                <option value="{{cuser.cid}}">{{cuser.staffname}} --- {{cuser.company_name_en}}</option>
+   
+            {% endfor %}
+        </select>
+       
+      </select>
+    
+   
+
+
+      <button type="submit">Send</button>
+    </form>
+    <div class="text-danger font-weight-bold">
+      {% for error in errors %}
+       
+        <li>{{error}}</li>
+        {%if 'add' in error %}
+        <li>Serial Number : {{sn}}<a href="{{url_for('createequipment')}}">Click Here</a></li>
+      {%endif%}
+      {% endfor %}
+  </div>
+
+   
+    <!-- <div class="info-box" data-role="infobox" data-type="alert"><span class="button square closer"></span>
+      <div class="info-box-content"> -->
+        
+        {% if msg %}
+        <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          {{msg}}
+     
+        </div>
+            
+        {% endif %}
+    </div>
+
+
+
+  
+   
+
+{% endblock %}
+
+
+ 
