@@ -52,9 +52,9 @@
   min-width: 160px;
   z-index: 1;
 }
-nav{
+/* nav{
   background-color: #017575;
-}
+} */
 .links,.links-hidden{
   display: inline-block;
   color: rgb(255, 255, 255);
