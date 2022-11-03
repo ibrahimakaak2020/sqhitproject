@@ -1,35 +1,41 @@
 {%block nav%}
-<nav class="bg-neutral-900 
-  text-accent-400
-    ">
-    <div class="applog">
 
-  <span class="applog-span  bg-neutral-900 ">
-        SQHIT M.E.M.S
-      </span>
-    </div>
-    <div class="appnav">
-      <ul>
-        <li><a href="{{ url_for('login') }}">login</a></li>
-        <li><a> Register for Maintenance</a></li>
-        <li><a> Register for Maintenance</a></li>
-      </ul>
-    </div>
-    <div class="appuser ">
-{%if user%}
-  <ul >
-        <li>Staff No:{{user.staffno}}</li>
-        <li>Staff Name :{{user.staffname}}</li>
-        <li><button class="logout "><a href="{{ url_for('logout') }}">LogOut</a></button></li>
-      </ul>
 
-  {%else%}
-    <ul class="fw-semi-bold">
+<nav>
+  <a class="links" href="#">HOME</a>
+  <a class="links" href="#">EMPLOYEES</a>
+  <a class="links" href="#">CAREER</a>
+  <div class="dropdown-menu">
+  <button class="menu-btn">User Details</button>
+  <div class="menu-content">
+    {%if user%}
 
-        <li>Login Frist</li>
+    <li>Staff No:{{user.staffno}}</li>
+    <li>Staff Name :{{user.staffname}}</li>
+    <li><button class="logout "><a href="{{ url_for('logout') }}">LogOut</a></button></li>
 
-      </ul>
-  {%endif%}
-   </div>
+
+    {%else%}
+
+    <li><a class="button  danger" href="{{ url_for('signup')}}">signup</a></li>
+
+
+    {%endif%}
+  </div>
+  </div>
   </nav>
 {%endblock nav%}
+
+<!-- {%if user%}
+
+      <li>Staff No:{{user.staffno}}</li>
+      <li>Staff Name :{{user.staffname}}</li>
+      <li><button class="logout "><a href="{{ url_for('logout') }}">LogOut</a></button></li>
+
+
+      {%else%}
+
+      <li>Login Frist</li>
+
+
+      {%endif%} -->

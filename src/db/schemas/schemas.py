@@ -48,15 +48,6 @@ class LocationCreate(BaseModel):
         orm_mode = True
 
 
-   
-class UserCreate(BaseModel):
-    staffno:int
-    staffname:str
-    password:str
-    # admin_role:int
-
-    class Config:
-        orm_mode=True
 
 #------------------------------------------
 class CompanyUserCreate(BaseModel):

@@ -16,6 +16,7 @@ from web.loginform import LoginForm
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from web.login import loginroot
+from web.signup.signup import signuproot 
 from web.registerequipment import registerroot
 from  web.createequipment import createequipmentroot
 from  web.activity.companyoperation import activityroot
@@ -30,6 +31,7 @@ app.include_router(loginroot)
 app.include_router(registerroot)
 app.include_router(createequipmentroot)
 app.include_router(activityroot)
+app.include_router(signuproot)
 
 
 @app.get('/')

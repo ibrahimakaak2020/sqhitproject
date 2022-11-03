@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="container" style="background-color:#fefeef">
+<div  style=" margin:30px auto;background-color: gray;">
+<div data-role="panel" style=" margin:30px auto;" data-title-caption=" Login To System" data-cls-title="bg-blue fg-white">
 
     <div class="text-danger font-weight-bold">
           {% for error in errors %}
@@ -16,28 +17,22 @@
       </div>
 
 
-   <h2>Login Form</h2>
 
-  <form  class="loginform" method="post">
-    <div class="imgcontainer">
-      <img src="{{ url_for('static', path='/img_avatar3.png') }}" alt="Avatar" class="avatar">
-    </div>
-
-    <div class="container">
+  <form  method="post">
+    <div  class="form-group">
+    
       <label for="username"><b>Staff Number:</b></label>
-      <input type="text" placeholder="Enter Username" name="username" required>
-
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
-
-      <button type="submit">Login</button>
-
+      <input type="text" placeholder="Enter Username" name="username" required required data-role="input">
     </div>
-
-
-
+    <div  class="form-group">
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required required data-role="input">
+    </div>
+    <div  class="form-group">
+      <button type="submit">Login</button>
+    </div>
+    
   </form>
-
-
-   </div>
+    </div>
+  </div>
   {% endblock %}

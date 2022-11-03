@@ -20,7 +20,7 @@ class LoginForm:
 
     async def is_valid(self):
 
-        if not self.password or not len(self.password) >= 4:
+        if not self.password :
             self.errors.append("A valid password is required")
         if not self.errors:
             return True
