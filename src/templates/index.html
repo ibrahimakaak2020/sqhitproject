@@ -21,8 +21,8 @@
     {% endif %}
   <!-- </div> -->
   {%if search%}
-  <div class="container">
-  <form method="post" >
+  <div class="container ">
+  <form method="post" id="searchform" class="bg-mainsub2">
     
       <!-- <input type='text' name="search" id='search'  data-role="input" data-prepend="<span class='mif-user'></span>" placeholder="Enter the serial number" value="{{sn}}"> -->
       <!-- <input type='text' name="search" id='search'  data-role="input" data-prepend="<span class='mif-user'></span>" placeholder="Enter the serial number" value="{{sn}}"> -->
@@ -35,7 +35,7 @@
 </div>
 <hr>
   {%if equipment%}
-{% include 'equipmentshow.html' %}
+{% include 'equipmentshownew.html' %}
 
           {%if equipmentregister%}
               
@@ -58,7 +58,7 @@
 {%else%}
 
 <div class="container">
-  <form method="post" >
+  <form method="post" id="searchform"  class="bg-mainsub2">
     
       <!-- <input type='text' name="search" id='search'  data-role="input" data-prepend="<span class='mif-user'></span>" placeholder="Enter the serial number" value="{{sn}}"> -->
       <!-- <input type='text' name="search" id='search'  data-role="input" data-prepend="<span class='mif-user'></span>" placeholder="Enter the serial number" value="{{sn}}"> -->
@@ -68,6 +68,7 @@
    
    
   </form>
+  <hr>
 </div>
 
 {%endif%}

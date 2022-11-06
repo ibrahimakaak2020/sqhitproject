@@ -1,6 +1,6 @@
 {% block content %}
 
-<ul data-app-bar="true" data-role="materialtabs">
+<ul data-app-bar="true" data-role="materialtabs" class="fg-orange">
     <li class="active"><a href="#local">Local Maintenance</a></li>
     <li><a href="#send">Send To Company</a></li>
     <li><a href="#waiting">Keep In Waiting List For Send </a></li>
@@ -10,7 +10,7 @@
     <div id="local">
         <form method="post" action="/locally">
             <div class="row">
-                <input name="sn" value="{{sn}}">
+                <input name="sn" value="{{sn}}" hidden>
                 <div class="cell-md-12">
                     <p>Enter Your Notes :</p>
                     <textarea name="activity_desc" data-role="textarea"></textarea>
@@ -25,7 +25,7 @@
     <div id="send">
         <form method="post" action="/sentequipmenttoecompany">
             <div class="row">
-                <input name="sn" value="{{sn}}">
+                <input name="sn" value="{{sn}}" hidden>
                 <label for="model"><b>Select Company User:</b></label>
                 <select name="cid" data-role="select">
                     {% for cuser in companyuser%}
@@ -47,7 +47,7 @@
     <div id="waiting">
         <form method="post" action="/waiting">
             <div class="row">
-                <input name="sn" value="{{sn}}">
+                <input name="sn" value="{{sn}}" hidden>
                 <div class="cell-md-12">
                     <p>Enter Your Notes :</p>
                     <textarea name="activity_desc" data-role="textarea"></textarea>

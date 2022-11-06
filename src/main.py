@@ -19,6 +19,7 @@ from web.login import loginroot
 from web.signup.signup import signuproot 
 from web.registerequipment import registerroot
 from  web.createequipment import createequipmentroot
+from web.equipmentstatus import equipmentstatusroot
 from  web.activity.companyoperation import activityroot
 from datetime import datetime
 from web.actionstake import actions
@@ -32,6 +33,7 @@ app.include_router(registerroot)
 app.include_router(createequipmentroot)
 app.include_router(activityroot)
 app.include_router(signuproot)
+app.include_router(equipmentstatusroot)
 
 
 @app.get('/')

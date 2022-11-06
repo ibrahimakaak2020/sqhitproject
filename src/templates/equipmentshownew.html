@@ -1,0 +1,27 @@
+
+
+{% block content %}
+<div class="container bg-mainsub2">
+<h3>Equipment Details</h3>
+<ul class="group-list horizontal">
+    <li> {{equipment.sn}}</li>
+    <li>  {{equipment.equipment_model.equipment_model}}</li>
+    <li> {{equipment.equipment_model.manufacture.company_name}}</li>
+    <li>  {{equipment.equipment_model.equipment_type.equipment_type}}</li>
+
+           
+          
+        <li> 
+            <span>
+                {{equipment.locations.building}} ---
+                {{equipment.locations.loc_name}}--
+                {{equipment.locations.contact_number}}
+            </span></li>   
+          
+              
+    
+        </ul>
+    </div>
+
+{% endblock content %}  
+    

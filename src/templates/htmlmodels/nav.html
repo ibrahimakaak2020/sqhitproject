@@ -1,16 +1,17 @@
 {%block nav%}
 
 
-<nav class="bg-accent-400">
-  <a class="links" href="#">HOME</a>
-  <a class="links" href="#">EMPLOYEES</a>
-  <a class="links" href="#">CAREER</a>
-  <div class="dropdown-menu">
+<nav class="bg-main">
+  <a class="links"  href="{{ url_for('equipmentincompany') }}">Equipments In Company</a>
+  <a class="links"  href="{{ url_for('equipmentinlocal') }}">Equipments In IT WorkShop</a>
+  <a class="links"  href="{{ url_for('equipmentwaitingforsend') }}">Equipments Waiting For Send</a>
+  <a class="links"  href="{{ url_for('equipmentwaitingforreturn') }}">Equipments Waiting For ReturnBack</a>
+  <!-- <div class="dropdown-menu">
   <button class="menu-btn">User Details</button>
   <div class="menu-content">
     {%if user%}
 
-    <li>Staff No:{{user.staffno}}</li>
+    <li>Staff No:</li>
     <li>Staff Name :{{user.staffname}}</li>
     <li><button class="logout "><a href="{{ url_for('logout') }}">LogOut</a></button></li>
 
@@ -22,8 +23,23 @@
 
     {%endif%}
   </div>
+  </div> -->
+  {%if user%}
+  <div class="dropdownuser bg-o" style="float:right;left:-20%;">
+    <span>User Details</span>
+    <button class="dropbtnuser">StaffNo:{{user.staffno}}</button>
+    <div class="dropdown-contentuser" style="left:-20px;">
+      <li>Staff Name :{{user.staffname}}</li>
+      <li><a class="bg-red fg-white"  href="{{ url_for('logout') }}">LogOut</a></li>
+     
+    </div>
   </div>
+  {%else%}
+
+  <li><a class="links" href="{{ url_for('signup')}}">signup</a></li>
+  {%endif%}
   </nav>
+  <hr>
 {%endblock nav%}
 
 <!-- {%if user%}

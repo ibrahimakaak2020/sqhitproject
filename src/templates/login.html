@@ -7,8 +7,9 @@
 {% endblock %}
 
 {% block content %}
-<div  class="bg-accent-100 " style=" margin:30px auto;">
-<div  data-role="panel" style=" margin:30px auto;" data-title-caption=" Login To System" data-cls-title="bg-accent-100 bg-accent-400 ">
+<hr>
+<div  class="bg-mainsub " style=" margin:30px auto;">
+<div  data-role="panel" style=" margin:30px auto;" data-title-caption=" Login To System" data-cls-title="bg-mainsub bg-accent-400 ">
 
     <div class="text-danger font-weight-bold">
           {% for error in errors %}
@@ -16,7 +17,7 @@
           {% endfor %}
       </div>
 
-  <form class="bg-accent-100" method="post">
+  <form class="bg-mainsub" method="post">
     <div  class="form-group">
     
       <label for="username"><b>Staff Number:</b></label>

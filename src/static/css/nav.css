@@ -1,3 +1,5 @@
+
+
 nav{
     display:flex;
     justify-content: space-between;
@@ -38,7 +40,7 @@ nav{
    margin-top:20px;
     border:none;
     border-radius: 50px;
-    background-color: rgba(252, 129, 68,1);
+    /* background-color: rgba(252, 129, 68,1); */
 }
 .logout:hover{
     background-color: rgba(252, 129, 68,.5);
