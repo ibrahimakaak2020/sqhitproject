@@ -1,0 +1,32 @@
+/* Styling the open modal button */
+.modalbtn {
+    background-color: #B1A9D4;
+    border-radius: 5px;
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+   }
+   /* Styling the close modal button */
+   .closebtn {
+    float: right;
+    font-size: 15px;
+    font-weight: bold;
+   }
+   .closebtn:hover {
+    cursor: pointer;
+   }
+   /* Styling the modal container */
+   .modal {
+    display: none;
+   }
+   /* Styling the text inside the modal */
+   .modalcontent {
+    position: relative;
+    font-size: 15px;
+    padding: 15px;
+    background-color: #DEDAF7;
+    width: 40%;
+    text-align: center;
+    margin: 2%;
+   }

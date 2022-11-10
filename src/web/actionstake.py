@@ -1,7 +1,11 @@
-def actions(activity_status:str=None):
+from db.models.models import EquipmentActivity
+
+
+def actions(activity:EquipmentActivity=None):
+    activity_status=activity.activity_status
 
     if activity_status=='UPL':
-        return {'Repaired': '/repaired', 'Notreaired': '/notreaired', 'candemnational': '/candem'}
+        return {'Repaired': '/repaired', 'Notrepaired':'/notrepaired', 'candemnational': '/candem'}
 
     if activity_status=='WFS':
         return {'Send': '/send', 'keep for decision': '/keepfor', 'candemnational': '/candem'}
@@ -14,3 +18,7 @@ def actions(activity_status:str=None):
    
     else:
         return {'Send To Company': '/send','Waiting for Send':'/waitingfor', 'Repaire On IT Workshop': '/locally', 'candemnational': '/candem'}
+
+
+
+          

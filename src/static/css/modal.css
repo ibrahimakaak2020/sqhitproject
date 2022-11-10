@@ -5,31 +5,47 @@ a:link {
 a:visited {
   text-decoration: none;
 }
+
 ul {
-   
+
   list-style-type: none;
 }
 
-@keyframes myAnimation{
-  0%{
+@keyframes myAnimation {
+  0% {
     opacity: 1;
     transform: rotateX(90deg);
   }
-  50%{
+
+  50% {
     opacity: 0.5;
     transform: rotateX(0deg);
   }
-  100%{
+
+  100% {
     display: none;
     opacity: 0;
     transform: rotateX(90deg);
   }
 }
 
-#searchform{
+th {
+  background-color: #4287f5;
+  color: white;
+}
+
+th,
+td {
+  width: 150px;
+  text-align: center;
+  border: 1px solid black;
+  padding: 5px;
+}
+
+#searchform {
 
   padding: 20px;
-  
+
 }
 
 #note {
@@ -41,10 +57,10 @@ ul {
   background: #fde073;
   text-align: center;
   line-height: 2.5;
-  overflow: hidden; 
+  overflow: hidden;
   -webkit-box-shadow: 0 0 5px black;
-  -moz-box-shadow:    0 0 5px black;
-  box-shadow:         0 0 5px black;
+  -moz-box-shadow: 0 0 5px black;
+  box-shadow: 0 0 5px black;
   animation-name: myAnimation;
   animation-duration: 5000ms;
   animation-fill-mode: forwards;
@@ -59,10 +75,12 @@ ul {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   border: none;
 }
+
 .dropdown-menu {
   position: relative;
   display: inline-block;
 }
+
 .menu-content {
   display: none;
   position: absolute;
@@ -70,10 +88,12 @@ ul {
   min-width: 160px;
   z-index: 1;
 }
+
 /* nav{
   background-color: #017575;
 } */
-.links,.links-hidden{
+.links,
+.links-hidden {
   display: inline-block;
   color: rgb(255, 255, 255);
   padding: 12px 16px;
@@ -81,18 +101,24 @@ ul {
   font-size: 18px;
   font-weight: bold;
 }
-.links-hidden{
+
+.links-hidden {
   display: block;
 }
-.links{
+
+.links {
   display: inline-block;
 }
-.links-hidden:hover,.links:hover {
+
+.links-hidden:hover,
+.links:hover {
   background-color: rgb(8, 107, 46);
 }
+
 .dropdown-menu:hover .menu-content {
   display: block;
 }
+
 .dropdown-menu:hover .menu-btn {
   background-color: #3e8e41;
 }
@@ -119,7 +145,7 @@ ul {
   right: 0;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -130,7 +156,9 @@ ul {
   display: block;
 }
 
-.dropdown-contentuser a:hover {background-color: #f1f1f1}
+.dropdown-contentuser a:hover {
+  background-color: #f1f1f1
+}
 
 .dropdownuser:hover .dropdown-contentuser {
   display: block;
@@ -139,3 +167,4 @@ ul {
 .dropdownuser:hover .dropbtnuser {
   background-color: #3e8e41;
 }
+

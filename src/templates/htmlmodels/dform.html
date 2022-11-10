@@ -1,0 +1,139 @@
+{%if result=='/send'%}
+<td>
+
+  <div class="interior">
+    <a class="btnmodal" href="#{{result}}">👋{{value}} <span>{{activity.equipmen_register.sn}}</span></a>
+  </div>
+
+  <div id="{{result}}" class="modal-window">
+    <div>
+      <!-- <a href="/?sn={{activity.equipmen_register.sn}}" title="Close" class="modal-close">Close</a> -->
+      <span title="Close" class="modal-close">Close</span>
+      <div>
+        <form method="post" action="/sentequipmenttoecompany">
+          <div class="row">
+            <input name="sn" value="{{activity.equipmen_register.sn}}" hidden>
+            <label for="model"><b>Select Company User:</b></label>
+            <select name="cid" data-role="select">
+              {% for cuser in companyuser%}
+              <option value="{{cuser.cid}}">{{cuser.staffname}}---{{cuser.company_name_en}}</option>
+
+              {% endfor %}
+            </select>
+            <div class="cell-md-12">
+              <p>Enter Your Notes :</p>
+              <textarea name="activity_desc" data-role="textarea"></textarea>
+            </div>
+            <button class="button">
+              <span class="icon mif-plus"></span>
+              <span class="label">Send To Company</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</td>
+{%endif%}
+{%if result=='/locally'%}
+<td>
+  <div class="interior">
+    <a class="btnmodal" href="#{{result}}">👋{{value}} <span>{{activity.equipmen_register.sn}}</span></a>
+  </div>
+
+  <div id="{{result}}" class="modal-window">
+    <div>
+      <!-- <a href="/?sn={{activity.equipmen_register.sn}}" title="Close" class="modal-close">Close</a> -->
+      <span class="close" title="Close" class="modal-close">Close</span>
+      <div>
+        <form method="post" action="/locally">
+          <div class="row">
+            <input name="sn" value="{{activity.equipmen_register.sn}}">
+            <div class="cell-md-12">
+              <p>Enter Your Notes :</p>
+              <textarea name="activity_desc" data-role="textarea"></textarea>
+            </div>
+            <button class="button">
+              <span class="icon mif-plus"></span>
+              <span class="label">Save For Local Maintenance</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</td>
+{%endif%}
+{%if result=='/keepfor'%}
+<td>
+  <button class="trigger">Click  modal!</button>
+  <div class="modal">
+      <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <h1>Hello, I am a modal!</h1>
+      </div>
+  </div>
+ 
+</td>
+{%endif%}
+{%if result=='/return'%}
+<td>
+  <button class="trigger">Click  modal!</button>
+  <div class="modal">
+      <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <h1>Hello, I am a modal!</h1>
+      </div>
+  </div>
+{%endif%}
+{%if result=='/candem'%}
+
+<td>
+  <button class="trigger">Click  modal!</button>
+  <div class="modal">
+      <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <h1>Hello, I am a modal!</h1>
+      </div>
+  </div>
+</td>
+{%endif%}
+{%if result=='/repaired'%}
+<td>
+  <button class="trigger">Click  modal!</button>
+  <div class="modal">
+      <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <h1>Hello, I am a modal!</h1>
+      </div>
+  </div>
+</td>
+{%endif%}
+{%if result=='/notrepaired'%}
+<td>
+  <button class="trigger">Click  modal!</button>
+  <div class="modal">
+      <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <h1>Hello, I am a modal!</h1>
+      </div>
+  </div>
+</td>
+{%endif%}
+
+{%if result=='/waitingfor'%}
+<td>
+  <button class="trigger">Click  modal!</button>
+  <div class="modal">
+      <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <h1>Hello, I am a modal!</h1>
+      </div>
+  </div>
+
+  
+</td>
+{%endif%}
+
