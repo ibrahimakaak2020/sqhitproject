@@ -118,6 +118,7 @@ def equipmentwaitingforreturn(request: Request,db: Session=Depends(get_db),sn:st
 def takeactionone(request: Request,sn: str = Form()):
  
     sn=sn
+    print(sn)
 
-    return RedirectResponse('/' + '?sn=' +sn, status_code=status.HTTP_302_FOUND)
+    return RedirectResponse('/?msg=' + "Equipment Registered"+'&sn='+sn, status_code=status.HTTP_302_FOUND)
             
