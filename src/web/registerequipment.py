@@ -56,12 +56,15 @@ async def registerequipment(request: Request,db: Session = Depends(get_db),sn:st
         try:
             equipmentregct=EquipmentRegisterCreate(**form.__dict__)
             equipmentregct.date_of_register =datetime.datetime.now()
+            if QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"Y"}).first()==None:
+                
+                CreateModelData(modeltable=EquipmentRegister,db=db, modelcreate=equipmentregct)
+                # return RedirectResponse('/', status_code=303)
 
-
-            CreateModelData(modeltable=EquipmentRegister,db=db, modelcreate=equipmentregct)
-            # return RedirectResponse('/', status_code=303)
-
-            return RedirectResponse('/' + '?msg=' + "Equipment Registered"+'&sn='+sn, status_code=status.HTTP_302_FOUND)
+                return RedirectResponse('/' + '?msg=' + "Equipment Registered"+'&sn='+sn, status_code=status.HTTP_302_FOUND)
+            else:
+                form.__dict__.get("errors").append("equipment  in  Maintenence ")
+                return templates.TemplateResponse("registerequipment.html", form.__dict__) 
 
         except HTTPException:
             form.__dict__.update(msg="")

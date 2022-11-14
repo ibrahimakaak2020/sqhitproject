@@ -87,10 +87,7 @@ class EquipmentRegisterCreate(BaseModel):
     class Config:
         orm_mode=True
 
-class repairedupdate(BaseModel):
-    sn:str
-    recieve_note:str=None
-    recieve_by:str=None
+class updateactivity(BaseModel):
     recieve_date:datetime=None
     next_activity:str="F"
     maintaince_status:str=None
@@ -99,10 +96,7 @@ class repairedupdate(BaseModel):
     recieve_note:str=None
 
 
-class repairedcompanyupdate(BaseModel):
-    sn:str
-    recieve_note:str=None
-    recieve_by:str=None
+class updateactivitycompany(BaseModel):
     recieve_date:datetime=None
     next_activity:str="F"
     maintaince_status:str=None
@@ -125,7 +119,7 @@ class EquipmentActivityCreate(BaseModel):
     create_by:int
     company_id:int=None
     activity_desc:str
-    activity_date:Optional[datetime]=None
+    activity_date:Optional[datetime]=datetime.now()
     next_activity:str=None
     activity_status:str
     place_of_maintaince:str

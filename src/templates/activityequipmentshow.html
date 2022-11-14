@@ -25,15 +25,10 @@
             <td>{{activity.company_user.company_name_en}}</td>
             {%endif%}
             <td>{{activity.activity_desc}}</td>
-        </tr>
-        <tr>
-
-            <!-- action shoud be taken to -->
+     
             {% include 'htmlmodels/activityeq.html' %}
 
-        </tr>
-        <tr>
-            <td>{{activity.equipmen_register.sn}}</td>
+      
         </tr>
         {%endfor%}
         {%else%}
