@@ -68,6 +68,10 @@ def QueryModelDataActivity(db:Session,search:str=None,active:bool=True):
   
   
 # start of update model function
+def update_table(modeltable, col_id, updatecols,db):
+  db.query(modeltable).filter_by(**col_id).update(dict(updatecols))
+  db.commit()
+
 
 def UpdateModelData(modeltable, col_id, updatecols,db):
     """
@@ -75,8 +79,9 @@ def UpdateModelData(modeltable, col_id, updatecols,db):
     col_id: id of which column you want to update
     dynamic_cols: key value pairs {name: "diana"}
     """
-    if hasattr(models, modeltable.__table__.name.upper()):
-        table = getattr(models, modeltable.__table__.name.upper())
+    print("from update dynamic ",models)
+    if hasattr(models, modeltable.__table__.name):
+        table = getattr(models, modeltable.__table__.name)
         print(modeltable.__table__.name)
 
 
@@ -88,17 +93,17 @@ def UpdateModelData(modeltable, col_id, updatecols,db):
                         setattr(col_info, key, value)
 
                     else:
-                        return False
+                        return "not has attr"
                 db.commit()
                 return True
 
 
 
         else:
-            False
+            return 'table not has activityid'
 
 
-    return False
+    return "model not found"
 
 
 #end of update model function

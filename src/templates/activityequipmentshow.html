@@ -25,10 +25,19 @@
             <td>{{activity.company_user.company_name_en}}</td>
             {%endif%}
             <td>{{activity.activity_desc}}</td>
-     
-            {% include 'htmlmodels/activityeq.html' %}
-
-      
+            {% if activity.maintaince_status == None %}
+                {% if activity.place_of_maintaince== "L" %}
+                        {% if activity.activity_status== "WFR" %}
+                        {% include 'htmlmodels/activityreturnbacktodept.html' %}
+                        <!-- action shoud be taken to -->
+                        {%else%}
+                        {% include 'htmlmodels/activityactionlocal.html' %}
+                        {% endif %}
+                {% endif %}
+                {% if activity.place_of_maintaince== "S" %}
+                    {% include 'htmlmodels/activityactionsend.html' %}
+                {% endif %}
+            {% endif %}
         </tr>
         {%endfor%}
         {%else%}
@@ -43,14 +52,22 @@
 
             {%endif%}
             <td>{{activity.activity_desc}}</td>
-        </tr>
-        <tr>
+       
             {% if activity.maintaince_status == None %}
-            <!-- action shoud be taken to -->
-            {% include 'htmlmodels/activityaction.html' %}
-
+                {% if activity.place_of_maintaince== "L" %}
+                    {% if activity.activity_status== "WFR" %}
+                    {% include 'htmlmodels/activityreturnbacktodept.html' %}
+                    <!-- action shoud be taken to -->
+                    {%else%}
+                    {% include 'htmlmodels/activityactionlocal.html' %}
+                    {%endif%}
+                {% endif %}
+                {% if activity.place_of_maintaince== "S" %}
+                    {% include 'htmlmodels/activityactionsend.html' %}
+                {% endif %}
             {% endif %}
-        </tr>
+
+     
 
 
         {%endwith%}

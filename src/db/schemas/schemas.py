@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel,EmailStr
-
+from decimal  import Decimal
 class ManufactureCreate( BaseModel ):
 
     company_name : str
@@ -88,7 +88,7 @@ class EquipmentRegisterCreate(BaseModel):
         orm_mode=True
 
 class updateactivity(BaseModel):
-    recieve_date:datetime=None
+    date_of_recievefrom:datetime=None
     next_activity:str="F"
     maintaince_status:str=None
     date_of_maintaince:datetime=datetime.now()
@@ -97,14 +97,14 @@ class updateactivity(BaseModel):
 
 
 class updateactivitycompany(BaseModel):
-    recieve_date:datetime=None
+    date_of_recievefrom:datetime=datetime.now()
     next_activity:str="F"
     maintaince_status:str=None
     date_of_maintaince:datetime=datetime.now()
     recieve_by:str=None
     recieve_note:str=None
     billid:str="0"
-    billamount:int=0
+    billamount:Optional[Decimal]=0.0
 
 
    
@@ -125,7 +125,7 @@ class EquipmentActivityCreate(BaseModel):
     place_of_maintaince:str
     maintaince_status:str=None
     billid:Optional[str]=None
-    billamount:Optional[int]=0
+    billamount:Optional[Decimal]=0
     date_of_send:Optional[datetime]=None
     date_of_returnback:Optional[datetime]=None
     date_of_recievefrom:Optional[datetime]=None

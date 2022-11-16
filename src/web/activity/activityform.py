@@ -17,8 +17,8 @@ class UpdateActivityForm:
         self.recieve_note: Optional[str] = "N"
         self.billid:Optional[str] =None
         self.billamount:Optional[int] =None
-        
-       
+        self.activityid:Optional[int] =None
+        self.date_of_recievefrom:Optional[datetime]=None
 
 
     async def load_data(self,activity):
@@ -29,6 +29,7 @@ class UpdateActivityForm:
         self.recieve_note = form.get(
                 "recieve_note"
             )
+       
         if activity.place_of_maintaince=="S":
          
             self.billid = form.get(
@@ -37,6 +38,9 @@ class UpdateActivityForm:
             self.billamount = form.get(
                 "billamount"
             )
+            self.date_of_recievefrom=datetime.now()
+
+        
 
 
         
