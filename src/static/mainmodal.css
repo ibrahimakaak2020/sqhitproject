@@ -8,11 +8,11 @@ h1 {
 }
 
 .box {
-  width: 40%;
+  width: 60%;
   margin: 0 auto;
-  background: rgba(255,255,255,0.2);
+  background:white;
   padding: 3px;
-  border: 2px solid #fff;
+  border: 2px solid rgb(218, 211, 211);
   border-radius: 20px/50px;
   background-clip: padding-box;
   text-align: center;

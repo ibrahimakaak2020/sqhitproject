@@ -1,5 +1,4 @@
-
-
+{% if equipmentactivities%}
 <table class="table bg-mainsub2">
     <thead>
         <tr>
@@ -10,38 +9,8 @@
         </tr>
     </thead>
     <tbody>
-        {%if equipmentactivities | length > 1 %}
-
-
-        {%for activity in equipmentactivities%}
-
-
-        <tr>
-            <td>{{activity.activity_date}}</td>
-            <td>{{activity.user.staffname}}</td>
-            {%if activity.place_of_maintaince =="L"%}
-            <td>IT Workshop</td>
-            {%else%}
-            <td>{{activity.company_user.company_name_en}}</td>
-            {%endif%}
-            <td>{{activity.activity_desc}}</td>
-            {% if activity.maintaince_status == None %}
-                {% if activity.place_of_maintaince== "L" %}
-                        {% if activity.activity_status== "WFR" %}
-                        {% include 'htmlmodels/activityreturnbacktodept.html' %}
-                        <!-- action shoud be taken to -->
-                        {%else%}
-                        {% include 'htmlmodels/activityactionlocal.html' %}
-                        {% endif %}
-                {% endif %}
-                {% if activity.place_of_maintaince== "S" %}
-                    {% include 'htmlmodels/activityactionsend.html' %}
-                {% endif %}
-            {% endif %}
-        </tr>
-        {%endfor%}
-        {%else%}
-        {%with activity=equipmentactivities[0]%}
+     
+        {%with activity=equipmentactivities%}
         <tr>
             <td>{{activity.activity_date}}</td>
             <td>{{activity.user.staffname}}</td>
@@ -52,26 +21,46 @@
 
             {%endif%}
             <td>{{activity.activity_desc}}</td>
-       
+
             {% if activity.maintaince_status == None %}
                 {% if activity.place_of_maintaince== "L" %}
                     {% if activity.activity_status== "WFR" %}
                     {% include 'htmlmodels/activityreturnbacktodept.html' %}
-                    <!-- action shoud be taken to -->
+                <!-- action shoud be taken to -->
                     {%else%}
                     {% include 'htmlmodels/activityactionlocal.html' %}
                     {%endif%}
+                
+                
+                {% else %}
+                {% include 'htmlmodels/activityactionsend.html' %}
                 {% endif %}
-                {% if activity.place_of_maintaince== "S" %}
-                    {% include 'htmlmodels/activityactionsend.html' %}
-                {% endif %}
-            {% endif %}
-
-     
+            {%endif%}
+            
 
 
-        {%endwith%}
-        {%endif%}
+
+
+            {%endwith%}
+           
     </tbody>
 </table>
-
+{%else%}
+<div data-role="carousel"
+   
+     style="background-color:var(--color-button);"
+  
+>
+    <div class="p-2 pl-10 pr-10">
+        <div class="row flex-align-center h-100">
+            
+            <div class="cell-md-8">
+                <h1 class="text-light">Equipment In Company</h1>
+                <!-- <p class="mt-4 mb-4">No Equipment In Company..</p> -->
+                <h2>No Equipment In Company</h2>
+                <a class="button alert" href="{{ url_for('home')}}">Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{%endif%}

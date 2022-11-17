@@ -67,7 +67,8 @@ async def home(request: Request, db: Session=Depends(get_db),msg:str=None,search
         if equipment:
             if equipmentregister:=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":equipment.sn,"register_status":"Y"}).first():
                     
-                    equipmentactivities=QueryModelDataActivity(db=db,search=sn).all()
+                    # equipmentactivities=QueryModelDataActivity(db=db,search=sn,col).all()
+                    equipmentactivities=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":equipmentregister.registerid,"maintaince_status":None,"next_activity":"T","date_of_returnback":None}).first()
                 
                     print("check ibrahi activity",equipmentactivities)
 
@@ -116,7 +117,8 @@ async def home(request: Request, db: Session=Depends(get_db),msg:str=None,sn:str
         equipmentactivities=None
         if equipment:
             if equipmentregister:=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":equipment.sn,"register_status":"Y"}).first():
-                    equipmentactivities=QueryModelDataActivity(db=db,search=sn).all()
+                    # equipmentactivities=QueryModelDataActivity(db=db,search=sn).all()
+                    equipmentactivities=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":equipmentregister.registerid,"maintaince_status":None,"next_activity":"T","date_of_returnback":None}).first()
         else:
             equipment=None
                 

@@ -21,7 +21,7 @@ templates = Jinja2Templates(directory="templates")
 
 @equipmentstatusroot.get("/equipmentincompany")
 def equipmentincompany(request: Request,db: Session=Depends(get_db),sn:str=None):
-    eqincompany=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"next_activity":"T","date_of_recievefrom":None}).all()
+    eqincompany=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"next_activity":"T","date_of_recievefrom":None,"place_of_maintaince":"S"}).all()
  
     
     token = request.cookies.get("access_token")
@@ -39,7 +39,7 @@ def equipmentincompany(request: Request,db: Session=Depends(get_db),sn:str=None)
         register_by=current_user.staffno
 
 
-        return templates.TemplateResponse("equipmentincompany.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions})
+        return templates.TemplateResponse("activityequipmentshownew.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e

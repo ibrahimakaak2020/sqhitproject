@@ -29,84 +29,84 @@ templates = Jinja2Templates(directory="templates")
 
 
 
-@activityroot.get("/finalaction")
-async def register(request: Request,db: Session=Depends(get_db),msg:str=None,sn:str=None,status:str=None):
-     if status =="RR" :
-        return templates.TemplateResponse("activity/repaired.html",{"request": request,"msg":"Equipment Sent to Comapny Sucussfully"})
+# @activityroot.get("/finalaction")
+# async def register(request: Request,db: Session=Depends(get_db),msg:str=None,sn:str=None,status:str=None):
+#      if status =="RR" :
+#         return templates.TemplateResponse("activity/repaired.html",{"request": request,"msg":"Equipment Sent to Comapny Sucussfully"})
     
 
 
-@activityroot.post("/finalaction")
-async def register(request: Request,db: Session=Depends(get_db),msg:str=None,sn:str=None,status:str=Form()):
-        if status =="RR":
-            form=CreateRepairedUpdateForm(request)
-        else:
-            form=CreateRepairedCompanyUpdateForm(request)
+# @activityroot.post("/finalaction")
+# async def register(request: Request,db: Session=Depends(get_db),msg:str=None,sn:str=None,status:str=Form()):
+#         if status =="RR":
+#             form=CreateRepairedUpdateForm(request)
+#         else:
+#             form=CreateRepairedCompanyUpdateForm(request)
 
 
-        await form.load_data()
+#         await form.load_data()
         
-        sn=sn
-        try:
-            token = request.cookies.get("access_token")
-            scheme, param = get_authorization_scheme_param(token)  # scheme will hold "Bearer" and param will hold actual token value
-            print(param, "param")
-            current_user: User = get_current_user_from_token(token=param, db=db)
-            userid=current_user.staffno
-            registerid=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"Y"}).first()
-            activityid=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":registerid.registerid,"maintaince_status":None,"next_activity":"T"}).first()
+#         sn=sn
+#         try:
+#             token = request.cookies.get("access_token")
+#             scheme, param = get_authorization_scheme_param(token)  # scheme will hold "Bearer" and param will hold actual token value
+#             print(param, "param")
+#             current_user: User = get_current_user_from_token(token=param, db=db)
+#             userid=current_user.staffno
+#             registerid=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"Y"}).first()
+#             activityid=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":registerid.registerid,"maintaince_status":None,"next_activity":"T"}).first()
            
-            UpdateModelData(modeltable=EquipmentActivity,col_id=activityid.activityid,db=db, updatecols=returnbacke)
-            return RedirectResponse('/'+'?sn='+sn, status_code=303)
+#             UpdateModelData(modeltable=EquipmentActivity,col_id=activityid.activityid,db=db, updatecols=returnbacke)
+#             return RedirectResponse('/'+'?sn='+sn, status_code=303)
             
             
-            # return RedirectResponse('/' + '?msg=' + "Equipment Registered  ", status_code=status.HTTP_302_FOUND)
-            # return templates.TemplateResponse("sendtocompany.html",{"request": request,"company_user":company_user,"msg":"Equipment Sent to Comapny Sucussfully"})
-        except HTTPException:
-            form.__dict__.update(msg="Optional[str] = None")
-            form.__dict__.get("errors").append("Equipment Already Sended to Comapany")
-            return templates.TemplateResponse("sendtocompany.html", form.__dict__,{"request": request,"company_user":company_user,"errors":form.__dict__['errors'],"sn":form.__dict__['sn']})
-    # return templates.TemplateResponse("sendtocompany.html",{"request": request,"company_user":company_user, "errors":form.__dict__['errors'],"sn":form.__dict__['sn']})
+#             # return RedirectResponse('/' + '?msg=' + "Equipment Registered  ", status_code=status.HTTP_302_FOUND)
+#             # return templates.TemplateResponse("sendtocompany.html",{"request": request,"company_user":company_user,"msg":"Equipment Sent to Comapny Sucussfully"})
+#         except HTTPException:
+#             form.__dict__.update(msg="Optional[str] = None")
+#             form.__dict__.get("errors").append("Equipment Already Sended to Comapany")
+#             return templates.TemplateResponse("sendtocompany.html", form.__dict__,{"request": request,"company_user":company_user,"errors":form.__dict__['errors'],"sn":form.__dict__['sn']})
+#     # return templates.TemplateResponse("sendtocompany.html",{"request": request,"company_user":company_user, "errors":form.__dict__['errors'],"sn":form.__dict__['sn']})
 
 
 
-@activityroot.post("/sendtocompany")
-async def register(request: Request,db: Session = Depends(get_db)):
+# @activityroot.post("/sendtocompany")
+# async def register(request: Request,db: Session = Depends(get_db)):
   
-    company_user=QueryModelData(modeltable=Company_User,db=db).all()
+#     company_user=QueryModelData(modeltable=Company_User,db=db).all()
        
-    form = SendToCompanyForm(request)
-    token = request.cookies.get("access_token")
-    scheme, param = get_authorization_scheme_param(
-            token
-        )  # scheme will hold "Bearer" and param will hold actual token value
-    print(param, "param")
-    current_user: User = get_current_user_from_token(token=param, db=db)
-    userid=current_user.staffno
-    await form.load_data()
-    registerid=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"Y"}).first()
+#     form = SendToCompanyForm(request)
+#     token = request.cookies.get("access_token")
+#     scheme, param = get_authorization_scheme_param(
+#             token
+#         )  # scheme will hold "Bearer" and param will hold actual token value
+#     print(param, "param")
+#     current_user: User = get_current_user_from_token(token=param, db=db)
+#     userid=current_user.staffno
+#     await form.load_data()
+#     registerid=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"Y"}).first()
            
     
-    if await form.is_valid(registerid=registerid,db=db):
-        try:
+#     if await form.is_valid(registerid=registerid,db=db):
+#         try:
             
            
 
-            # CreateModelData(modeltable=EquipmentRegister,db=db, modelcreate=equipmentregister)
-            equipmentregister=EquipmentActivityCreate(**form.__dict__,create_by=userid,registerid=registerid.registerid,activity_status="UPS",activity_date=datetime.datetime.now(),date_of_send=datetime.datetime.now(),place_of_maintaince="S",next_activity="T")
+#             # CreateModelData(modeltable=EquipmentRegister,db=db, modelcreate=equipmentregister)
+#             equipmentregister=EquipmentActivityCreate(**form.__dict__,create_by=userid,registerid=registerid.registerid,activity_status="UPS",activity_date=datetime.datetime.now(),date_of_send=datetime.datetime.now(),place_of_maintaince="S",next_activity="T")
             
-            print("check ibrahim",equipmentregister)
-            CreateModelData(modeltable=EquipmentActivity,db=db, modelcreate=equipmentregister)
-            return RedirectResponse('/'+'?sn='+form.sn, status_code=303)
+#             print("check ibrahim",equipmentregister)
+#             CreateModelData(modeltable=EquipmentActivity,db=db, modelcreate=equipmentregister)
+#             return RedirectResponse('/'+'?sn='+form.sn, status_code=303)
             
             
-            # return RedirectResponse('/' + '?msg=' + "Equipment Registered  ", status_code=status.HTTP_302_FOUND)
-            # return templates.TemplateResponse("sendtocompany.html",{"request": request,"company_user":company_user,"msg":"Equipment Sent to Comapny Sucussfully"})
-        except HTTPException:
-            form.__dict__.update(msg="Optional[str] = None")
-            form.__dict__.get("errors").append("Equipment Already Sended to Comapany")
-            return templates.TemplateResponse("sendtocompany.html", form.__dict__,{"request": request,"company_user":company_user,"errors":form.__dict__['errors'],"sn":form.__dict__['sn']})
-    return templates.TemplateResponse("sendtocompany.html",{"request": request,"company_user":company_user, "errors":form.__dict__['errors'],"sn":form.__dict__['sn']})
+#             # return RedirectResponse('/' + '?msg=' + "Equipment Registered  ", status_code=status.HTTP_302_FOUND)
+#             # return templates.TemplateResponse("sendtocompany.html",{"request": request,"company_user":company_user,"msg":"Equipment Sent to Comapny Sucussfully"})
+#         except HTTPException:
+#             form.__dict__.update(msg="Optional[str] = None")
+#             form.__dict__.get("errors").append("Equipment Already Sended to Comapany")
+#             return templates.TemplateResponse("sendtocompany.html", form.__dict__,{"request": request,"company_user":company_user,"errors":form.__dict__['errors'],"sn":form.__dict__['sn']})
+#     return templates.TemplateResponse("sendtocompany.html",{"request": request,"company_user":company_user, "errors":form.__dict__['errors'],"sn":form.__dict__['sn']})
 
 
 # local maintenance
@@ -201,7 +201,7 @@ async def waiting(request: Request,db: Session = Depends(get_db),activityid:int=
         )  # scheme will hold "Bearer" and param will hold actual token value
     print(param, "param")
     current_user: User = get_current_user_from_token(token=param, db=db)
-    activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"activityid":activityid,"maintaince_status":None,"next_activity":"T","activity_status":"WFR"}).first()
+    activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"activityid":activityid,"maintaince_status":None,"next_activity":"T","activity_status":"WFR","date_of_returnback":None}).first()
     
     try:
        
@@ -225,7 +225,7 @@ async def waiting(request: Request,db: Session = Depends(get_db),activityid:int=
 @activityroot.post("/actionstatusnew")
 async def actionstatusnew(request: Request,db: Session=Depends(get_db),activityid:int=None):
     form=UpdateActivityForm(request)
-    activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"activityid":activityid,"maintaince_status":None,"next_activity":"T"}).first()
+    activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"activityid":activityid,"maintaince_status":None,"next_activity":"T","date_of_returnback":None}).first()
     token = request.cookies.get("access_token")
     scheme, param = get_authorization_scheme_param(
             token
