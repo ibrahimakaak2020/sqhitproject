@@ -26,7 +26,8 @@
                 {% if activity.place_of_maintaince== "L" %}
                     {% if activity.activity_status== "WFR" %}
                     {% include 'htmlmodels/activityreturnbacktodept.html' %}
-                <!-- action shoud be taken to -->
+                    {% elif activity.activity_status== "WFD" %}
+                    {% include 'htmlmodels/activityfordescion.html' %}
                     {%else%}
                     {% include 'htmlmodels/activityactionlocal.html' %}
                     {%endif%}
@@ -35,6 +36,7 @@
                 {% else %}
                 {% include 'htmlmodels/activityactionsend.html' %}
                 {% endif %}
+                
             {%endif%}
             
 
@@ -42,7 +44,16 @@
 
 
             {%endwith%}
+        </tr>
+        
+            {% for activity in equipmentactivitieshistory%}
+            <tr>
+            <td>{{activity.activity_date}}</td>
+            <td>{{activity.user.staffname}}</td>
+            <td>{{activity.maintaince_status}}</td>
            
+        </tr>
+        {%endfor%}
     </tbody>
 </table>
 {%else%}

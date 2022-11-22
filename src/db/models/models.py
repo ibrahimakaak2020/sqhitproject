@@ -87,6 +87,7 @@ class EquipmentRegister(Base):
     sn = Column(String(30), ForeignKey('equipment.sn'))
     equipments = relationship("Equipment", back_populates="equipment_register")
     equipmentactivity=relationship("EquipmentActivity", back_populates="equipmen_register")
+    order_by=" date_of_register"
         
     def __repr__(self):
         return f" Equipment Register (SN ={self.sn}, descriptions ={self.register_desc},register status ={self.register_status})"
@@ -116,6 +117,7 @@ class EquipmentActivity(Base):
     date_of_send = Column(DateTime)
     date_of_returnback = Column(DateTime)   
     date_of_recievefrom = Column(DateTime) 
+    order_by=" activity_date"
     def __repr__(self):
         return f" Equipment Activity (user={self.create_by}, status ={self.activity_date})"
 

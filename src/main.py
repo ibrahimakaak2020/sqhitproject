@@ -64,12 +64,13 @@ async def home(request: Request, db: Session=Depends(get_db),msg:str=None,search
         equipment=QueryModelData(modeltable=Equipment,db=db,cols={"sn":sn}).first()
         equipmentregister=None
         equipmentactivities=None
+        equipmentactivitieshistory=None
         if equipment:
             if equipmentregister:=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":equipment.sn,"register_status":"Y"}).first():
                     
                     # equipmentactivities=QueryModelDataActivity(db=db,search=sn,col).all()
                     equipmentactivities=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":equipmentregister.registerid,"maintaince_status":None,"next_activity":"T","date_of_returnback":None}).first()
-                
+                    equipmentactivitieshistory=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":equipmentregister.registerid,"next_activity":"F"}).all()
                     print("check ibrahi activity",equipmentactivities)
 
         
@@ -79,7 +80,7 @@ async def home(request: Request, db: Session=Depends(get_db),msg:str=None,search
         contents = {"request": request, "equipment": equipment, "equipmentregister": equipmentregister,
          "equipmentactivities": equipmentactivities, "search": sn, "locations": locations,
           "equipmnetmodel": equipmentmodels, "user": current_user,"companyuser":companyuser,
-           "sn": sn,"activityaction":actions}
+           "sn": sn,"activityaction":actions,"equipmentactivitieshistory":equipmentactivitieshistory}
 
 
   # print(f"Current user :{current_user.staffname},{datetime.now()}")
@@ -115,10 +116,12 @@ async def home(request: Request, db: Session=Depends(get_db),msg:str=None,sn:str
         equipment=QueryModelData(modeltable=Equipment,db=db,cols={"sn":sn}).first()
         equipmentregister=None
         equipmentactivities=None
+        equipmentactivitieshistory=None
         if equipment:
             if equipmentregister:=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":equipment.sn,"register_status":"Y"}).first():
                     # equipmentactivities=QueryModelDataActivity(db=db,search=sn).all()
                     equipmentactivities=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":equipmentregister.registerid,"maintaince_status":None,"next_activity":"T","date_of_returnback":None}).first()
+                    equipmentactivitieshistory=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":equipmentregister.registerid,"next_activity":"F"}).all()
         else:
             equipment=None
                 
@@ -126,7 +129,7 @@ async def home(request: Request, db: Session=Depends(get_db),msg:str=None,sn:str
         contents={"request": request, "user": current_user,"equipment":equipment
                  ,"equipmentregister":equipmentregister,"companyuser":companyuser,
                 "equipmentactivities":equipmentactivities,"search":search,"sn":sn
-                ,"locations":locations,"equipmnetmodel":equipmentmodels,"activityaction":actions }
+                ,"locations":locations,"equipmnetmodel":equipmentmodels,"activityaction":actions,"equipmentactivitieshistory":equipmentactivitieshistory }
 
         return templates.TemplateResponse("index.html",contents )
     except Exception as e:
