@@ -21,6 +21,7 @@
                 {%for activity1 in equipmentactivitieshistory %}
                 {%     if loop.first %}
                 <span class="span1">Serial Number:{{activity1[0].equipmen_register.sn}}</span>
+                {%set sn=activity1[0].equipmen_register.sn%}
                 <hr>
 
                 {% endif %}
@@ -60,6 +61,6 @@
         </div>
     </div>
 </div>
-<a class="button alert" href="{{ url_for('home')}}">Home</a>
+<a class="button alert" href="{{ url_for('home')}}">Home{{sn}}</a>
 
 {% endblock content %}

@@ -45,17 +45,15 @@
 
             {%endwith%}
         </tr>
-        
-            {% for activity in equipmentactivitieshistory%}
-            <tr>
-            <td>{{activity.activity_date}}</td>
-            <td>{{activity.user.staffname}}</td>
-            <td>{{activity.maintaince_status}}</td>
-           
-        </tr>
-        {%endfor%}
+       
     </tbody>
 </table>
+ 
+{% for activity in equipmentactivitieshistory%}
+
+{% include 'htmlmodels/currentequipmentactivity.html' %}
+
+{%endfor%}
 {%else%}
 <div data-role="carousel"
    
