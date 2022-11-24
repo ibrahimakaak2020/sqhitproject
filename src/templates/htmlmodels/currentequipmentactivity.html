@@ -1,34 +1,37 @@
-<article class="slds-card">
-    <div class="slds-card__header slds-grid">
-      <header class="slds-media slds-media_center slds-has-flexi-truncate">
-        <div class="slds-media__figure">
-          <span class="slds-icon_container slds-icon-standard-account" title="account">
-            <svg class="slds-icon slds-icon_small" aria-hidden="true">
-              <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#account"></use>
-            </svg>
-            <span class="slds-assistive-text">{{activity.activity_date}}</span>
-          </span>
-        </div>
-        
+<h2 class="h2">Responsive Table with RWD-Table-Patterns</h2>
 
-
-
-        <div class="slds-media__body">
-          <h2 class="slds-card__header-title">
-            <a href="#" class="slds-card__header-link slds-truncate" title="Accounts">
-              <span>{{activity.user.staffname}}</span>
-            </a>
-          </h2>
-        </div>
-        <div class="slds-no-flex">
-          <button class="slds-button slds-button_neutral">New</button>
-        </div>
-      </header>
+<div style="height:30vh ; overflow: scroll;">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="table-responsive" data-pattern="priority-columns">
+        <table summary="This table shows how to create responsive tables using RWD-Table-Patterns' functionality" class="table table-bordered table-hover">
+          <caption class="text-center">An example of a responsive table based on RWD-Table-Patterns' <a href="http://gergeo.se/RWD-Table-Patterns/" target="_blank"> solution</a>:</caption>
+          <thead>
+            <tr>
+              <th>Follow Date</th>
+              <th data-priority="1">Follow By</th>
+              <th data-priority="2">Follow up Note</th>
+              <th data-priority="3"></th>
+              <th data-priority="4">Area (Km²)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Argentina</td>
+              <td>Spanish (official), English, Italian, German, French</td>
+              <td>41,803,125</td>
+              <td>31.3</td>
+              <td>2,780,387</td>
+            </tr>
+       
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" class="text-center">Data retrieved from <a href="" target="_blank">infoplease</a> </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div><!--end of .table-responsive-->
     </div>
-    <div class="slds-card__body slds-card__body_inner">{{activity.maintaince_status}}</div>
-    <footer class="slds-card__footer">
-      <a class="slds-card__footer-action" href="#">View All
-        <span class="slds-assistive-text">Accounts</span>
-      </a>
-    </footer>
-  </article>
+  </div>
+</div>
