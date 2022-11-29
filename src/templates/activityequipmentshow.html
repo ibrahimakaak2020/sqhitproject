@@ -1,16 +1,17 @@
 {% if equipmentactivities%}
-<table class="table bg-mainsub2">
-    <thead>
-        <tr>
-            <td>Follow Date</td>
-            <td>Follow by</td>
-            <td>Equipment In</td>
-            <td>Follow up Notes</td>
-        </tr>
-    </thead>
-    <tbody>
+
      
         {%with activity=equipmentactivities%}
+        <table class="table bg-mainsub2">
+            <thead>
+                <tr>
+                    <td>Follow Date</td>
+                    <td>Follow by</td>
+                    <td>Equipment In</td>
+                    <td>Follow up Notes</td>
+                </tr>
+            </thead>
+            <tbody>
         <tr>
             <td>{{activity.activity_date}}</td>
             <td>{{activity.user.staffname}}</td>
