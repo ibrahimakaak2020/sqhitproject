@@ -8,7 +8,7 @@
             <td>Register Date</td>
             <td>Register By</td>
             <td>Workorder Id</td>
-        <td>Problem Description</td>
+        
        
         </tr>
     </thead>
@@ -17,9 +17,16 @@
             <td>{{equipmentregister.date_of_register}}</td>
             <td>{{equipmentregister.user.staffname}}</td>            
             <td>{{equipmentregister.workorderid}}</td>
-            <td>{{equipmentregister.register_desc}}</td>
+            
         </tr>
     </tbody>
+    <tfoot>
+       
+        <tr>
+        
+          <td colspan="5" class="text-center"><span class="bg-black fg-white">Problem Description:</span>{{equipmentregister.register_desc}} </td>
+        </tr>
+      </tfoot>
 </table>
 
 {% endblock content %}  

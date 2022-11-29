@@ -1,69 +1,37 @@
 {% if equipmentactivities%}
 
-     
-        {%with activity=equipmentactivities%}
-        <table class="table bg-mainsub2">
-            <thead>
-                <tr>
-                    <td>Follow Date</td>
-                    <td>Follow by</td>
-                    <td>Equipment In</td>
-                    <td>Follow up Notes</td>
-                </tr>
-            </thead>
-            <tbody>
-        <tr>
-            <td>{{activity.activity_date}}</td>
-            <td>{{activity.user.staffname}}</td>
-            {%if activity.place_of_maintaince =="L"%}
-            <td>IT Workshop</td>
+
+{%with activity=equipmentactivities%}
+        {% if activity.maintaince_status == None %}
+        {% if activity.place_of_maintaince== "L" %}
+            {% if activity.activity_status== "WFR" %}
+
+            {% include 'htmlmodels/activityreturnbacktodept.html' %}
+
+            {% elif activity.activity_status== "WFD" %}
+            {% include 'htmlmodels/activityfordescion.html' %}
             {%else%}
-            <td>{{activity.company_user.company_name_en}}</td>
-
+            {% include 'htmlmodels/activityactionlocal.html' %}
             {%endif%}
-            <td>{{activity.activity_desc}}</td>
-
-            {% if activity.maintaince_status == None %}
-                {% if activity.place_of_maintaince== "L" %}
-                    {% if activity.activity_status== "WFR" %}
-                    {% include 'htmlmodels/activityreturnbacktodept.html' %}
-                    {% elif activity.activity_status== "WFD" %}
-                    {% include 'htmlmodels/activityfordescion.html' %}
-                    {%else%}
-                    {% include 'htmlmodels/activityactionlocal.html' %}
-                    {%endif%}
-                
-                
-                {% else %}
-                {% include 'htmlmodels/activityactionsend.html' %}
-                {% endif %}
-                
-            {%endif%}
-            
 
 
+        {% else %}
+            {% include 'htmlmodels/activityactionsend.html' %}
+        {% endif %}
+        {%endif%}
 
+{%endwith%}
 
-            {%endwith%}
-        </tr>
-       
-    </tbody>
-</table>
- 
 {% for activity in equipmentactivitieshistory%}
 
 {% include 'htmlmodels/currentequipmentactivity.html' %}
 
 {%endfor%}
 {%else%}
-<div data-role="carousel"
-   
-     style="background-color:var(--color-button);"
-  
->
+<div data-role="carousel" style="background-color:var(--color-button);">
     <div class="p-2 pl-10 pr-10">
         <div class="row flex-align-center h-100">
-            
+
             <div class="cell-md-8">
                 <h1 class="text-light">Equipment In Company</h1>
                 <!-- <p class="mt-4 mb-4">No Equipment In Company..</p> -->
