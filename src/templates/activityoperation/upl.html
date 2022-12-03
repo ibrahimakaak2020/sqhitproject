@@ -1,0 +1,37 @@
+<div style="height:30vh ; overflow: scroll;">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="table-responsive" data-pattern="priority-columns">
+        <table summary="Take Desion " class="table table-bordered table-hover">
+          <caption class="text-center">Equipment UnderProcess At IT Workshop</caption>
+          
+          <thead>
+            <tr>
+              <th>Activity Date</th>
+              <th data-priority="1">Follow By</th>
+              <th data-priority="2">Maintenence Place</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{activity.activity_date}}</td>
+              <td>{{activity.user.staffname}}</td>
+              <td>{{activity.place_of_maintaince}}</td>
+            </tr>
+            <tr>
+              <td colspan="5" class="text-center"><span>Follow By Notes:</span>{{activity.activity_desc}} </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" class="text-center">
+                <div class="box">
+                  <a class="buttonmodal" href="#popup1">Take Action</a>
+                </div>---<a class="btn " href="">keep In Waiting List For Send </a>---<a  class="btn " href="">Maintenence In IT Workshop</a> </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

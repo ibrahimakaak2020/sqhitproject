@@ -1,0 +1,44 @@
+{% if equipmentactivities%}
+
+
+{%with activity=equipmentactivities%}
+        {% if activity.maintaince_status == None %}
+        {% if activity.place_of_maintaince== "L" %}
+            {% if activity.activity_status== "WFR" %}
+
+            {% include 'htmlmodels/activityreturnbacktodept.html' %}
+
+            {% elif activity.activity_status== "WFD" %}
+            {% include 'htmlmodels/activityfordescion.html' %}
+            {%else%}
+            {% include 'htmlmodels/activityactionlocal.html' %}
+            {%endif%}
+
+
+        {% else %}
+            {% include 'htmlmodels/activityactionsend.html' %}
+        {% endif %}
+        {%endif%}
+
+{%endwith%}
+
+{% for activity in equipmentactivitieshistory%}
+
+{% include 'htmlmodels/currentequipmentactivity.html' %}
+
+{%endfor%}
+{%else%}
+<div data-role="carousel" style="background-color:var(--color-button);">
+    <div class="p-2 pl-10 pr-10">
+        <div class="row flex-align-center h-100">
+
+            <div class="cell-md-8">
+                <h1 class="text-light">Equipment In Company</h1>
+                <!-- <p class="mt-4 mb-4">No Equipment In Company..</p> -->
+                <h2>No Equipment In Company</h2>
+                <a class="button alert" href="{{ url_for('home')}}">Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{%endif%}

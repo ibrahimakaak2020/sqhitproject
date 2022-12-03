@@ -1,0 +1,54 @@
+{%with activity= equipmentactivities%}
+ {%if activity.next_activity=="T"%}
+ {%if activity.activity_status=="UPL"%}
+
+ {% include "/activityoperation/upl.html"%}
+{%elif activity.activity_status=="UPS"%}
+{% include "/activityoperation/ups.html"%}
+{%elif activity.activity_status=="WFS"%}
+{% include "/activityoperation/wfs.html"%}
+{%elif activity.activity_status=="WFD"%}
+{% include "/activityoperation/wfd.html"%}
+{%elif activity.activity_status=="WFR"%}
+{% include "/activityoperation/wfr.html"%}
+
+{%endif%}
+    
+  {%else%}
+  {% include "activitydone.html"%}
+  {%endif%}
+
+
+
+
+    
+    <div id="popup1" class="overlay">
+      <div class="popup">
+        <h2>Maintenence Status</h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+          <div class="interior">
+            <form action="/actionstatusnew?activityid={{activity.activityid}}" method="post">
+              <!-- <input type="text" name="activityid"  value="{{activity.activityid}}" class="metro-input"> -->
+              <label>maintaince_status</label>
+                <select data-role="select" name="maintaince_status">
+                  <option value="RR" selected class="fg-cyan">Repaired</option>
+                  <option value="NR"  class="text-bold fg-red">Not Repaired</option>
+                  
+              </select>
+                <label>recieve_note</label>
+                <textarea name="recieve_note"  data-role="textarea"></textarea>
+               
+                <!-- <a class="btnmodal" href="{{ url_for('takeactionone') }}">Take Action</a> -->
+                <button type="submit">Save</button>
+            </form>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+    {%endwith%}
+    
+  
+    
+  

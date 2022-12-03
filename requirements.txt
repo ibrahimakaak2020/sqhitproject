@@ -9,7 +9,7 @@ aiofiles
 
 #for database
 sqlalchemy
-psycopg2
+
 
 mysql-connector-python==8.0.28
 mysqlclient==2.1.0
