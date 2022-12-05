@@ -25,18 +25,24 @@
           <tfoot>
             <tr>
               <td colspan="5" class="text-center">
-                {%for action in activityaction(activity)%}
-                 {%for k , v for action%}
+                
                 <div class="box">
-                  <a class="buttonmodal" href="#{{k}}">{{v}}</a>
-                </div>  
-                {%endfor%}
-                {%endfor%}
-              </td> </td>
+                  {%for value , key in activityaction(activity).items()%}
+                  <a class="buttonmodal btn" href="#{{key}}">{{value}}</a>
+                  {%endfor%}
+                </div> 
+               
+                
+             </td>  
+             
             </tr>
           </tfoot>
         </table>
-      </div>
+      </div><!--end of .table-responsive-->
     </div>
   </div>
 </div>
+
+
+
+{% include 'htmlmodels/crudpop.html' %}

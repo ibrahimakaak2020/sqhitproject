@@ -3,7 +3,7 @@
     <div class="col-xs-12">
       <div class="table-responsive" data-pattern="priority-columns">
         <table summary="Take Desion " class="table table-bordered table-hover">
-          <caption class="text-center">Equipment UnderProcess At IT Workshop</caption>
+          <caption class="text-center">Equipment UnderProcess In Company</caption>
           
           <thead>
             <tr>
@@ -24,20 +24,25 @@
           </tbody>
           <tfoot>
             <tr>
-              
               <td colspan="5" class="text-center">
-                {%for action in activityaction(activity)%}
-                 {%for k , v for action%}
+                
                 <div class="box">
-                  <a class="buttonmodal" href="#{{k}}">{{v}}</a>
-                </div>  
-                {%endfor%}
-                {%endfor%}
-              </td>
+                  {%for value , key in activityaction(activity).items()%}
+                  <a class="buttonmodal btn" href="#{{key}}">{{value}}</a>
+                  {%endfor%}
+                </div> 
+               
+                
+             </td>  
+             
             </tr>
           </tfoot>
         </table>
-      </div>
+      </div><!--end of .table-responsive-->
     </div>
   </div>
 </div>
+
+
+
+{% include 'htmlmodels/crudpop.html' %}
