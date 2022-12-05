@@ -68,3 +68,45 @@
       </div>
     </div>
   </div>
+
+
+          
+  <div id="returnbackto" class="overlay">
+    <div class="popup">
+      <h2> Return Equipement</h2>
+      <a class="close" href="#">&times;</a>
+      <div class="content">
+        <div class="interior">
+          <form action="/returntodepartment?activityid={{activity.activityid}}" method="post">
+           <P>Do you want to Return this Equipment To  Depatment</P>
+            
+               
+            <button type="submit">Yes</button>
+          </div>
+                   
+                          
+         
+          </form>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 112px ;width: 100%">
+    <div id="locally" class="overlay">
+        <form method="post" action="/locally">
+            <div class="row">
+                <input name="sn" value="{{sn}}" hidden>
+                <div class="cell-md-12">
+                    <p>Enter Your Notes :</p>
+                    <textarea name="activity_desc" data-role="textarea"></textarea>
+                </div>
+                <button class="button">
+                    <span class="icon mif-plus"></span>
+                    <span class="label">Save For Local Maintenance</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
