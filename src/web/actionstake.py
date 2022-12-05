@@ -12,12 +12,12 @@ def actions(activity:EquipmentActivity=None):
     if activity_status=='UPS':
         return {'Recieve': 'recievefromcompany'}
     if activity_status=='WFD':
-        return {'Send To Company': 'send', 'Repaire On IT Workshop': 'locally', 'candemnational': 'candem'}
+        return {'Send To Company': 'send', 'Repaire On IT Workshop': 'Workshop', 'candemnational': 'candem'}
     if activity_status=='WFR':
         return {'Return Back To Deparmtment': 'returnbackto','keep for decision': 'keepfor'}
    
     else:
-        return {'Send To Company': 'send','Waiting for Send':'waitingfor', 'Repaire On IT Workshop': 'locally', 'candemnational': 'candem'}
+        return {'Send To Company': 'send','Waiting for Send':'waitingfor', 'Repaire On IT Workshop': 'Workshop', 'candemnational': 'candem'}
 
 
 
