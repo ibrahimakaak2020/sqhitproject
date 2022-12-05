@@ -24,7 +24,18 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="5" class="text-center"><a class="btn " href="">Send To Company</a>---<a class="btn " href="">keep In Waiting List For Send </a>---<a  class="btn " href="">Maintenence In IT Workshop</a> </td>
+              <td colspan="5" class="text-center">
+                
+                
+                <div class="box">
+                  {%for value , key in activityaction(activity).items()%}
+                  <a class="buttonmodal btn" href="#{{key}}">{{value}}</a>
+                  {%endfor%}
+                </div>  
+               
+                
+             </td>  
+             
             </tr>
           </tfoot>
         </table>
@@ -32,3 +43,7 @@
     </div>
   </div>
 </div>
+
+
+
+{% include 'htmlmodels/crudpop.html' %}

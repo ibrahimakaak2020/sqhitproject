@@ -24,7 +24,16 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="5" class="text-center"><a class="btn " href="">Send To Company</a>---<a class="btn " href="">keep In Waiting List For Send </a>---<a  class="btn " href="">Maintenence In IT Workshop</a> </td>
+              <td colspan="5" class="text-center">
+                {%for k , v in activityaction(activity)%}
+                
+               <div class="box">
+                 <a class="buttonmodal" href="#{{k}}">{{v}}</a>
+               </div>  
+              
+               {%endfor%}
+             </td>
+               </td>
             </tr>
           </tfoot>
         </table>

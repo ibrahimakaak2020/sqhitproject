@@ -24,10 +24,16 @@
           </tbody>
           <tfoot>
             <tr>
+              
               <td colspan="5" class="text-center">
+                {%for action in activityaction(activity)%}
+                 {%for k , v for action%}
                 <div class="box">
-                  <a class="buttonmodal" href="#popup1">Take Action</a>
-                </div>---<a class="btn " href="">keep In Waiting List For Send </a>---<a  class="btn " href="">Maintenence In IT Workshop</a> </td>
+                  <a class="buttonmodal" href="#{{k}}">{{v}}</a>
+                </div>  
+                {%endfor%}
+                {%endfor%}
+              </td>
             </tr>
           </tfoot>
         </table>
