@@ -8,20 +8,22 @@
 
 {% block content %}
 {% if equipmentactivities%}
-<table class="table table-border cell-border">
+<div style="height:50vh ; overflow: scroll;">
+{% for activity in equipmentactivities %}
+
+<table class="table table-border cell-border" style=" margin-bottom: 20px;">
     <thead>
     <tr>
         <th>Serial Number</th>
         <th>Activity Date</th>
         <th>Follow By</th>
         <th>Place OF Maintenence</th>
-        <th>Follow Up Note</th>
         <th>Actions</th>
     </tr>
     </thead>
     <tbody>
         
-{% for activity in equipmentactivities %}
+
     <tr >
         <td>{{activity.equipmen_register.sn}}</td>
         <td>{{activity.activity_date}}</td>
@@ -31,7 +33,7 @@
         {%else%}
         <td> {{activity.company_user.company_name_en}}
         </td> {%endif%}
-        <td> {{activity.activity_desc}}</td>
+       
         {% if activity.maintaince_status == None %}
                 {% if activity.place_of_maintaince== "L" %}
                     {% if activity.activity_status== "WFR" %}
@@ -45,31 +47,24 @@
                 {% else %}
                 {% include 'htmlmodels/activityactionsend.html' %}
                 {% endif %}
-            {%endif%}
+                {%endif%}
             
 
 
 
     </tr>
    
-    {%endfor%}
+   
     </tbody>
+    <tfoot>
+        <tr>  
+            <td colspan="5" ><span style="padding-right: 10px; background-color:var(--color-button);">Follow Up Note:</span> {{activity.activity_desc}}</td>
+        </tr>
+    </tfoot>
 </table>
        
-       
-            
-           
-            
-           
-            
-
-           
-           
-
-            
-
-
-           
+{%endfor%}
+ 
 
 {%else%}
 <div data-role="carousel"
@@ -90,4 +85,5 @@
     </div>
 </div>
 {%endif%}
+</div>
 {% endblock content %}

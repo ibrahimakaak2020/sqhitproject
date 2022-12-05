@@ -157,34 +157,28 @@ async def actionstatusnew(request: Request,db: Session=Depends(get_db),activityi
     try:
        
           
-           if activity.place_of_maintaince=="L":
-                localactivity= updateactivity(recieve_by=current_user.staffno,**form.__dict__)
-                print(dict(localactivity))
-                # print(UpdateModelData(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=localactivity,db=db))
-                update_table(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=localactivity,db=db)
-                if localactivity.maintaince_status=="RR":
-                    activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for return back to Department",next_activity="T",place_of_maintaince="L",activity_status="WFR")
-                    CreateModelData(modeltable=EquipmentActivity,db=db,modelcreate=activitycreate)
-                else:
-                    activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for Taking Decision ",next_activity="T",place_of_maintaince="L",activity_status="WFD")
-                    CreateModelData(modeltable=EquipmentActivity,db=db,modelcreate=activitycreate)
-                return RedirectResponse('/'+'?sn='+activity.equipmen_register.sn, status_code=303)
-           else:
-                sentactivity= updateactivitycompany(recieve_by=current_user.staffno,**form.__dict__)
-                print(dict(sentactivity))
-                # print(UpdateModelData(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=sentactivity,db=db))
-                update_table(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=sentactivity,db=db)
+        if activity.place_of_maintaince=="L":
+            localactivity= updateactivity(recieve_by=current_user.staffno,**form.__dict__)
+            print(dict(localactivity))
+            # print(UpdateModelData(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=localactivity,db=db))
+            update_table(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=localactivity,db=db)
+            if localactivity.maintaince_status=="RR":
+                activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for return back to Department",next_activity="T",place_of_maintaince="L",activity_status="WFR")
+            else:
+                activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for Taking Decision ",next_activity="T",place_of_maintaince="L",activity_status="WFD")
+        else:
+            sentactivity= updateactivitycompany(recieve_by=current_user.staffno,**form.__dict__)
+            print(dict(sentactivity))
+            # print(UpdateModelData(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=sentactivity,db=db))
+            update_table(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=sentactivity,db=db)
                 # activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for return back to Department",next_activity="T",place_of_maintaince="L",activity_status="WFR")
                 # CreateModelData(modeltable=EquipmentActivity,db=db,modelcreate=activitycreate)
-                if sentactivity.maintaince_status=="RR":
-                    activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for return back to Department",next_activity="T",place_of_maintaince="L",activity_status="WFR")
-                    CreateModelData(modeltable=EquipmentActivity,db=db,modelcreate=activitycreate)
-                else:
-                    activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for Taking Decision ",next_activity="T",place_of_maintaince="L",activity_status="WFD")
-                    CreateModelData(modeltable=EquipmentActivity,db=db,modelcreate=activitycreate)
-                return RedirectResponse('/'+'?sn='+activity.equipmen_register.sn, status_code=303)
-       
-    
+            if sentactivity.maintaince_status=="RR":
+                activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for return back to Department",next_activity="T",place_of_maintaince="L",activity_status="WFR")
+            else:
+                activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for Taking Decision ",next_activity="T",place_of_maintaince="L",activity_status="WFD")
+        CreateModelData(modeltable=EquipmentActivity,db=db,modelcreate=activitycreate)
+        return RedirectResponse('/'+'?sn='+activity.equipmen_register.sn, status_code=303)
     except HTTPException:
             return templates.TemplateResponse("index.html",{"request": request})
     return templates.TemplateResponse("index.html",{"request": request})

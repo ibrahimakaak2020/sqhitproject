@@ -1,17 +1,18 @@
 <div>
+    {%for eincompany in eincompanies%}
     <table cellspacing="0" cellpadding="0">
         <thead>
             <th>Equipment In Company</th>
         </thead>
         <tbody>
-            {%for eincompany in eincompanies%}
+           
              <tr>
                 <td>{{eincompany.sn}}</td> <td>{{eincompany.date_of_send}}</td>
                 <td>{{eincompany.company_name}}</td><td>{{eincompany.register_by}}</td>
                 <td><a href="{{url_for('/returnfromcompany')}}">Recieve</a></td>
             </tr>
 
-            {% endfor %}
+           
         </tbody>
         <tfoot>
             <tr>  
@@ -19,4 +20,5 @@
             </tr>
         </tfoot>
     </table>
+    {% endfor %}
 </div>
