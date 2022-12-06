@@ -1,10 +1,10 @@
-<div id="recievefromcompany" class="overlay">
-    <div class="popup">
+<div id="recievefromcompany" class="overlay alert-successsqhit">
+    <div class="popup alert-successsqhit">
       <h2> Recieve Equipement</h2>
       <a class="close" href="#">&times;</a>
-      <div class="content">
-        <div class="interior">
-          <form action="/actionstatusnew?activityid={{activity.activityid}}" method="post">
+      <div class="content alert-successsqhit">
+        <div class="interior alert-successsqhit">
+          <form action="/actionstatusnew?activityid={{activity.activityid}}" method="post" class="alert-successsqhit">
            
               <div class="form-group">
               <label>maintaince_status</label>
@@ -43,13 +43,13 @@
     </div>
   </div>
 
-  <div id="locally" class="overlay">
-    <div class="popup">
+  <div id="locally" class="overlay alert-successsqhit">
+    <div class="popup alert-successsqhit">
       <h2>Maintenence Status</h2>
       <a class="close" href="#">&times;</a>
-      <div class="content">
-        <div class="interior">
-          <form action="/actionstatusnew?activityid={{activity.activityid}}" method="post">
+      <div class="content alert-successsqhit">
+        <div class="interior alert-successsqhit">
+          <form action="/actionstatusnew?activityid={{activity.activityid}}" method="post" class="alert-successsqhit">
             <!-- <input type="text" name="activityid"  value="{{activity.activityid}}" class="metro-input"> -->
             <label>maintaince_status</label>
               <select data-role="select" name="maintaince_status">
@@ -75,8 +75,8 @@
     <div class="popup">
       <h2> Return Equipement</h2>
       <a class="close" href="#">&times;</a>
-      <div class="content">
-        <div class="interior">
+      <div class="content alert-successsqhit">
+        <div class="interior alert-successsqhit">
           <form action="/returntodepartment?activityid={{activity.activityid}}" method="post">
            <P>Do you want to Return this Equipment To  Depatment</P>
             
@@ -93,11 +93,17 @@
     </div>
   </div>
 
-
+  <div class="row">
+    <div class="col-xs-12">
+      <a class="close" href="#">&times;</a>
     <div id="Workshop" class="overlay">
         <div class="popup">
+          <h2> Recieve Equipement</h2>
+          <a class="close" href="#">&times;</a>
+          <div class="content alert-successsqhit">
+            <div class="interior alert-successsqhit">
         <form method="post" action="/locally">
-            <div class="row">
+            <div class="row alert-successsqhit">
                 <input name="sn" value="{{sn}}" hidden>
                 <div class="cell-md-12">
                     <p>Enter Your Notes :</p>
@@ -109,6 +115,46 @@
                 </button>
             </div>
         </form>
+            </div>
+          </div>
+        </div>
+        
        </div>
     </div>
+    </div>
+  
 
+    
+
+
+
+    <div id="send" class="overlay alert-successsqhit">
+      <div class="popup alert-successsqhit">
+        <h2> Recieve Equipement</h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content alert-successsqhit">
+          <div class="interior alert-successsqhit">
+      <form action="/actionstatusnew?activityid={{activity.activityid}}" method="post">
+          <div class="row alert-successsqhit">
+              <input name="sn" value="{{sn}}" hidden>
+              <label for="model"><b>Select Company User:</b></label>
+              <select name="cid" data-role="select">
+                  {% for cuser in companyuser%}
+                  <option value="{{cuser.cid}}">{{cuser.staffname}}---{{cuser.company_name_en}}</option>
+
+                  {% endfor %}
+              </select>
+              <div class="cell-md-12">
+                  <p>Enter Your Notes :</p>
+                  <textarea name="activity_desc" data-role="textarea"></textarea>
+              </div>
+              <button class="button">
+                  <span class="icon mif-plus"></span>
+                  <span class="label">Send To Company</span>
+              </button>
+          </div>
+      </form>
+          </div>
+        </div>
+      </div>
+  </div>

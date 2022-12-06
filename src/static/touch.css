@@ -9,3 +9,17 @@
   font-size: 1.125rem;
   font-weight: 700;
 }
+.alert-successsqhit {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+
+.alertsqhit {
+  position: relative;
+  padding: 1.5rem 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0;
+}

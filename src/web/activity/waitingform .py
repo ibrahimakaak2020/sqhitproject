@@ -32,8 +32,8 @@ class LocallyForm:
 
     async def is_valid(self,registerid,db:SessionLocal):
 
-        if check := QueryModelData(modeltable=EquipmentActivity, db=db, cols={"registerid": registerid, "next_activity": "T","activity_status":"UPL" ,"maintaince_status": None}).first():
-            self.errors.append(f"Equipment Under Maintenance Status ? date of Maintenance : {check.activity_date} Take Care by:{check.user.staffname}")
+        if check := QueryModelData(modeltable=EquipmentActivity, db=db, cols={"registerid": registerid, "next_activity": "T","activity_status":"WFS" ,"maintaince_status": None}).first():
+            self.errors.append(f"Equipment In Waiting List For send To Company ? date of Maintenance : {check.activity_date} Take Care by:{check.user.staffname}")
 
         if not self.activity_desc:
           self.errors.append("Write Your Notes For Your Form colleagues ")
