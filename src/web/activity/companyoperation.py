@@ -129,7 +129,7 @@ async def sendequipmenttoecompany(request: Request,db: Session = Depends(get_db)
                 form.__dict__.update(msg="Optional[str] = None")
                 form.__dict__.get("errors").append("Equipment Already Sended to Comapany")
                 return templates.TemplateResponse("sendtocompany.html", form.__dict__,{"request": request,"errors":form.__dict__['errors'],"sn":form.__dict__['sn']})
-        return templates.TemplateResponse("sendtocompany.html"
+        return templates.TemplateResponse("sendtocompany.html",{"request": request, "errors":form.__dict__['errors'],"sn":form.__dict__['sn']})
 
 # keep in waiting list
 
