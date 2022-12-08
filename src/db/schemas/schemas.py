@@ -88,27 +88,28 @@ class EquipmentRegisterCreate(BaseModel):
         orm_mode=True
 
 class updateactivity(BaseModel):
-    date_of_recievefrom:datetime=None
+    date_of_recievefrom:Optional[datetime]=None
     next_activity:str="F"
     maintaince_status:str=None
-    date_of_maintaince:datetime=datetime.now()
+    date_of_maintaince:Optional[datetime]=None
     recieve_by:str=None
     recieve_note:str=None
 
 
 class updateactivitycompany(BaseModel):
-    date_of_recievefrom:datetime=datetime.now()
+    date_of_recievefrom:Optional[datetime]=None
     next_activity:str="F"
     maintaince_status:str=None
-    date_of_maintaince:datetime=datetime.now()
+    date_of_maintaince:Optional[datetime]=None
     recieve_by:str=None
     recieve_note:str=None
     billid:str="0"
     billamount:Optional[Decimal]=0.0
 
 
-   
-
+class updateactivitywaiting(BaseModel):
+    next_activity:str="F"
+    date_of_maintaince:Optional[datetime]=None
     class Config:
         orm_mode=True
 
@@ -119,7 +120,7 @@ class EquipmentActivityCreate(BaseModel):
     create_by:int
     company_id:int=None
     activity_desc:str
-    activity_date:Optional[datetime]=datetime.now()
+    activity_date:Optional[datetime]=None
     next_activity:str=None
     activity_status:str
     place_of_maintaince:str

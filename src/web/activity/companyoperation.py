@@ -11,7 +11,7 @@ from fastapi.security.utils import get_authorization_scheme_param
 from api.route_login import get_current_user_from_token
 # from api.route_login import login_for_access_token
 from db.datacreator import CreateModelData, QueryModelData, UpdateModelData, update_table
-from db.schemas.schemas import EquipmentActivityCreate, EquipmentCreate, UserShow, EquipmentRegisterCreate, updateactivity, updateactivitycompany
+from db.schemas.schemas import EquipmentActivityCreate, EquipmentCreate, UserShow, EquipmentRegisterCreate, updateactivity, updateactivitycompany,updateactivitywaiting
 from web.activity.activityform import UpdateActivityForm
 from web.activity.locallyform import LocallyForm
 
@@ -47,20 +47,34 @@ async def locally(request: Request,db: Session = Depends(get_db),sn:str=None):
     sn=form.__dict__['sn']
     
     registerid=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"Y"}).first()
+    activityexist=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":registerid.registerid,"next_activity":"T"}).first()
+    print("-------------------------------------activityexist",activityexist)
+    
            
     
     if await form.is_valid(registerid=registerid.registerid ,db=db):
         try:
                  
+            if activityexist:
+                # CreateModelData(modeltable=EquipmentRegister,db=db, modelcreate=equipmentregister)
+                equipmentregister=EquipmentActivityCreate(**form.__dict__,create_by=userid,registerid=registerid.registerid,activity_status="UPL",activity_date=datetime.datetime.now(),place_of_maintaince="L",next_activity='T')
+                updatewaiting=updateactivitywaiting()
+                print("check ibrahim",equipmentregister)
 
-            # CreateModelData(modeltable=EquipmentRegister,db=db, modelcreate=equipmentregister)
-            equipmentregister=EquipmentActivityCreate(**form.__dict__,create_by=userid,registerid=registerid.registerid,activity_status="UPL",activity_date=datetime.datetime.now(),place_of_maintaince="L",next_activity='T')
-            
-            print("check ibrahim",equipmentregister)
-            CreateModelData(modeltable=EquipmentActivity,db=db, modelcreate=equipmentregister)
-            return RedirectResponse('/'+'?sn='+sn, status_code=303)
-            
-            
+                update_table(modeltable=EquipmentActivity,col_id={"activityid":activityexist.activityid},updatecols=updatewaiting,db=db)
+                print("done-----------------------")
+                CreateModelData(modeltable=EquipmentActivity,db=db, modelcreate=equipmentregister)
+                return RedirectResponse('/'+'?sn='+sn, status_code=303)
+            else:
+
+                # CreateModelData(modeltable=EquipmentRegister,db=db, modelcreate=equipmentregister)
+                equipmentregister=EquipmentActivityCreate(**form.__dict__,create_by=userid,registerid=registerid.registerid,activity_status="UPL",activity_date=datetime.datetime.now(),place_of_maintaince="L",next_activity='T')
+                
+                print("check ibrahim",equipmentregister)
+                CreateModelData(modeltable=EquipmentActivity,db=db, modelcreate=equipmentregister)
+                print("----------------------------------------------------creaete",equipmentregister)
+                return RedirectResponse('/'+'?sn='+sn, status_code=303)
+                
             # # return RedirectResponse('/' + '?msg=' + "Equipment Registered  ", status_code=status.HTTP_302_FOUND)
             # return templates.TemplateResponse("sendtocompany.html",{"request": request,"sn":sn,"msg":"Equipment Under Process Locally "})
         except HTTPException:
@@ -167,7 +181,7 @@ async def waiting(request: Request,db: Session = Depends(get_db),activityid:int=
 async def actionstatusnew(request: Request,db: Session=Depends(get_db),activityid:int=None):
     form=UpdateActivityForm(request)
     activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"activityid":activityid,"maintaince_status":None,"next_activity":"T","date_of_returnback":None}).first()
-
+    activitycreate=None
     print("----------------from actionstatusnew ------{}-----------------".format(activity.activityid))
     token = request.cookies.get("access_token")
     scheme, param = get_authorization_scheme_param(
@@ -186,21 +200,22 @@ async def actionstatusnew(request: Request,db: Session=Depends(get_db),activityi
             # print(UpdateModelData(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=localactivity,db=db))
             update_table(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=localactivity,db=db)
             if localactivity.maintaince_status=="RR":
-                activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for return back to Department",next_activity="T",place_of_maintaince="L",activity_status="WFR")
+                activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,activity_date=datetime.datetime.now(),create_by=current_user.staffno,activity_desc="Waiting for return back to Department",next_activity="T",place_of_maintaince="L",activity_status="WFR")
             else:
-                activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for Taking Decision ",next_activity="T",place_of_maintaince="L",activity_status="WFD")
+                activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,activity_date=datetime.datetime.now(),create_by=current_user.staffno,activity_desc="Waiting for Taking Decision ",next_activity="T",place_of_maintaince="L",activity_status="WFD")
         else:
-            sentactivity= updateactivitycompany(recieve_by=current_user.staffno,**form.__dict__)
+            sentactivity= updateactivitycompany(date_of_maintaince=datetime.datetime.now(),recieve_by=current_user.staffno,**form.__dict__)
             print(dict(sentactivity))
             # print(UpdateModelData(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=sentactivity,db=db))
             update_table(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=sentactivity,db=db)
                 # activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for return back to Department",next_activity="T",place_of_maintaince="L",activity_status="WFR")
                 # CreateModelData(modeltable=EquipmentActivity,db=db,modelcreate=activitycreate)
             if sentactivity.maintaince_status=="RR":
-                activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for return back to Department",next_activity="T",place_of_maintaince="L",activity_status="WFR")
+                activitycreate=EquipmentActivityCreate(activity_date=datetime.datetime.now(),registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for return back to Department",next_activity="T",place_of_maintaince="L",activity_status="WFR")
             else:
-                activitycreate=EquipmentActivityCreate(registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for Taking Decision ",next_activity="T",place_of_maintaince="L",activity_status="WFD")
+                activitycreate=EquipmentActivityCreate(activity_date=datetime.datetime.now(),registerid=activity.equipmen_register.registerid,create_by=current_user.staffno,activity_desc="Waiting for Taking Decision ",next_activity="T",place_of_maintaince="L",activity_status="WFD")
         CreateModelData(modeltable=EquipmentActivity,db=db,modelcreate=activitycreate)
+        print("----------------------------------------------------creaete",activitycreate)
         return RedirectResponse('/'+'?sn='+activity.equipmen_register.sn, status_code=303)
     except HTTPException:
             return templates.TemplateResponse("index.html",{"request": request})
