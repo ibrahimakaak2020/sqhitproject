@@ -195,7 +195,7 @@ async def actionstatusnew(request: Request,db: Session=Depends(get_db),activityi
        
           
         if activity.place_of_maintaince=="L":
-            localactivity= updateactivity(recieve_by=current_user.staffno,**form.__dict__)
+            localactivity= updateactivity(recieve_by=current_user.staffno,date_of_maintaince=datetime.datetime.now(),**form.__dict__)
             print(dict(localactivity))
             # print(UpdateModelData(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=localactivity,db=db))
             update_table(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=localactivity,db=db)

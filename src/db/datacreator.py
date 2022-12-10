@@ -1,6 +1,6 @@
 from tkinter import N
 from sqlalchemy.orm.exc import NoResultFound
-from db.models.models import User,EquipmentActivity,EquipmentRegister
+from db.models.models import *
 from db.database.database import Base , get_db
 from db.models import models
 from sqlalchemy.orm import Session
@@ -136,3 +136,55 @@ def authenticate_user(username,password):
         return user if Hasher.verify_password(password,user.password) else False
     else:
         return False
+
+def createactivityupl(db:Session,activityid:int=None,localactivity=None,maintaince_status=None):
+    if activityid:
+        activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"activityid":activityid,"next_activity":"T"}).first()
+        if activity:
+            
+             update_table(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols={},db=db)
+
+    
+    else:
+        CreateModelData(modeltable=EquipmentActivity,db=db, modelcreate=localactivity)
+
+                
+
+def select(table, session, **criteria):
+    query = session.query(table)
+    for key, value in criteria.items():
+        query = query.filter(getattr(table, key) == value)
+    return query.all()
+
+
+
+
+# Create a dictionary that maps table names to classes
+tables = {
+    "users": User,
+    "equipment_model":Equipment_Model,
+    "equipment_type":Equipment_Type,
+    "equipment":Equipment,
+    "company_user":Company_User,
+    "manufacture":Manufacture,
+    "location":Location,
+    "equipmentactivity":EquipmentActivity,
+}
+
+def update(table_name, session, filter, data):
+    # Get the class for the specified table
+    table_class = tables[table_name]
+
+    try:
+        # Update the specified record in the database
+        session.query(table_class).filter(filter).update(data)
+
+        # Commit the transaction
+        session.commit()
+
+    except Exception as e:
+        # Handle the exception
+        print(e)
+
+
+
