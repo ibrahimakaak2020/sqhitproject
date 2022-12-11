@@ -187,11 +187,12 @@ def update(table_name, session, filter, data):
         print(e)
 
 class CRUD:
-    def __init__(self, table_class):
+    def __init__(self, table_class, pk_name):
         # engine = create_engine('postgresql://user:password@host:port/database')
-        Session = get_db
-        self.session = Session()
+        Session = next(get_db())
+        self.session = Session
         self.table_class = table_class
+        self.pk_name = pk_name
 
     def create(self, **kwargs):
         entry = self.table_class(**kwargs)
@@ -202,13 +203,21 @@ class CRUD:
         entries = self.session.query(self.table_class).filter_by(**kwargs).all()
         return entries
 
-    def update(self, id, **kwargs):
-        entry = self.session.query(self.table_class).filter(self.table_class.id==id).first()
+    def update(self, pk_value, **kwargs):
+        entry = self.session.query(self.table_class).filter(getattr(self.table_class, self.pk_name)==pk_value).first()
         for key, value in kwargs.items():
             setattr(entry, key, value)
         self.session.commit()
 
-    def delete(self, id):
-        entry = self.session.query(self.table_class).filter(self.table_class.id==id).first()
+    def delete(self, pk_value):
+        entry = self.session.query(self.table_class).filter(getattr(self.table_class, self.pk_name)==pk_value).first()
         self.session.delete(entry)
         self.session.commit()
+
+    def readwith(self, pk_value):
+        # Join the related objects
+        query = self.session.query(self.table_class).join(RelatedTable)
+
+        # Filter the entries by the primary key
+        entries = query.filter(getattr(self.table_class, self.pk_name)==pk_value).all()
+        return entries
