@@ -186,5 +186,29 @@ def update(table_name, session, filter, data):
         # Handle the exception
         print(e)
 
+class CRUD:
+    def __init__(self, table_class):
+        # engine = create_engine('postgresql://user:password@host:port/database')
+        Session = get_db
+        self.session = Session()
+        self.table_class = table_class
 
+    def create(self, **kwargs):
+        entry = self.table_class(**kwargs)
+        self.session.add(entry)
+        self.session.commit()
 
+    def read(self, **kwargs):
+        entries = self.session.query(self.table_class).filter_by(**kwargs).all()
+        return entries
+
+    def update(self, id, **kwargs):
+        entry = self.session.query(self.table_class).filter(self.table_class.id==id).first()
+        for key, value in kwargs.items():
+            setattr(entry, key, value)
+        self.session.commit()
+
+    def delete(self, id):
+        entry = self.session.query(self.table_class).filter(self.table_class.id==id).first()
+        self.session.delete(entry)
+        self.session.commit()
