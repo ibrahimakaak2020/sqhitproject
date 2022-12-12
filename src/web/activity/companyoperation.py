@@ -228,7 +228,12 @@ async def actionstatusnew(request: Request,db: Session=Depends(get_db),activityi
                             
 @activityroot.get("/activityhistory")
 async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=None):
-    
+    token = request.cookies.get("access_token")
+    scheme, param = get_authorization_scheme_param(
+            token
+        )  # scheme will hold "Bearer" and param will hold actual token value
+       
+    current_user: User = get_current_user_from_token(token=param, db=db)
     Equipmentregisteryh=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn}).all()
     activityhistory=[]
     for register in Equipmentregisteryh:
@@ -238,18 +243,25 @@ async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=No
     try:
 
        
-        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentactivitieshistory":activityhistory,"Equipmentregisteryh":Equipmentregisteryh})
+        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentactivitieshistory":activityhistory,"Equipmentregisteryh":Equipmentregisteryh,"user":current_user})
        
     
-    except HTTPException:
-            return templates.TemplateResponse("index.html",{"request": request})
-    return templates.TemplateResponse("index.html",{"request": request})
+    except Exception as e:
+        raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
+    
 
 
         
 @activityroot.post("/activityhistory")
+
 async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=None):
-    
+    token = request.cookies.get("access_token")
+    scheme, param = get_authorization_scheme_param(
+            token
+        )  # scheme will hold "Bearer" and param will hold actual token value
+       
+    current_user: User = get_current_user_from_token(token=param, db=db)
+    sn=sn
     Equipmentregisteryh=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"N"}).all()
     activityhistory=[]
     for register in Equipmentregisteryh:
@@ -261,12 +273,13 @@ async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=No
     try:
 
        
-        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentactivitieshistory":activityhistory,"Equipmentregisteryh":Equipmentregisteryh})
+        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentactivitieshistory":activityhistory,"Equipmentregisteryh":Equipmentregisteryh,"sn":sn,"user": current_user})
        
     
-    except HTTPException:
-            return templates.TemplateResponse("index.html",{"request": request})
-    return templates.TemplateResponse("index.html",{"request": request})
+    except Exception as e:
+       
+        raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
+    
 
 
 

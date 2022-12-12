@@ -8,8 +8,8 @@
 
 {% block content %}
 <hr>
-<div  class="bg-mainsub " style=" margin:30px auto;">
-<div  data-role="panel" style=" margin:30px auto;" data-title-caption=" Login To System" data-cls-title="bg-mainsub bg-accent-400 ">
+ <!-- <div  class="bg-mainsub " style=" margin:30px auto;"> -->
+<div  data-role="panel" style=" margin:30px auto;" data-title-caption=" Login To System" data-cls-title="bg-mainsub bg-accent-400 "> 
 
     <div class="text-danger font-weight-bold">
           {% for error in errors %}
@@ -17,7 +17,7 @@
           {% endfor %}
       </div>
 
-  <form class="bg-mainsub" method="post">6148
+  <form class="login-form bg-white p-6 mx-auto border bd-default win-shadow" method="post">
     <div  class="form-group">
     
       <label for="username"><b>Staff Number:</b></label>
@@ -32,6 +32,6 @@
     </div>
     
   </form>
-    </div>
-  </div>
+   </div>
+  <!-- </div>  -->
   {% endblock %}

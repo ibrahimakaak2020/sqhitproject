@@ -1,57 +1,74 @@
-{%block nav%}
-
-
-<nav class="bg-main">
-  <a class="links"  href="{{ url_for('equipmentincompany') }}">Equipments In Company</a>
-  <a class="links"  href="{{ url_for('equipmentinlocal') }}">Equipments In IT WorkShop</a>
-  <a class="links"  href="{{ url_for('equipmentwaitingforsend') }}">Equipments Waiting For Send</a>
-  <a class="links"  href="{{ url_for('equipmentwaitingforreturn') }}">Equipments Waiting For ReturnBack</a>
-  <!-- <div class="dropdown-menu">
-  <button class="menu-btn">User Details</button>
-  <div class="menu-content">
-    {%if user%}
-
-    <li>Staff No:</li>
-    <li>Staff Name :{{user.staffname}}</li>
-    <li><button class="logout "><a href="{{ url_for('logout') }}">LogOut</a></button></li>
-
-
-    {%else%}
-
-    <li><a class="button  danger" href="{{ url_for('signup')}}">signup</a></li>
-
-
-    {%endif%}
-  </div>
-  </div> -->
-  {%if user%}
-  <div class="dropdownuser bg-o" style="float:right;left:-20%;">
-    <span>User Details</span>
-    <button class="dropbtnuser">StaffNo:{{user.staffno}}</button>
-    <div class="dropdown-contentuser" style="left:-20px;">
-      <li>Staff Name :{{user.staffname}}</li>
-      <li><a class="bg-red fg-white"  href="{{ url_for('logout') }}">LogOut</a></li>
+<header class="site-header">
+  <div class="site-header__top">
+    <div class="wrapper site-header__wrapper">
+ 
+      <div class="site-header__middle">
+        <a href="#" class="brand">SQH information Technology </a>
+      </div>
+      {%if user%}
+      <div class="site-header__end top">
      
+        <ul class="span1">
+          <li >User Details</li>
+          <li >StaffNo:{{user.staffno}}</li>
+          <li >Staff Name :{{user.staffname}}</li>
+          <li><a class="button bg-red fg-white"  href="{{ url_for('logout') }}">LogOut</a></li>
+        </ul>
+      </div>
+      
+      {%else%}
+      <div class="site-header__start">
+      
+        <ul class="">
+          <li><a class="links" href="{{ url_for('signup')}}">signup</a></li>
+        </ul>
+      </div>
+    
+      {%endif%}
+      
+      
     </div>
   </div>
-  {%else%}
+  <div class="site-header__bottom">
+    <div class="wrapper site-header__wrapper">
+      <div class="site-header__start">
+        <nav class="nav">
+          <button class="nav__toggle" aria-expanded="false" type="button">
+            menu
+          </button>
+          <ul class="nav__wrapper">
+            <li class="nav__item"><a href="{{ url_for('equipmentincompany') }}">Equipments In Company</a></li>
+            <li class="nav__item"><a href="{{ url_for('equipmentinlocal') }}">Equipments In IT WorkShop</a></li>
+            <li class="nav__item"><a  href="{{ url_for('equipmentwaitingforsend') }}">Equipments Waiting For Send</a></li>
+            <li class="nav__item"><a  href="{{ url_for('equipmentwaitingforreturn') }}">Equipments Waiting For ReturnBack</a></li>
+            
+          </ul>
+        </nav>
+      </div>
 
-  <li><a class="links" href="{{ url_for('signup')}}">signup</a></li>
-  {%endif%}
-  </nav>
-  <hr>
-{%endblock nav%}
+      <div class="site-header__end bottom">
+        <div class="search">
+          <button class="search__toggle" aria-label="Open search">
+            Search
+          </button>
+          <form class="search__form" action="">
+            <label class="sr-only" for="search">Search</label>
+            <input
+              type="search"
+              name=""
+              id="search"
+              placeholder="What's on your mind?"
+            />
+          </form>
+        </div>
+        
+       
+      </div>
+    </div>
+  </div>
+</header>
 
-<!-- {%if user%}
-
-      <li>Staff No:{{user.staffno}}</li>
-      <li>Staff Name :{{user.staffname}}</li>
-      <li><button class="logout "><a href="{{ url_for('logout') }}">LogOut</a></button></li>
 
 
-      {%else%}
-
-      <li>Login Frist</li>
 
 
-      {%endif%} -->

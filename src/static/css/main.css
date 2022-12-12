@@ -181,6 +181,10 @@
 .modal-container111 #modal-toggle:checked ~ .modal-backdrop .modal-content .modal-close:hover { color: #333; }
 
 .span1{
-  background: #9CCC65;
+  background: #b2d5f0;
+  color: rgb(10, 10, 10);
+ padding: 10px;
+ text-transform: capitalize;
+ font-weight: bold;
 }
 

@@ -13,6 +13,9 @@
    <link href="{{ url_for('static', path='/css/spectre-exp.min.css') }}" rel="stylesheet">
    <link href="{{ url_for('static', path='/css/spectre-icons.min.css') }}" rel="stylesheet">
    <link href="{{ url_for('static', path='/metro4/css/metro-all.min.css') }}" rel="stylesheet">
+   <link href="{{ url_for('static', path='/css/reset.min.css') }}" rel="stylesheet">
+   <link href="{{ url_for('static', path='/css/style.css') }}" rel="stylesheet">
+   <link href="{{ url_for('static', path='/css/header-14.css') }}" rel="stylesheet">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <link href="{{ url_for('static', path='/mainmodal.css') }}" rel="stylesheet">
    <link href="{{ url_for('static', path='/css/modal.css') }}" rel="stylesheet">
@@ -32,7 +35,7 @@
         {% include 'htmlmodels/nav.html' %}
 
         
-        <div class="container alert-successsqhit alertsqhit " >
+        <div class="container " >
                 
                 {% block content %}
                 {% endblock content %}

@@ -2,17 +2,16 @@
 
 {% extends "base.html" %}
 
-{% block title %}
-  <title>Login</title>
-{% endblock %}
 
 {% block content %}
+{%if equipmentactivitieshistory ==None %}
 <div data-role="carousel"
    
      style="background-color:var(--color-button);overflow:scroll ; height: 70vh;"
   
 >
     <div class="p-2 pl-10 pr-10">
+       
         <div class="row flex-align-center h-100" >
             
             <div class="cell-md-8">
@@ -62,5 +61,20 @@
     </div>
 </div>
 <a class="button alert" href="{{ url_for('home')}}">Home{{sn}}</a>
+{% else  %}
+<div data-role="carousel"
+   
+
+>
+    <div class="p-2 pl-10 pr-10">
+       
+        <div class="row flex-align-center h-100 span1" >
+            <p style="margin: 10% auto;">Equipment With this  <span style="background-color: brown; margin: auto 0;" >SN:{{sn}}</span>  dosnot Have any Maintenence Record</p>
+        </div>
+    </div>
+</div>
+
+<a class="button alert" href="{{ url_for('home')}}">Home</a>
+{%endif%}
 
 {% endblock content %}
