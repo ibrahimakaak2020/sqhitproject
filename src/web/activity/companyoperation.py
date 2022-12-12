@@ -263,6 +263,7 @@ async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=No
     current_user: User = get_current_user_from_token(token=param, db=db)
     sn=sn
     Equipmentregisteryh=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"N"}).all()
+    print("--------------------------ibrahim--------------------",Equipmentregisteryh)
     activityhistory=[]
     for register in Equipmentregisteryh:
      activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":register.registerid,"next_activity":"F"}).all()
