@@ -4,68 +4,8 @@
 
 
 {% block content %}
-{%if equipmentactivitieshistory ==None %}
-<div data-role="carousel"
-   
-     style="background-color:var(--color-button);overflow:scroll ; height: 70vh;"
-  
->
-    <div class="p-2 pl-10 pr-10">
-       
-        <div class="row flex-align-center h-100" >
-            
-            <div class="cell-md-8">
-                <h1 class="text-light">Equipment History</h1>
-                <!-- <p class="mt-4 mb-4">No Equipment In Company..</p> -->
-                {%for activity1 in equipmentactivitieshistory %}
-                {%     if loop.first %}
-                <span class="span1">Serial Number:{{activity1[0].equipmen_register.sn}}</span>
-                {%set sn=activity1[0].equipmen_register.sn%}
-                <hr>
-
-                {% endif %}
-                {%for activity in activity1%}
-               
-                {%- if loop.first -%}
-
-                <span class="span1">
-                   <span>date Of Register:</span> {{activity.equipmen_register.date_of_register}}
-                   <span>Register Problem:</span> {{activity.equipmen_register.register_desc}}
-                   <span>Register By:</span> {{activity.equipmen_register.user.staffname}}
-                </span>
-                    {%- endif -%}
-                 {%if activity.activity_status=="UPL"%}
-                </span>
-                 <h4>Date Of Maintenence:{{activity.activity_date}}- {{activity.activity_desc}}--<span>Maintenence in IT Workshop-</span> 
-                    {% if activity.maintaince_status=="RR"%}<span>Repaired</span> {%else%} <span>Not Repaired</span>{%endif%} <span>Date of Maintenence:{{activity.date_of_maintaince}}</span></h4>
-                    
-                    {%elif activity.activity_status=="UPS"%}
-                    <h4>Date Of Maintenence:{{activity.activity_date}}- {{activity.activity_desc}}--<span>Maintenence in :{{activity.company_user.company_name_en}}</span> --<span>Date of Recieve:{{activity.date_of_recievefrom}}</span> 
-                    {%if activity.maintaince_status=="RR"%}
-                    <h4><span>Repaired</span> {%else%} <span>Not Repaired</span>{%endif%} <span>Date of Maintenence:{{activity.date_of_maintaince}}</span></h4>
-                    {%elif activity.activity_status=="WFR"%}
-                    <h4>Return BY :{{activity.user.staffname}}----DATE of Return To Department :{{activity.date_of_returnback}}</h4>
-                    {%elif activity.activity_status=="WFD"%}
-                    <h4>Waiting For Desion on :{{activity.activity_date}}</h4>
-                    {%else%}
-                    <h4>and .....</h4>
-
-                 {%endif%}
-                    {%endfor%}
-            <hr>
-             {%endfor%}
-                
-              
-            </div>
-        </div>
-    </div>
-</div>
-<a class="button alert" href="{{ url_for('home')}}">Home{{sn}}</a>
-{% else  %}
-<div data-role="carousel"
-   
-
->
+{%if equipmentactivitieshistory ==None%}
+<div data-role="carousel">
     <div class="p-2 pl-10 pr-10">
        
         <div class="row flex-align-center h-100 span1" >
@@ -75,6 +15,56 @@
 </div>
 
 <a class="button alert" href="{{ url_for('home')}}">Home</a>
+{% else  %}
+
+
+<div style="height:30vh ; overflow: scroll;">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="table-responsive" data-pattern="priority-columns">
+          <table summary="This table shows how to create responsive tables using RWD-Table-Patterns' functionality" class="table table-bordered table-hover">
+            <caption class="text-center">
+                {%for register in Equipmentregisteryh %}
+                {%if  loop.first  %}
+                <ul class="activityhregister span1"> <li class="registerli" ><span> Serial Number:{{register.sn}}</span> <span> Register By :{{register.user.staffname}}</span> <span>Register Date {{register.date_of_register}}</span></li>
+                    <li class="noteli">Register Note:{{register.register_desc}}</li>
+                   
+                </ul>
+               
+                 {%endif%}
+
+                {%endfor%}
+            </caption>
+            <thead>
+              <tr>
+                <th>Follow Date</th>
+                <th data-priority="1">Follow By</th>
+                <th data-priority="2">Follow up Note</th>
+                <th data-priority="3"></th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Argentina</td>
+                <td>Spanish (official), English, Italian, German, French</td>
+                <td>41,803,125</td>
+                <td>31.3</td>
+                <td>2,780,387</td>
+              </tr>
+         
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="5" class="text-center">Data retrieved from <a href="" target="_blank">infoplease</a> </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div><!--end of .table-responsive-->
+      </div>
+    </div>
+  </div>
+<a class="button alert" href="{{ url_for('home')}}">Home{{sn}}</a>
 {%endif%}
 
 {% endblock content %}

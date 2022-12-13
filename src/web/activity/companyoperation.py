@@ -267,7 +267,8 @@ async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=No
     activityhistory=[]
     for register in Equipmentregisteryh:
      activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":register.registerid,"next_activity":"F"}).all()
-     activityhistory.append(activity)
+     if activity:
+         activityhistory.append(activity)
      print(activity)
      print(register)
   
