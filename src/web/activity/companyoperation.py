@@ -233,7 +233,7 @@ async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=No
             token
         )  # scheme will hold "Bearer" and param will hold actual token value
        
-    current_user: User = get_current_user_from_token(token=param, db=db)
+    
     Equipmentregisteryh=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn}).all()
     activityhistory=[]
     for register in Equipmentregisteryh:
@@ -242,7 +242,7 @@ async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=No
   
     try:
 
-       
+        current_user: User = get_current_user_from_token(token=param, db=db)
         return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentactivitieshistory":activityhistory,"Equipmentregisteryh":Equipmentregisteryh,"user":current_user})
        
     
@@ -260,7 +260,7 @@ async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=No
             token
         )  # scheme will hold "Bearer" and param will hold actual token value
        
-    current_user: User = get_current_user_from_token(token=param, db=db)
+    
     sn=sn
     Equipmentregisteryh=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"N"}).all()
     print("--------------------------ibrahim--------------------",Equipmentregisteryh)
@@ -272,7 +272,7 @@ async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=No
      print(register)
   
     try:
-
+        current_user: User = get_current_user_from_token(token=param, db=db)
        
         return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentactivitieshistory":activityhistory,"Equipmentregisteryh":Equipmentregisteryh,"sn":sn,"user": current_user})
        
@@ -294,12 +294,12 @@ async def waitingfordecision(request: Request,db: Session = Depends(get_db),acti
             token
         )  # scheme will hold "Bearer" and param will hold actual token value
     print(param, "param")
-    current_user: User = get_current_user_from_token(token=param, db=db)
+    
     activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"activityid":activityid,"maintaince_status":None,"next_activity":"T","activity_status":"WFR","date_of_returnback":None}).first()
     
     try:
        
-          
+                current_user: User = get_current_user_from_token(token=param, db=db)
                 # print(UpdateModelData(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=sentactivity,db=db))
                 update_table(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols={"next_activity":"F","date_of_returnback":datetime.datetime.now(),"recieve_by":current_user.staffno},db=db)
                 print("-----------activity --------",activity.equipmen_register.sn)

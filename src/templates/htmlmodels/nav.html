@@ -17,15 +17,15 @@
       </div>
       
       {%else%}
-      <div class="site-header__start">
+      <div class="site-header__end top">
       
         <ul class="">
-          <li><a class="links" href="{{ url_for('signup')}}">signup</a></li>
+          <li class="span1">Login in </li>
         </ul>
       </div>
-    
+   
       {%endif%}
-      
+    </div>
       
     </div>
   </div>
@@ -41,7 +41,9 @@
             <li class="nav__item"><a href="{{ url_for('equipmentinlocal') }}">Equipments In IT WorkShop</a></li>
             <li class="nav__item"><a  href="{{ url_for('equipmentwaitingforsend') }}">Equipments Waiting For Send</a></li>
             <li class="nav__item"><a  href="{{ url_for('equipmentwaitingforreturn') }}">Equipments Waiting For ReturnBack</a></li>
-            
+            {%if user.admin_role==1%}
+            <li class="nav__item"><a href="{{ url_for('signup')}}">add New User</a></li>
+            {%endif%}
           </ul>
         </nav>
       </div>

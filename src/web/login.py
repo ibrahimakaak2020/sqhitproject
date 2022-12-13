@@ -18,7 +18,7 @@ templates = Jinja2Templates(directory="templates")
 @loginroot.get("/login")
 def login(request: Request):
 
-    return templates.TemplateResponse("login.html", {"request": request})
+    return templates.TemplateResponse("login.html", {"request": request,"user":None})
 
 
 @loginroot.post("/login")
@@ -41,7 +41,7 @@ async def login(request: Request,db: Session = Depends(get_db)):
             form.__dict__.update(msg="")
             form.__dict__.get("errors").append("Incorrect Email or Password")
             return templates.TemplateResponse("login.html", form.__dict__)
-    return templates.TemplateResponse("login.html", form.__dict__)
+    return templates.TemplateResponse("login.html", form.__dict__,{"user":None})
 
 
 @loginroot.get("/logout")
