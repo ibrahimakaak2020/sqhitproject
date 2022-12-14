@@ -187,4 +187,35 @@
  text-transform: capitalize;
  font-weight: bold;
 }
+.activityhregister{
+  background: #b2d5f0;
+  color: rgb(10, 10, 10);
+ padding-right: 100px;
+ text-transform: capitalize;
+ font-weight: bold;
+}
+ .noteli{
+
+  
+  margin: 10px;
+  text-align: left;
+  /* line-height: 75px; */
+  font-size: 20px;
+}
+ .registerli{
+  display: flex;
+  flex-wrap: nowrap;
+
+
+ text-transform: capitalize;
+ font-weight: bold;
+}
+
+.registerli > span {
+ 
+  margin: 10px;
+  text-align: left;
+  /* line-height: 75px; */
+  font-size: 20px;
+}
 

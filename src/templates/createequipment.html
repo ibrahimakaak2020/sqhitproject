@@ -5,30 +5,33 @@
             <li>{{error}}</li>
           {% endfor %}
       </div>
-      <span class="span">Equipment Does Not Exist</span>
-      <h2>add Equipment </h2>
-      <form  class="formregisterequipment" action="/createequipmentmain"  method="post">
+      <span class="remark warning">Equipment Does Not had any maintenence Record</span>
+      <h2 class="span1">add Equipment Details </h2>
+      <hr>
+      <form  action="/createequipmentmain"  method="post">
         <input type="text" name="sn" value="{{search}}" hidden>
-       <label for="model"><b>Select Equipment Model:</b></label>
-        <select  name="emid" data-role="select">
+        <div class="form-group ">
+       <label for="emid">Select Equipment Model:</label>
+        <select  name="emid" data-role="select" class="metro-input success">
             {% for model in equipmnetmodel%}
                 <option value="{{model.mid}}">{{model.equipment_model}}</option>
    
             {% endfor %}
         </select>
-       
-        <label for="model"><b>Select Equipment Location :</b></label>
-        <select name="locid" data-role="select">
+      </div>
+      <div class="form-group">
+        <label for="locid">Select Equipment Location :</label>
+        <select name="locid" data-role="select" class="metro-input success">
           {% for loc in locations%}
               <option value="{{loc.locid}}">{{loc.building}} --> {{loc.loc_name}} --> {{loc.contact_number}}</option>
   
           {% endfor %}
       </select>
-    
+      </div>
    
 
 
-      <button type="submit">Add Equipment</button>
+      <button class="button " type="submit">Add Equipment</button>
     </form>
     </div>
 

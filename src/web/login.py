@@ -18,7 +18,7 @@ templates = Jinja2Templates(directory="templates")
 @loginroot.get("/login")
 def login(request: Request):
 
-    return templates.TemplateResponse("login.html", {"request": request})
+    return templates.TemplateResponse("login.html", {"request": request,"user":None})
 
 
 @loginroot.post("/login")
@@ -39,9 +39,9 @@ async def login(request: Request,db: Session = Depends(get_db)):
             return response
         except HTTPException:
             form.__dict__.update(msg="")
-            form.__dict__.get("errors").append("Incorrect Email or Password")
-            return templates.TemplateResponse("login.html", form.__dict__)
-    return templates.TemplateResponse("login.html", form.__dict__)
+            form.__dict__.get("errors").append("Incorrect StaffNo or Password")
+            return templates.TemplateResponse("login.html",{"request":request, "user":None,"errors": form.__dict__['errors']})
+    return templates.TemplateResponse("login.html",{"request":request, "user":None,"errors": form.__dict__['errors']})
 
 
 @loginroot.get("/logout")
@@ -51,4 +51,4 @@ async def logout(request: Request):
         response.delete_cookie("access_token")
         return response
     except Exception:
-        return templates.TemplateResponse("login.html", {"request": request})
+        return templates.TemplateResponse("login.html", {"request": request,"user":None})

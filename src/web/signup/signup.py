@@ -21,7 +21,7 @@ templates = Jinja2Templates(directory="templates")
 @signuproot.get("/signup")
 def signup(request: Request):
 
-    return templates.TemplateResponse("signup.html", {"request": request})
+    return templates.TemplateResponse("signup.html", {"request": request,"user":None})
 
 
 @signuproot.post("/signup")
