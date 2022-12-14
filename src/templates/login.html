@@ -9,15 +9,15 @@
 {% block content %}
 <hr>
  <!-- <div  class="bg-mainsub " style=" margin:30px auto;"> -->
-<div  data-role="panel" style=" margin:30px auto;" data-title-caption=" Login To System" data-cls-title="bg-mainsub bg-accent-400 "> 
+<div  data-role="panel" style=" margin:30px auto;" data-title-caption=" Login To System" data-cls-title="bg-mainsub "> 
 
-    <div class="text-danger font-weight-bold">
+    <div class="text-danger font-weight-bold ">
           {% for error in errors %}
-            <li>{{error}}</li>
+            <li class="remark warning">{{error}}</li>
           {% endfor %}
       </div>
 
-  <form class="login-form bg-white p-6 mx-auto border bd-default win-shadow" method="post">
+  <form class=" remark primary" method="post">
     <div  class="form-group">
     
       <label for="username"><b>Staff Number:</b></label>

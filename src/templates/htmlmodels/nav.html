@@ -19,7 +19,7 @@
       {%else%}
       <div class="site-header__end top">
       
-        <ul class="">
+        <ul class="remark primary">
           <li class="span1">Login in </li>
         </ul>
       </div>
@@ -37,12 +37,12 @@
             menu
           </button>
           <ul class="nav__wrapper">
-            <li class="nav__item"><a href="{{ url_for('equipmentincompany') }}">Equipments In Company</a></li>
-            <li class="nav__item"><a href="{{ url_for('equipmentinlocal') }}">Equipments In IT WorkShop</a></li>
-            <li class="nav__item"><a  href="{{ url_for('equipmentwaitingforsend') }}">Equipments Waiting For Send</a></li>
-            <li class="nav__item"><a  href="{{ url_for('equipmentwaitingforreturn') }}">Equipments Waiting For ReturnBack</a></li>
+            <li class="nav__item "><a class="button info text-bold va-middle "  href="{{ url_for('equipmentincompany') }}">Equipments In Company</a></li>
+            <li class="nav__item"><a  class="button info" href="{{ url_for('equipmentinlocal') }}">Equipments In IT WorkShop</a></li>
+            <li class="nav__item"><a  class="button info" href="{{ url_for('equipmentwaitingforsend') }}">Equipments Waiting For Send</a></li>
+            <li class="nav__item"><a  class="button info" href="{{ url_for('equipmentwaitingforreturn') }}">Equipments Waiting For ReturnBack</a></li>
             {%if user.admin_role==1%}
-            <li class="nav__item"><a href="{{ url_for('signup')}}">add New User</a></li>
+            <li class="nav__item"><a class="button yellow" href="{{ url_for('signup')}}">add New User</a></li>
             {%endif%}
           </ul>
         </nav>

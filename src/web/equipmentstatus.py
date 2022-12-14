@@ -39,7 +39,7 @@ def equipmentincompany(request: Request,db: Session=Depends(get_db),sn:str=None)
         register_by=current_user.staffno
 
 
-        return templates.TemplateResponse("activityequipmentshownew.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions})
+        return templates.TemplateResponse("activityequipmentshownew.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
