@@ -81,7 +81,7 @@ class EquipmentRegister(Base):
     date_of_register = Column(DateTime, default=datetime.datetime.now ,nullable=False) 
     register_by =  Column(Integer, ForeignKey('user.staffno'))
     user = relationship("User", back_populates="equipment_register") 
-    register_desc = Column(String(300) , nullable=False)
+    register_desc = Column(String(3000) , nullable=False)
     workorderid=Column(Integer)
     register_status=Column(String(1) ,default='Y')# active y or not active n
     sn = Column(String(30), ForeignKey('equipment.sn'))
@@ -104,8 +104,8 @@ class EquipmentActivity(Base):
     recieve_by =  Column(Integer)
    
     next_activity=Column(String(3))# Yes(have another activity or NO  Finall activity or Conadmnations
-    activity_desc = Column(String(300))
-    recieve_note = Column(String(300))
+    activity_desc = Column(String(3000))
+    recieve_note = Column(String(3000))
     activity_status = Column(String(3) ) # RR Repaired RO Not Repaired CC Condamnation
     maintaince_status=Column(String(3))
     date_of_maintaince = Column(DateTime)   
