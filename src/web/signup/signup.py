@@ -43,7 +43,7 @@ async def signup(request: Request,db: Session = Depends(get_db)):
         except HTTPException:
             form.__dict__.update(msg="")
             form.__dict__.get("errors").append("Incorrect username or Password")
-            return templates.TemplateResponse("signup.html", form.__dict__)
-    return templates.TemplateResponse("signup.html", form.__dict__)
+            return templates.TemplateResponse("signup.html",{"request":request,"user":None,"errors":form.__dict__['errors']})
+    return templates.TemplateResponse("signup.html", {"request":request,"user":None,"errors":form.__dict__['errors']})
 
 

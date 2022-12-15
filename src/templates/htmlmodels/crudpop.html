@@ -57,6 +57,7 @@
                 <option value="NR"  class="text-bold fg-red">Not Repaired</option>
                 
             </select>
+            <input name="check" value="local" hidden>
               <label>recieve_note</label>
               <textarea name="recieve_note"  data-role="textarea"></textarea>
              
@@ -98,20 +99,21 @@
     <div id="Workshop" class="overlay">
         <div class="popup">
         
-          <h2> Recieve Equipement</h2>
+          <h2> Maintenance  Equipement In IT</h2>
           <a class="close" href="#">&times;</a>
+          <hr>
           <div class="content alert-successsqhit">
             <div class="interior alert-successsqhit">
         <form method="post" action="/locally">
             <div class="row alert-successsqhit">
                 <input name="sn" value="{{sn}}" hidden>
+                <input name="check" value="workshop" hidden>
                 <div class="cell-md-12">
                     <p>Enter Your Notes :</p>
                     <textarea name="activity_desc" data-role="textarea"></textarea>
                 </div>
-                <button class="button">
-                    <span class="icon mif-plus"></span>
-                    <span class="label">Save For Local Maintenance</span>
+                <button class="button info">
+                   Save For Local Maintenance
                 </button>
             </div>
         </form>
@@ -130,13 +132,15 @@
 
     <div id="send" class="overlay ">
       <div class="popup ">
-        <h2> Recieve Equipement</h2>
-        <a class="close" href="#">&times;</a>
+        <h2> Send new Equipement</h2>
+        <a style="padding-bottom: 10px;" class="close" href="#">&times;</a>
+        <hr>
         <div class="content alert-successsqhit">
           <div class="interior alert-successsqhit">
-      <form action="/actionstatusnew?activityid={{activity.activityid}}" method="post">
+      <form action="/sentequipmenttoecompany?activityid={{activity.activityid}}&registerid={{activity.registerid}}" method="post">
           <div class="row alert-successsqhit">
               <input name="sn" value="{{sn}}" hidden>
+              <input name="check" value="send" hidden>
               <label for="model"><b>Select Company User:</b></label>
               <select name="cid" data-role="select">
                   {% for cuser in companyuser%}
@@ -144,13 +148,13 @@
 
                   {% endfor %}
               </select>
+              <hr>
               <div class="cell-md-12">
                   <p>Enter Your Notes :</p>
                   <textarea name="activity_desc" data-role="textarea"></textarea>
               </div>
-              <button class="button">
-                  <span class="icon mif-plus"></span>
-                  <span class="label">Send To Company</span>
+              <button class="button info">
+                 Send To Company
               </button>
           </div>
       </form>

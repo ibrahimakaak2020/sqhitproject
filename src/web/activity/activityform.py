@@ -16,6 +16,7 @@ class UpdateActivityForm:
         self.maintaince_status: Optional[str] = None
         self.recieve_note: Optional[str] = "N"
         self.billid:Optional[str] =None
+       
         self.billamount:Optional[int] =None
         self.activityid:Optional[int] =None
         self.date_of_recievefrom:Optional[datetime]=None
@@ -38,6 +39,7 @@ class UpdateActivityForm:
             self.billamount = form.get(
                 "billamount"
             )
+          
             self.date_of_recievefrom=datetime.now()
 
         

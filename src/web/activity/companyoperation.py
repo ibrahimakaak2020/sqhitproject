@@ -87,7 +87,7 @@ async def locally(request: Request,db: Session = Depends(get_db),sn:str=None):
 # send equipment to company
 
 @activityroot.post("/sentequipmenttoecompany")
-async def sendequipmenttoecompany(request: Request,db: Session = Depends(get_db),sn:str=None,activityid:int=None):
+async def sendequipmenttoecompany(request: Request,db: Session = Depends(get_db),sn:str=None,activityid:int=None,registerid:int=None):
    
     form = SendToCompanyForm(request)
     token = request.cookies.get("access_token")
@@ -100,8 +100,12 @@ async def sendequipmenttoecompany(request: Request,db: Session = Depends(get_db)
     
     await form.load_data()
     sn=form.__dict__['sn']
-    
-    registerid=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"Y"}).first()
+    registerid=None
+    if registerid:
+        registerid=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"registerid":registerid,"register_status":"Y"}).first()
+    else:
+        registerid=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"Y"}).first()
+
     activityT=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"activityid":activityid,"next_activity":"T"}).first()
     if activityT:       
     
@@ -113,6 +117,11 @@ async def sendequipmenttoecompany(request: Request,db: Session = Depends(get_db)
                 equipmentregister=EquipmentActivityCreate(**form.__dict__,create_by=userid,registerid=registerid.registerid,activity_status="UPS",activity_date=datetime.datetime.now(),place_of_maintaince="S",next_activity='T')
                 
                 print("check ibrahim",equipmentregister)
+    
+                updatewaiting=updateactivitywaiting(date_of_maintaince=datetime.datetime.now())
+               
+                update_table(modeltable=EquipmentActivity,col_id={"activityid":activityT.activityid},updatecols=updatewaiting,db=db)
+
                 CreateModelData(modeltable=EquipmentActivity,db=db, modelcreate=equipmentregister)
                 return RedirectResponse('/'+'?sn='+sn, status_code=303)
                 
@@ -122,8 +131,8 @@ async def sendequipmenttoecompany(request: Request,db: Session = Depends(get_db)
             except HTTPException:
                 form.__dict__.update(msg="Optional[str] = None")
                 form.__dict__.get("errors").append("Equipment Already Sended to Comapany")
-                return templates.TemplateResponse("sendtocompany.html", form.__dict__,{"request": request,"errors":form.__dict__['errors'],"sn":form.__dict__['sn']})
-        return templates.TemplateResponse("sendtocompany.html",{"request": request, "errors":form.__dict__['errors'],"sn":form.__dict__['sn']})
+                return templates.TemplateResponse("sendtocompany.html", form.__dict__,{"request": request,"errors":form.__dict__['errors'],"sn":form.__dict__['sn'],"user":current_user})
+        return templates.TemplateResponse("sendtocompany.html",{"request": request, "errors":form.__dict__['errors'],"sn":form.__dict__['sn'],"user":current_user})
     else:
         if await form.is_valid(registerid=registerid.registerid ,db=db):
             try:
@@ -142,8 +151,8 @@ async def sendequipmenttoecompany(request: Request,db: Session = Depends(get_db)
             except HTTPException:
                 form.__dict__.update(msg="Optional[str] = None")
                 form.__dict__.get("errors").append("Equipment Already Sended to Comapany")
-                return templates.TemplateResponse("sendtocompany.html", form.__dict__,{"request": request,"errors":form.__dict__['errors'],"sn":form.__dict__['sn']})
-        return templates.TemplateResponse("sendtocompany.html",{"request": request, "errors":form.__dict__['errors'],"sn":form.__dict__['sn']})
+                return templates.TemplateResponse("sendtocompany.html", form.__dict__,{"request": request,"errors":form.__dict__['errors'],"sn":form.__dict__['sn'],"user":current_user})
+        return templates.TemplateResponse("sendtocompany.html",{"request": request, "errors":form.__dict__['errors'],"sn":form.__dict__['sn'],"user":current_user})
 
 # keep in waiting list
 
