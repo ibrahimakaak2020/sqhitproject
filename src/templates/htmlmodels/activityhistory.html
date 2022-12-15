@@ -17,30 +17,30 @@
 <a class="button alert" href="{{ url_for('home')}}">Home</a>
 {% else  %}
 
-
+{%for register in Equipmentregisteryh %}
 <div style="height:30vh ; overflow: scroll;">
     <div class="row">
       <div class="col-xs-12">
         <div class="table-responsive" data-pattern="priority-columns">
           <table summary="This table shows how to create responsive tables using RWD-Table-Patterns' functionality" class="table table-bordered table-hover">
             <caption class="text-center">
-                {%for register in Equipmentregisteryh %}
-                {%if  loop.first  %}
+               
+              
                 <ul class="activityhregister span1"> <li class="registerli" ><span> Serial Number:{{register.sn}}</span> <span> Register By :{{register.user.staffname}}</span> <span>Register Date {{register.date_of_register}}</span></li>
                     <li class="noteli">Register Note:{{register.register_desc}}</li>
                    
                 </ul>
                
-                 {%endif%}
+                
 
-                {%endfor%}
+                
             </caption>
             <thead>
               <tr>
                 <th>Follow Date</th>
                 <th data-priority="1">Follow By</th>
                 <th data-priority="2">Follow up Note</th>
-                <th data-priority="3"></th>
+                <th data-priority="3">activit type</th>
                 
               </tr>
             </thead>
@@ -64,6 +64,7 @@
       </div>
     </div>
   </div>
+  {%endfor%}
 <a class="button alert" href="{{ url_for('home')}}">Home{{sn}}</a>
 {%endif%}
 
