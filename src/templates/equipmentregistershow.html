@@ -2,7 +2,11 @@
 
 {% block content %}
 <hr>
-<table class="table bg-mainsub2">
+<div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="table-responsive" data-pattern="priority-columns">
+            <table summary="Take Desion " class="table table-bordered table-hover">
     <thead>
         <tr>
             <td>Register Date</td>
@@ -24,10 +28,15 @@
        
         <tr>
         
-          <td colspan="5" class="text-center"><span class="bg-black fg-white">Problem Description:</span>{{equipmentregister.register_desc}} </td>
+          <td colspan="5" class="text-left"><span class="bg-black fg-white">Problem Description:</span>{{equipmentregister.register_desc}} </td>
         </tr>
       </tfoot>
 </table>
+        </div>
+      </div>
+    </div>
+</div>
+
 
 {% endblock content %}  
     

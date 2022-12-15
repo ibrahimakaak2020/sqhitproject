@@ -15,7 +15,9 @@
 
 }
   
-
+.deepskyblue{
+  background-color: lightskyblue;
+}
 .text-accent-400 {
   color: var(--clr-accent-400);
 }
