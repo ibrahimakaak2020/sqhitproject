@@ -64,7 +64,7 @@ def createequipment(request: Request,db: Session=Depends(get_db),msg:str=None,sn
 
 
 
-@createequipmentroot.post("/createequipment")
+@createequipmentroot.get("/createequipment")
 async def createequipment(request: Request,db: Session = Depends(get_db)):
     locations=QueryModelData(modeltable=Location,db=db).all()
     equipmentmodels=QueryModelData(modeltable=Equipment_Model,db=db).all()

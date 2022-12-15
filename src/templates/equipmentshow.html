@@ -1,7 +1,11 @@
 
 
 {% block content %}
-<table class="table">
+<div style="height:30vh ; overflow: scroll;">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="table-responsive" data-pattern="priority-columns">
+          <table summary="Take Desion " class="table table-bordered table-hover">
     <thead>
         <tr>
             <td>Serial Number</td>
@@ -27,6 +31,10 @@
         </tr>
     </tbody>
 </table>
+        </div>
+      </div>
+    </div>
+</div>
 
 
 {% endblock content %}  

@@ -1,7 +1,10 @@
 
 
 {% block content %}
-<div class="container bg-mainsub2">
+<div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="table-responsive" data-pattern="priority-columns">
 <h3>Equipment Details</h3>
 <ul class="group-list horizontal">
     <li> {{equipment.sn}}</li>
@@ -22,12 +25,17 @@
     
         </ul>
     </div>
-    <form action="/activityhistory?sn={{equipment.sn}}" method="post">
-        <button class="button">
-            <span class="icon mif-plus"></span>
-            <span class="label">here</span>
+    <form class="span1" action="/activityhistory?sn={{equipment.sn}}" method="post">
+        <button class="button info">
+            <!-- <span class="icon mif-plus"></span> -->
+            <!-- <span class="label">here</span> -->
+            History Details
           </button>
     </form>
+      </div>
+    </div>
+</div>
+
    
 {% endblock content %}  
     
