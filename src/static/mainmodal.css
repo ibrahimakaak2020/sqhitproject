@@ -7,7 +7,7 @@ h1 {
 }
 
 .box {
-  width: 60%;
+  width: 600px;
   margin: 0 auto;
   background:white;
   padding: 3px;
@@ -42,6 +42,17 @@ h1 {
   visibility: hidden;
   opacity: 0;
 }
+.overlay1 {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: visible;
+  opacity: 1;
+}
 .overlay:target {
   visibility: visible;
   opacity: 1;
@@ -52,7 +63,7 @@ h1 {
   padding: 20px;
   background: #fff;
   border-radius: 5px;
-  width: 30%;
+  width: 600px;
   position: relative;
   transition: all 5s ease-in-out;
 }

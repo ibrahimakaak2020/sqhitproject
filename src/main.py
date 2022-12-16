@@ -17,6 +17,8 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from web.login import loginroot
 from web.signup.signup import signuproot 
+from web.signup.changeuser import changepasswordproot 
+
 from web.registerequipment import registerroot
 from  web.createequipment import createequipmentroot
 from web.equipmentstatus import equipmentstatusroot
@@ -34,6 +36,7 @@ app.include_router(createequipmentroot)
 app.include_router(activityroot)
 app.include_router(signuproot)
 app.include_router(equipmentstatusroot)
+app.include_router(changepasswordproot)
 
 
 @app.get('/')
