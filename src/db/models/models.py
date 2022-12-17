@@ -1,7 +1,7 @@
 from sqlalchemy.schema import Column
 from sqlalchemy.types import String, Integer, DateTime,DECIMAL
 #from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, Numeric
 from db.database.database import *
 import datetime
 from sqlalchemy.orm import relationship
@@ -111,7 +111,7 @@ class EquipmentActivity(Base):
     date_of_maintaince = Column(DateTime)   
     place_of_maintaince=Column(String(1) ) # local L or Send to Company S
     billid=Column(String(30))
-    billamount=Column(DECIMAL)
+    billamount=Column(Numeric)
     company_id= Column(Integer, ForeignKey('company_user.cid'))
     company_user=relationship("Company_User", back_populates="equipmentactivity")
     date_of_send = Column(DateTime)

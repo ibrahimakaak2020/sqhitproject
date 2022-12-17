@@ -44,9 +44,10 @@ async def changepassword(request: Request,db: Session = Depends(get_db),staffno=
    
 
     await form.load_data()
+    current_user: User = get_current_user_from_token(token=param, db=db)
     if await form.is_valid(db=db,staffno=staffno):
         try:
-            current_user: User = get_current_user_from_token(token=param, db=db)
+           
             
             user=update_table(modeltable=User,db=db, col_id={"staffno":staffno}, updatecols={"password":Hasher.get_password_hash(form.__dict__['newpassword'])})
             return RedirectResponse('/', status_code=status.HTTP_302_FOUND)

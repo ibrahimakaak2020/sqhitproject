@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel,EmailStr
+from pydantic import BaseModel,EmailStr, Field, condecimal
+
 from decimal  import Decimal
 class ManufactureCreate( BaseModel ):
 
@@ -104,7 +105,7 @@ class updateactivitycompany(BaseModel):
     recieve_by:str=None
     recieve_note:str=None
     billid:str="0"
-    billamount:Optional[Decimal]=0.0
+    billamount:condecimal(max_digits=5, decimal_places=3) = 0.0
 
 
 class updateactivitywaiting(BaseModel):

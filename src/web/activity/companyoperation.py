@@ -165,7 +165,7 @@ async def waiting(request: Request,db: Session = Depends(get_db),activityid:int=
         )  # scheme will hold "Bearer" and param will hold actual token value
     print(param, "param")
     current_user: User = get_current_user_from_token(token=param, db=db)
-    activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"activityid":activityid,"maintaince_status":None,"next_activity":"T","activity_status":"WFR","date_of_returnback":None}).first()
+    activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"activityid":activityid,"maintaince_status":None,"next_activity":"T","date_of_returnback":None}).first()
     
     try:
        
