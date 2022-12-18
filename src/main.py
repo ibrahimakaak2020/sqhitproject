@@ -40,7 +40,7 @@ app.include_router(changepasswordproot)
 
 
 @app.get('/')
-async def home(request: Request, db: Session=Depends(get_db),msg:str=None,search:str=None,sn:str=None):
+async def home(request: Request, db: Session=Depends(get_db),msg:str=None,search:str=None,sn:str=None,error:str=None):
     locations=QueryModelData(modeltable=Location,db=db).all()
     equipmentmodels=QueryModelData(modeltable=Equipment_Model,db=db).all()
     companyuser=QueryModelData(modeltable=Company_User,db=db).all()
@@ -83,7 +83,7 @@ async def home(request: Request, db: Session=Depends(get_db),msg:str=None,search
         contents = {"request": request, "equipment": equipment, "equipmentregister": equipmentregister,
          "equipmentactivities": equipmentactivities, "search": sn, "locations": locations,
           "equipmnetmodel": equipmentmodels, "user": current_user,"companyuser":companyuser,
-           "sn": sn,"activityaction":actions,"equipmentactivitieshistory":equipmentactivitieshistory}
+           "sn": sn,"activityaction":actions,"equipmentactivitieshistory":equipmentactivitieshistory,"error":error}
 
 
   # print(f"Current user :{current_user.staffname},{datetime.now()}")
@@ -93,7 +93,7 @@ async def home(request: Request, db: Session=Depends(get_db),msg:str=None,search
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
 
 @app.post('/')
-async def home(request: Request, db: Session=Depends(get_db),msg:str=None,sn:str=None):
+async def home(request: Request, db: Session=Depends(get_db),msg:str=None,sn:str=None,error:str=None):
     locations=QueryModelData(modeltable=Location,db=db).all()
     equipmentmodels=QueryModelData(modeltable=Equipment_Model,db=db).all()
     companyuser=QueryModelData(modeltable=Company_User,db=db).all()
@@ -132,7 +132,7 @@ async def home(request: Request, db: Session=Depends(get_db),msg:str=None,sn:str
         contents={"request": request, "user": current_user,"equipment":equipment
                  ,"equipmentregister":equipmentregister,"companyuser":companyuser,
                 "equipmentactivities":equipmentactivities,"search":search,"sn":sn
-                ,"locations":locations,"equipmnetmodel":equipmentmodels,"activityaction":actions,"equipmentactivitieshistory":equipmentactivitieshistory }
+                ,"locations":locations,"equipmnetmodel":equipmentmodels,"activityaction":actions,"equipmentactivitieshistory":equipmentactivitieshistory ,"error":error}
 
         return templates.TemplateResponse("index.html",contents )
     except Exception as e:

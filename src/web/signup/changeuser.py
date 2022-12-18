@@ -1,6 +1,7 @@
 from fastapi import FastAPI, status, HTTPException, Depends
 # from fastapi.responses import RedirectResponse
 from fastapi import APIRouter, Request, Response
+from fastapi.responses import RedirectResponse
 from core.hashing import Hasher
 from db.models.models import User
 from sqlalchemy.orm import Session
@@ -11,7 +12,7 @@ from api.route_login import login_for_access_token
 from db.schemas.schemas import UserShow,UserCreate
 from web.loginform import LoginForm
 from fastapi.templating import Jinja2Templates
-from starlette.responses import RedirectResponse
+
 from db.datacreator import CreateModelData, update_table
 
 from web.signup.changeuserform import ChangeUserForm
@@ -28,11 +29,11 @@ def changepassword(request: Request,errors:None,db: Session = Depends(get_db),st
             
     current_user: User = get_current_user_from_token(token=param, db=db)
 
-    return templates.TemplateResponse("changepassword.html", {"request": request,"user":current_user,"errors":errors})
+    return RedirectResponse("http://localhost:8000/#changepassword", {"request":request,"user":current_user,"errors":form.__dict__['errors']})
 
 
 @changepasswordproot.post("/changepassword")
-async def changepassword(request: Request,db: Session = Depends(get_db),staffno=None):
+async def changepassword(request: Request,db: Session = Depends(get_db),staffno=None,error:str=None):
     form = ChangeUserForm(request)
     staffno=staffno
     print('-------------current staffno:',staffno)
@@ -42,6 +43,9 @@ async def changepassword(request: Request,db: Session = Depends(get_db),staffno=
         )  # scheme will hold "Bearer" and param will hold actual token value
        
    
+    error="Please Enter Your Correct Current Password"
+    headers = {'Location': '/#changepassword','error':error}
+    
 
     await form.load_data()
     current_user: User = get_current_user_from_token(token=param, db=db)
@@ -53,8 +57,10 @@ async def changepassword(request: Request,db: Session = Depends(get_db),staffno=
             return RedirectResponse('/', status_code=status.HTTP_302_FOUND)
         except HTTPException:
             form.__dict__.update(msg="")
-            form.__dict__.get("errors").append("Incorrect username or Password")
-            return templates.TemplateResponse("/htmlmodels/changepassword.html",{"request":request,"user":current_user,"errors":form.__dict__['errors']})
-    return templates.TemplateResponse("/htmlmodels/changepassword.html", {"request":request,"user":current_user,"errors":form.__dict__['errors']})
+            form.__dict__.get("errors").append("Please Enter Your Correct Current Password")
+            return  Response(data=error, headers=headers, status_code=status.HTTP_307_TEMPORARY_REDIRECT)
+
+    return  Response(content=error, headers=headers, status_code=status.HTTP_307_TEMPORARY_REDIRECT)
+
 
 
