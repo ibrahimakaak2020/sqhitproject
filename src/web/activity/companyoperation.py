@@ -10,7 +10,7 @@ from db.database.database import get_db
 from fastapi.security.utils import get_authorization_scheme_param
 from api.route_login import get_current_user_from_token
 # from api.route_login import login_for_access_token
-from db.datacreator import CreateModelData, QueryModelData, UpdateModelData, update_table
+from db.datacreator import CreateModelData, QueryModelData, Queryactivityhistory, UpdateModelData, update_table
 from db.schemas.schemas import EquipmentActivityCreate, EquipmentCreate, UserShow, EquipmentRegisterCreate, updateactivity, updateactivitycompany,updateactivitywaiting
 from web.activity.activityform import UpdateActivityForm
 from web.activity.locallyform import LocallyForm
@@ -204,7 +204,7 @@ async def actionstatusnew(request: Request,db: Session=Depends(get_db),activityi
        
           
         if activity.place_of_maintaince=="L":
-            localactivity= updateactivity(recieve_by=current_user.staffno,**form.__dict__)
+            localactivity= updateactivity(recieve_by=current_user.staffno,date_of_maintaince=datetime.datetime.now(),**form.__dict__)
             print(dict(localactivity))
             # print(UpdateModelData(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=localactivity,db=db))
             update_table(modeltable=EquipmentActivity,col_id={"activityid":activity.activityid},updatecols=localactivity,db=db)
@@ -244,15 +244,12 @@ async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=No
        
     
     Equipmentregisteryh=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn}).all()
-    activityhistory=[]
-    for register in Equipmentregisteryh:
-     activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":register.registerid,"next_activity":"F"}).all()
-     activityhistory.append(activity)
+   
   
     try:
 
         current_user: User = get_current_user_from_token(token=param, db=db)
-        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentactivitieshistory":activityhistory,"Equipmentregisteryh":Equipmentregisteryh,"user":current_user})
+        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentah":Queryactivityhistory,"Equipmentregisteryh":Equipmentregisteryh,"user":current_user})
        
     
     except Exception as e:
@@ -273,18 +270,12 @@ async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=No
     sn=sn
     Equipmentregisteryh=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"N"}).all()
     print("--------------------------ibrahim--------------------",Equipmentregisteryh)
-    activityhistory=[]
-    for register in Equipmentregisteryh:
-     activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":register.registerid,"next_activity":"F"}).all()
-     if activity:
-         activityhistory.append(activity)
-     print(activity)
-     print(register)
+    
   
     try:
         current_user: User = get_current_user_from_token(token=param, db=db)
        
-        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentactivitieshistory":activityhistory,"Equipmentregisteryh":Equipmentregisteryh,"sn":sn,"user": current_user})
+        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentah":Queryactivityhistory,"Equipmentregisteryh":Equipmentregisteryh,"sn":sn,"user": current_user})
        
     
     except Exception as e:

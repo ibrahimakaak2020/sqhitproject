@@ -14,6 +14,7 @@ from db.datacreator import CreateModelData, QueryModelData, UpdateModelData, upd
 from db.schemas.schemas import EquipmentActivityCreate, EquipmentCreate, UserShow, EquipmentRegisterCreate, updateactivity, updateactivitycompany
 from web.activity.activityform import UpdateActivityForm
 from web.activity.locallyform import LocallyForm
+from db.datacreator import Queryactivityhistory,myfirstname
 
 from db.models import models
 from fastapi.templating import Jinja2Templates
@@ -196,45 +197,47 @@ async def actionstatusnew(request: Request,db: Session=Depends(get_db),activityi
         
 @activityroot.get("/activityhistory")
 async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=None):
+    token = request.cookies.get("access_token")
+    scheme, param = get_authorization_scheme_param(
+            token
+        )  # scheme will hold "Bearer" and param will hold actual token value
+    print(param, "param")
+    current_user: User = get_current_user_from_token(token=param, db=db)
     
     Equipmentregisteryh=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn}).all()
-    activityhistory=[]
-    for register in Equipmentregisteryh:
-     activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":register.registerid,"next_activity":"F"}).all()
-     activityhistory.append(activity)
-  
+    print("from get ---------------------now",Equipmentregisteryh)
+   
+
     try:
 
        
-        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentactivitieshistory":activityhistory,"Equipmentregisteryh":Equipmentregisteryh})
+        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"myfun":myfirstname,"equipmentah":Queryactivityhistory,"Equipmentregisteryh":Equipmentregisteryh,"user":current_user})
        
     
     except HTTPException:
             return templates.TemplateResponse("index.html",{"request": request})
-    return templates.TemplateResponse("index.html",{"request": request})
+   
 
 
         
 @activityroot.post("/activityhistory")
 async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=None):
-    
+    token = request.cookies.get("access_token")
+    scheme, param = get_authorization_scheme_param(
+            token
+        )  # scheme will hold "Bearer" and param will hold actual token value
+    print(param, "param")
+    current_user: User = get_current_user_from_token(token=param, db=db)
     Equipmentregisteryh=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"N"}).all()
-    activityhistory=[]
-    for register in Equipmentregisteryh:
-     activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":register.registerid,"next_activity":"F"}).all()
-     activityhistory.append(activity)
-     print(activity)
-     print(register)
+    print("---------------------now",Equipmentregisteryh)
   
     try:
 
-       
-        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentactivitieshistory":activityhistory,"Equipmentregisteryh":Equipmentregisteryh})
-       
+        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"myfun":myfirstname,"equipmentah":Queryactivityhistory,"Equipmentregisteryh":Equipmentregisteryh,"user":current_user})
     
     except HTTPException:
             return templates.TemplateResponse("index.html",{"request": request})
-    return templates.TemplateResponse("index.html",{"request": request})
+    
 
 
 
@@ -266,7 +269,7 @@ async def waitingfordecision(request: Request,db: Session = Depends(get_db),acti
     
     except HTTPException:
             return templates.TemplateResponse("index.html",{"request": request})
-    return templates.TemplateResponse("index.html",{"request": request})
+  
 
 @activityroot.post("/waitingforsend")
 async def waitingfordecision(request: Request,db: Session = Depends(get_db),activityid:int=None):

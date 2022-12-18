@@ -56,6 +56,11 @@ def QueryModelData(modeltable, db:Session, cols: dict = None):
         cols = {}
     return db.query(modeltable).filter_by(**cols) if cols else db.query(modeltable)
 
+def Queryactivityhistory(registerid:int):
+    session=next(get_db())
+   
+    return session.query(EquipmentActivity).filter(EquipmentActivity.registerid==registerid).all()
+
 
 def QueryModelDataActivity(db:Session,search:str=None,active:bool=True):
     if search:
@@ -214,10 +219,7 @@ class CRUD:
         self.session.delete(entry)
         self.session.commit()
 
-    def readwith(self, pk_value):
-        # Join the related objects
-        query = self.session.query(self.table_class).join(RelatedTable)
 
-        # Filter the entries by the primary key
-        entries = query.filter(getattr(self.table_class, self.pk_name)==pk_value).all()
-        return entries
+
+def myfirstname():
+    return "ibrahim ali"
