@@ -4,38 +4,27 @@
 
 
 {% block content %}
-{%if equipmentactivitieshistory ==None%}
-<div data-role="carousel">
-    <div class="p-2 pl-10 pr-10">
-       
-        <div class="row flex-align-center h-100 span1" >
-            <p style="margin: 10% auto;">Equipment With this  <span style="background-color: brown; margin: auto 0;" >SN:{{sn}}</span>  dosnot Have any Maintenence Record</p>
-        </div>
-    </div>
-</div>
-
-<a class="button alert" href="{{ url_for('home')}}">Home</a>
-{% else  %}
+{%if   Equipmentregisteryh is defined and Equipmentregisteryh|length > 0%}
 
 {%for register in Equipmentregisteryh %}
+
+<ul class="activityhregister span1"> <li class="registerli" ><span> Serial Number:{{register.sn}}</span> <span> Register By :{{register.user.staffname}}</span> <span>Register Date {{register.date_of_register}}</span></li>
+  <li class="noteli">Register Note:{{register.register_desc}}</li>
+ 
+</ul>
+
 <div style="height:30vh ; overflow: scroll;">
     <div class="row">
       <div class="col-xs-12">
         <div class="table-responsive" data-pattern="priority-columns">
+          {% for activity in equipmentah(registerid=register.registerid)%}
           <table summary="This table shows how to create responsive tables using RWD-Table-Patterns' functionality" class="table table-bordered table-hover">
             <caption class="text-center">
-               
-              
-                <ul class="activityhregister span1"> <li class="registerli" ><span> Serial Number:{{register.sn}}</span> <span> Register By :{{register.user.staffname}}</span> <span>Register Date {{register.date_of_register}}</span></li>
-                    <li class="noteli">Register Note:{{register.register_desc}}</li>
-                   
-                </ul>
-               
-                
-
-                
+                                      
+                               
             </caption>
             <thead>
+
               <tr>
                 <th>Follow Date</th>
                 <th data-priority="1">Follow By</th>
@@ -44,28 +33,46 @@
                 
               </tr>
             </thead>
+           
             <tbody>
-              <tr>
-                <td>Argentina</td>
-                <td>Spanish (official), English, Italian, German, French</td>
-                <td>41,803,125</td>
-                <td>31.3</td>
-                <td>2,780,387</td>
-              </tr>
-         
+              
+              <td>{{activity.activity_date}}</td>
+          
+          <td>{{activity.user.staffname}}</td>
+          <td>{{activity.activity_desc}}</td>
+          <td>{{activity.activity_status}}</td>
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="5" class="text-center">Data retrieved from <a href="" target="_blank">infoplease</a> </td>
-              </tr>
+                <td colspan="5" class="text-center"> Maintenence Note:{{activity.recieve_note}} Maintenence status:{{activity.maintaince_status}}   </td>
+                </tr>
+                <tr> <td colspan="5" class="text-center"> by:{{activity.recieve_by}}  --- Maintenence Finshed date:{{activity.date_of_maintaince}} </td></tr>
             </tfoot>
+          
           </table>
-        </div><!--end of .table-responsive-->
+          {%endfor%}
+        </div>
       </div>
     </div>
   </div>
+  
   {%endfor%}
+  
 <a class="button alert" href="{{ url_for('home')}}">Home{{sn}}</a>
+{%else%}
+<hr>
+<div data-role="carousel">
+    <div class="p-2 pl-10 pr-10">
+       
+        <div class="row flex-align-center h-100 span1" >
+            <p style="margin: 10% auto;">Equipment With this  <span style="background-color: brown; margin: auto 0;" >SN:{{sn}}</span>  dosnot Have any Maintenence Record</p>
+        </div>
+    </div>
+</div>
+<hr>
+<a class="button alert" href="{{ url_for('home')}}">Home</a>
+
+
 {%endif%}
 
 {% endblock content %}
