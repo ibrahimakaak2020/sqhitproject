@@ -133,8 +133,12 @@ class EquipmentActivityCreate(BaseModel):
     date_of_recievefrom:Optional[datetime]=None
     date_of_maintaince:Optional[datetime]=None
 
-   
 
+class EquipmentModelCreate(BaseModel):
+    mid:int
+    eid:int
+    equipment_model:str
+      
     class Config:
         orm_mode=True
 

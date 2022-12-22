@@ -22,6 +22,7 @@ from web.signup.changeuser import changepasswordproot
 from web.registerequipment import registerroot
 from  web.createequipment import createequipmentroot
 from web.equipmentstatus import equipmentstatusroot
+from web.createequipmentmodel import createequipmenmodeltroot
 from  web.activity.companyoperation import activityroot
 from datetime import datetime
 from web.actionstake import actions
@@ -37,6 +38,7 @@ app.include_router(activityroot)
 app.include_router(signuproot)
 app.include_router(equipmentstatusroot)
 app.include_router(changepasswordproot)
+app.include_router(createequipmenmodeltroot)
 
 
 @app.get('/')

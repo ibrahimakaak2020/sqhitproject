@@ -2,6 +2,7 @@ from tkinter import N
 from sqlalchemy.orm.exc import NoResultFound
 from db.models.models import *
 from db.database.database import Base , get_db
+from db.schemas.schemas import UserCreate
 from db.models import models
 from sqlalchemy.orm import Session
 from core.hashing import Hasher
@@ -223,3 +224,17 @@ class CRUD:
 
 def myfirstname():
     return "ibrahim ali"
+
+
+
+def AdminUser():
+    user=User(staffno=9999,staffname="ibrahim ali amor akaak",password=Hasher.get_password_hash("1234"),admin_role=1)
+
+    next(get_db()).add(user)
+    next(get_db()).commit()
+    next(get_db()).refresh(user)
+
+    return user
+    
+
+    
