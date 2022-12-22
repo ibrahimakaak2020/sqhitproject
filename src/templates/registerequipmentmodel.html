@@ -20,7 +20,7 @@
         <div class="form-group ">
        <label for="eid">Select Equipment Type:</label>
         <select  name="eid" data-role="select" class="metro-input success">
-            {% for etype in equipmenttype%}
+            {% for etype in equipmenttypenew%}
                 <option value="{{etype.eid}}">{{etype.equipment_type}}</option>
    
             {% endfor %}
