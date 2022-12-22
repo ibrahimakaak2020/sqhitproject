@@ -56,7 +56,7 @@ async def createequipmentmodel(request: Request,db: Session=Depends(get_db),msg:
     manuf=QueryModelData(modeltable=Manufacture,db=db).all()
     equipmenttypenew=QueryModelData(modeltable=Equipment_Type,db=db).all()
     
-    if await form.is_valid():
+    if await form.is_valid(db=db):
         try:
 
             equipmentmodel=EquipmentModelCreate(**form.__dict__)

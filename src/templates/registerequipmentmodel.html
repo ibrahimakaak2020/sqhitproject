@@ -15,8 +15,9 @@
       
       <h2 class="span1">add Equipment Model</h2>
       <hr>
-      <form  action="/createequipmentmain"  method="post">
-        <input type="text" name="sn" value="{{search}}" hidden>
+      <form  action="/equipmentmodel"  method="post">
+        <label for="equipment_model">Equipment Model:</label>
+        <input type="text" name="equipment_model" class="metro-input success">
         <div class="form-group ">
        <label for="eid">Select Equipment Type:</label>
         <select  name="eid" data-role="select" class="metro-input success">
@@ -40,8 +41,10 @@
 
       <button class="button " type="submit">Add Equipment</button>
     </form>
+   
     </div>
-
+   
+  
 
 
   
