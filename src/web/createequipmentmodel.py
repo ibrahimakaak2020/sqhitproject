@@ -24,8 +24,8 @@ def createequipmentmodel(request: Request,db: Session=Depends(get_db),msg:str=No
     print("from equipment model ......")
    
     manuf=QueryModelData(modeltable=Manufacture,db=db).all()
-    equipmenttype=QueryModelData(modeltable=Equipment_Type,db=db).all()
-    print(equipmenttype)
+    equipmenttypenew=QueryModelData(modeltable=Equipment_Type,db=db).all()
+    print(equipmenttypenew)
     token = request.cookies.get("access_token")
 
     print("cookies  ibrah:", token)
@@ -37,7 +37,7 @@ def createequipmentmodel(request: Request,db: Session=Depends(get_db),msg:str=No
         print(param, "param")
         current_user: User = get_current_user_from_token(token=param, db=db)
         
-        return templates.TemplateResponse("registerequipmentmodel.html", {"request": request,"manuf":manuf,"equipmnettype":equipmenttype,"user":current_user})
+        return templates.TemplateResponse("registerequipmentmodel.html", {"request": request,"manuf":manuf,"equipmenttypenew":equipmenttypenew,"user":current_user})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
@@ -54,7 +54,7 @@ async def createequipmentmodel(request: Request,db: Session=Depends(get_db),msg:
     token = request.cookies.get("access_token")
     await form.load_data()
     manuf=QueryModelData(modeltable=Manufacture,db=db).all()
-    equipmenttype=QueryModelData(modeltable=Equipment_Type,db=db).all()
+    equipmenttypenew=QueryModelData(modeltable=Equipment_Type,db=db).all()
     
     if await form.is_valid():
         try:
@@ -62,7 +62,7 @@ async def createequipmentmodel(request: Request,db: Session=Depends(get_db),msg:
             equipmentmodel=EquipmentModelCreate(**form.__dict__)
     
             
-            print(equipmenttype)
+            print(equipmenttypenew)
 
             scheme, param = get_authorization_scheme_param(
                 token
@@ -71,7 +71,7 @@ async def createequipmentmodel(request: Request,db: Session=Depends(get_db),msg:
             current_user: User = get_current_user_from_token(token=param, db=db)
             CreateModelData(modeltable=Equipment_Model,db=db, modelcreate=equipmentmodel)
             
-            return templates.TemplateResponse("registerequipmentmodel.html", {"request": request,"manuf":manuf,"equipmnettype":equipmenttype,"user":current_user,"msg":"Model Register Succusfull"})
+            return templates.TemplateResponse("registerequipmentmodel.html", {"request": request,"manuf":manuf,"equipmenttypenew":equipmenttypenew,"user":current_user,"msg":"Model Register Succusfull"})
         except Exception as e:
             print(f'{e}')
             raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
