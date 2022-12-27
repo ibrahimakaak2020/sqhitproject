@@ -55,6 +55,11 @@ async def createequipmentmodel(request: Request,db: Session=Depends(get_db),msg:
     await form.load_data()
     manuf=QueryModelData(modeltable=Manufacture,db=db).all()
     equipmenttypenew=QueryModelData(modeltable=Equipment_Type,db=db).all()
+    scheme, param = get_authorization_scheme_param(
+                token
+            )  # scheme will hold "Bearer" and param will hold actual token value
+            
+    current_user: User = get_current_user_from_token(token=param, db=db)
     
     if await form.is_valid(db=db):
         try:
@@ -64,16 +69,12 @@ async def createequipmentmodel(request: Request,db: Session=Depends(get_db),msg:
             
             print(equipmenttypenew)
 
-            scheme, param = get_authorization_scheme_param(
-                token
-            )  # scheme will hold "Bearer" and param will hold actual token value
-            print(param, "param")
-            current_user: User = get_current_user_from_token(token=param, db=db)
+        
             CreateModelData(modeltable=Equipment_Model,db=db, modelcreate=equipmentmodel)
             
             return templates.TemplateResponse("registerequipmentmodel.html", {"request": request,"manuf":manuf,"equipmenttypenew":equipmenttypenew,"user":current_user,"msg":"Model Register Succusfull"})
         except Exception as e:
             print(f'{e}')
             raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
-    return templates.TemplateResponse("registerequipmentmodel.html", form.__dict__)
+    return templates.TemplateResponse("registerequipmentmodel.html",{"request":request,"errors": form.__dict__['errors'],"user":current_user})
 
