@@ -1,0 +1,23 @@
+* {
+    font-family: "Poppins";
+}
+body {
+    user-select: none;
+    overflow-y: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(153, 207, 252);
+    height: 100vh;
+}
+.screen-1 {
+    background: rgb(182, 212, 230);
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+    box-shadow: 0 0 2em #000;
+    gap: 2em;
+    width: 400px;
+    height: 400px;
+}

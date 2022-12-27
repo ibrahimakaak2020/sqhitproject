@@ -1,37 +1,67 @@
 
 
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+        {%block header%}
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link href="{{ url_for('static', path='/css/spectre.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='/css/spectre-exp.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='/css/spectre-icons.min.css') }}" rel="stylesheet">
+
+    <link href="{{ url_for('static', path='/metro4/css/metro-all.min.css') }}" rel="stylesheet">
+   
+   <link href="{{ url_for('static', path='/css/logincss1.css') }}" rel="stylesheet">
+  
+  
+
+     
+
+    {%endblock header%}
+</head>
 
 {% block title %}
   <title>Login</title>
 {% endblock %}
-
+</head>
+<body>
 {% block content %}
-<hr>
- <!-- <div  class="bg-mainsub " style=" margin:30px auto;"> -->
-<div  data-role="panel" style=" margin:30px auto;" data-title-caption=" Login To System" data-cls-title="deepskyblue"> 
 
-    <div class="text-danger font-weight-bold ">
+
+<div class="login"> 
+  <div class='head'>
+    <h1 class='company'>SQHIT Maintenance Register</h1>
+    </div>
+    <p class='msg'>Login To System</p>
+    
           {% for error in errors %}
-            <li class="remark warning">{{error}}</li>
+          <div >
+            <li class="remark warning fg-red "><h3>{{error}}</h3></li>
+          </div>
           {% endfor %}
-      </div>
+     
 
-  <form class=" remark primary" method="post">
+  <form clas="form" method="post">
     <div  class="form-group">
     
-      <label for="username"><b>Staff Number:</b></label>
-      <input type="text" placeholder="Enter Username" name="username" required required data-role="input">
+      <label for="username">Staff Number:</label>
+      <input class="metro-input" type="text" placeholder="Enter Username" name="username" required required data-role="input">
     </div>
     <div  class="form-group">
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required required data-role="input">
+      <label for="password">Password</label>
+      <input class="metro-input" type="password" placeholder="Enter Password" name="password"  required data-role="input">
     </div>
-    <div  class="form-group">
-      <button type="submit">Login</button>
-    </div>
+    
+      <button class="btn-login" type="submit">Login</button>
+    
     
   </form>
    </div>
-  <!-- </div>  -->
+
+
   {% endblock %}
+</body>
+</html>
