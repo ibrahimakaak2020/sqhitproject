@@ -50,6 +50,9 @@ def CreateModelData(modeltable:None,db:Session,modelcreate:None):
 
 def get_user(username:str,db: Session):
     return db.query(User).filter(User.staffno == username).first()
+
+def get_recieveuser(staffno):
+    return next(get_db()).query(User).filter(User.staffno == staffno).first()
     
 def QueryModelData(modeltable, db:Session, cols: dict = None):
    

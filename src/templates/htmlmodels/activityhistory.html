@@ -7,55 +7,35 @@
 {%if   Equipmentregisteryh is defined and Equipmentregisteryh|length > 0%}
 
 {%for register in Equipmentregisteryh %}
-
+<div style="border: 5px solid rgb(110, 111, 112);">
 <ul class="activityhregister span1"> <li class="registerli" ><span> Serial Number:{{register.sn}}</span> <span> Register By :{{register.user.staffname}}</span> <span>Register Date {{register.date_of_register}}</span></li>
   <li class="noteli">Register Note:{{register.register_desc}}</li>
  
 </ul>
 
 <div style="height:30vh ; overflow: scroll;">
-    <div class="row">
+    <div class="row " >
       <div class="col-xs-12">
-        <div class="table-responsive" data-pattern="priority-columns">
+        <div class="table-responsive " data-pattern="priority-columns">
           {% for activity in equipmentah(registerid=register.registerid)%}
-          <table summary="This table shows how to create responsive tables using RWD-Table-Patterns' functionality" class="table table-bordered table-hover">
-            <caption class="text-center">
-                                      
-                               
-            </caption>
-            <thead>
-
-              <tr>
-                <th>Follow Date</th>
-                <th data-priority="1">Follow By</th>
-                <th data-priority="2">Follow up Note</th>
-                <th data-priority="3">activit type</th>
-                
-              </tr>
-            </thead>
-           
-            <tbody>
-              
-              <td>{{activity.activity_date}}</td>
-          
-          <td>{{activity.user.staffname}}</td>
-          <td>{{activity.activity_desc}}</td>
-          <td>{{activity.activity_status}}</td>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="5" class="text-center"> Maintenence Note:{{activity.recieve_note}} Maintenence status:{{activity.maintaince_status}}   </td>
-                </tr>
-                <tr> <td colspan="5" class="text-center"> by:{{activity.recieve_by}}  --- Maintenence Finshed date:{{activity.date_of_maintaince}} </td></tr>
-            </tfoot>
-          
-          </table>
+          {%if activity.activity_status=='UPL'%}
+          {% include 'htmlmodels/uplshow.html' %}
+          {%elif activity.activity_status=='UPS'%}
+          {% include 'htmlmodels/upsshow.html' %}
+          {%elif activity.activity_status=='WFD'%}
+          {% include 'htmlmodels/wfdshow.html' %}
+          {%elif activity.activity_status=='WFS'%}
+          {% include 'htmlmodels/wfsshow.html' %}
+          {%else%}
+          {% include 'htmlmodels/wfrshow.html' %}
+          {%endif%}
+   
           {%endfor%}
         </div>
       </div>
     </div>
   </div>
-  
+</div>
   {%endfor%}
   
 <a class="button alert" href="{{ url_for('home')}}">Home{{sn}}</a>

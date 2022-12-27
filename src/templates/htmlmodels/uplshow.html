@@ -1,0 +1,32 @@
+<table summary="This table shows how to create responsive tables using RWD-Table-Patterns' functionality" class="table table-bordered table-hover">
+    <caption class="text-center">
+                              
+                       
+    </caption>
+    <thead>
+
+      <tr>
+        <th>Follow Date</th>
+        <th data-priority="1">Follow By</th>
+        <th data-priority="2">Follow up Note</th>
+        <th data-priority="3">activity Status</th>
+        
+      </tr>
+    </thead>
+   
+    <tbody>
+      
+      <td>{{activity.activity_date}}</td>
+  
+  <td>{{activity.user.staffname}}</td>
+  <td>{{activity.activity_desc}}</td>
+  <td>{{statust(activity)}}</td>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="5" class="text-center">Maintenence status:{{activity.maintaince_status}}   Maintenence Note:{{activity.recieve_note}}  </td>
+        </tr>
+        <tr> <td colspan="5" class="text-center"> by:{{get_user(activity.recieve_by).staffname}}  --- Maintenence Finshed date:{{activity.date_of_maintaince}} </td></tr>
+    </tfoot>
+  
+  </table>

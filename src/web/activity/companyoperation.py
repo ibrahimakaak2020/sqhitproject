@@ -10,8 +10,11 @@ from db.database.database import get_db
 from fastapi.security.utils import get_authorization_scheme_param
 from api.route_login import get_current_user_from_token
 # from api.route_login import login_for_access_token
-from db.datacreator import CreateModelData, QueryModelData, Queryactivityhistory, UpdateModelData, update_table
+from db.datacreator import CreateModelData, QueryModelData, Queryactivityhistory, UpdateModelData, get_recieveuser, get_user, update_table
 from db.schemas.schemas import EquipmentActivityCreate, EquipmentCreate, UserShow, EquipmentRegisterCreate, updateactivity, updateactivitycompany,updateactivitywaiting
+from web.RepairStatus import RStatus
+from web.StatusTranslate import Status
+from web.actionstake import actions
 from web.activity.activityform import UpdateActivityForm
 from web.activity.locallyform import LocallyForm
 
@@ -249,7 +252,7 @@ async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=No
     try:
 
         current_user: User = get_current_user_from_token(token=param, db=db)
-        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentah":Queryactivityhistory,"Equipmentregisteryh":Equipmentregisteryh,"user":current_user})
+        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentah":Queryactivityhistory,"Equipmentregisteryh":Equipmentregisteryh,"user":current_user,"statust":Status,"RStatus":RStatus,"get_user":get_recieveuser})
        
     
     except Exception as e:
@@ -275,7 +278,7 @@ async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=No
     try:
         current_user: User = get_current_user_from_token(token=param, db=db)
        
-        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentah":Queryactivityhistory,"Equipmentregisteryh":Equipmentregisteryh,"sn":sn,"user": current_user})
+        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentah":Queryactivityhistory,"Equipmentregisteryh":Equipmentregisteryh,"statust":Status,"RStatus":RStatus,"sn":sn,"user": current_user,"get_user":get_recieveuser})
        
     
     except Exception as e:
