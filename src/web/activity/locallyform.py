@@ -15,7 +15,7 @@ class LocallyForm:
         self.request: Request = request
         self.errors: List = []
         self.sn:str
-        self.activity_desc:str
+        self.activity_desc:str=None
         
        
 
@@ -35,7 +35,5 @@ class LocallyForm:
         if check := QueryModelData(modeltable=EquipmentActivity, db=db, cols={"registerid": registerid, "next_activity": "T","activity_status":"UPL" ,"maintaince_status": None}).first():
             self.errors.append(f"Equipment Under Maintenance Status ? date of Maintenance : {check.activity_date} Take Care by:{check.user.staffname}")
 
-        if not self.activity_desc:
-          self.errors.append("Write Your Notes For Your Form colleagues ")
         return not self.errors
        

@@ -120,7 +120,7 @@ class EquipmentActivityCreate(BaseModel):
     registerid:int
     create_by:int
     company_id:int=None
-    activity_desc:str
+    activity_desc:str=None
     activity_date:Optional[datetime]=None
     next_activity:str=None
     activity_status:str

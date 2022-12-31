@@ -1,32 +1,8 @@
-<table summary="This table shows how to create responsive tables using RWD-Table-Patterns' functionality" class="table table-bordered table-hover">
-  <caption class="text-center">
-                            
-                     
-  </caption>
-  <thead>
-
-    <tr>
-      <th>Follow Date</th>
-      <th data-priority="1">Follow By</th>
-      <th data-priority="2">Follow up Note</th>
-      <th data-priority="3">activit type</th>
-      
-    </tr>
-  </thead>
- 
-  <tbody>
+<tr>
+  <td colspan="5" class="activityh text-left">
+    <span class="label">Keeped in Waiting List For Send To Company On</span>{{activity.activity_date}}  
+    <span class="label">By :</span>{{user.staffname }}
     
-    <td>{{activity.activity_date}}</td>
-
-<td>{{activity.user.staffname}}</td>
-<td>{{activity.activity_desc}}</td>
-<td>{{statust(activity)}}</td>
-  </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="5" class="text-center"> Maintenence Note:{{activity.recieve_note}} Maintenence status:{{activity.maintaince_status}}   </td>
-      </tr>
-      <tr> <td colspan="5" class="text-center"> by:{{get_user(activity.recieve_by).staffname}}  --- Maintenence Finshed date:{{activity.date_of_maintaince}} </td></tr>
-  </tfoot>
-
-</table>
+  </td>
+</tr>
+  

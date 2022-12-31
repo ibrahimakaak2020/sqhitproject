@@ -8,7 +8,7 @@
 
 {%for register in Equipmentregisteryh %}
 <div style="border: 5px solid rgb(110, 111, 112);">
-<ul class="activityhregister span1"> <li class="registerli" ><span> Serial Number:{{register.sn}}</span> <span> Register By :{{register.user.staffname}}</span> <span>Register Date {{register.date_of_register}}</span></li>
+<ul class="activityhregister"> <li class="registerli" ><span> Serial Number:{{register.sn}}</span> <span> Register By :{{register.user.staffname}}</span> <span>Register Date {{register.date_of_register}}</span></li>
   <li class="noteli">Register Note:{{register.register_desc}}</li>
  
 </ul>
@@ -18,6 +18,12 @@
       <div class="col-xs-12">
         <div class="table-responsive " data-pattern="priority-columns">
           {% for activity in equipmentah(registerid=register.registerid)%}
+          <table summary="This table shows how to create responsive tables using RWD-Table-Patterns' functionality" class="table table-bordered table-hover">
+            <caption>                                
+                             
+            </caption>
+                  
+            <tbody>
           {%if activity.activity_status=='UPL'%}
           {% include 'htmlmodels/uplshow.html' %}
           {%elif activity.activity_status=='UPS'%}
@@ -29,7 +35,9 @@
           {%else%}
           {% include 'htmlmodels/wfrshow.html' %}
           {%endif%}
-   
+        </tbody>
+  
+      </table>
           {%endfor%}
         </div>
       </div>

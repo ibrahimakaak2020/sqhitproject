@@ -1,32 +1,14 @@
-<table summary="This table shows how to create responsive tables using RWD-Table-Patterns' functionality" class="table table-bordered table-hover">
-  <caption class="text-center">
-                            
-                     
-  </caption>
-  <thead>
 
-    <tr>
-      <th>Follow Date</th>
-      <th data-priority="1">Follow By</th>
-      <th data-priority="2">Follow up Note</th>
-      <th data-priority="3">activit type</th>
-      
-    </tr>
-  </thead>
- 
-  <tbody>
+      <tr>
+        <td colspan="5" class="text-left activityh " ><span class="label">Sent To Company On:</span> {{activity.activity_date}} <span class="label">By :</span>{{activity.user.staffname}} <span class="label ">{{statust(activity)}}  {{activity.company_user.company_name_en}} </span> </td>
+        </tr>
+      <tr>
+        <td colspan="5" class="text-left activityh"> 
+          <span class="label">Activity Note:</span>{{activity.activity_desc}}   
+        </td>
+        </tr>
     
-    <td>{{activity.activity_date}}</td>
-
-<td>{{activity.user.staffname}}</td>
-<td>{{activity.activity_desc}}</td>
-<td>{{statust(activity)}}</td>
-  </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="5" class="text-center"> Maintenence Note:{{activity.recieve_note}} Maintenence status:{{activity.maintaince_status}}   </td>
-      </tr>
-      <tr> <td colspan="5" class="text-center"> by:{{get_user(activity.recieve_by).staffname}}  --- Maintenence Finshed date:{{activity.date_of_maintaince}} </td></tr>
-  </tfoot>
-
-</table>
+      <tr>
+        <td colspan="5" class="activityh text-left">
+          <span class="label"> Recieved From Company :</span>{{activity.recieve_date}}  <span class="label">By :</span>{{get_user(activity.recieve_by).staffname }}<span class="label"> Maintenence status:</span>{%if activity.maintaince_status=='RR'%}Repaired{%else%}Not Repaired{%endif%}   <span class="label">Maintenance Note:</span>{{activity.recieve_note}}  </td></tr>
+   
