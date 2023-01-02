@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  
+          {% for error in errors %}
+          <div class="remark warning">  <li>{{error}}</li></div>
+          
+          {% endfor %}
+      
+      
+        {% if msg %}
+        <div class="remark warning">  <li>{{msg}}</li></div>
+        {% endif %}
+    
+      
+      <h2 class="span1">add Location</h2>
+      <hr>
+      <form  action="/location"  method="post">
+        <label for="loc_name"> Location Name:</label>
+        <input type="text" name="loc_name" class="metro-input success" required >
+        <div class="form-group ">
+       <label for="building">Select building :</label>
+        <select  name="building" data-role="select" class="metro-input success">
+         
+                <option value="Hospital">Hospital</option>
+                <option value="Cardic Center">Cardic Center</option>
+                <option value="Dental">Dental</option>
+                <option value="OPD A">OPD A</option>
+                <option value="OPD B">OPD B</option>
+   
+            
+        </select>
+      </div>
+      <label for="contact_number">contact Number:</label>
+      <input type="text" name="contact_number" class="metro-input success" required >
+      
+      <button class="button " type="submit">Add Equipment</button>
+    </form>
+   
+    </div>
+   
+  
+
+
+  
+   
+
+{% endblock %}

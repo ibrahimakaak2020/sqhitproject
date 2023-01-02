@@ -10,7 +10,10 @@
       <hr>
       <form  action="/createequipmentmain"  method="post">
         <input type="text" name="sn" value="{{search}}" hidden>
+        <a class="button info" href="{{ url_for('createequipmentmodel')}}">Create New Model</a>
+        <hr>
         <div class="form-group ">
+         
        <label for="emid">Select Equipment Model:</label>
         <select  name="emid" data-role="select" class="metro-input success">
             {% for model in equipmnetmodel%}
@@ -19,6 +22,9 @@
             {% endfor %}
         </select>
       </div>
+      <hr>
+      <a class="button info" href="{{ url_for('createlocation')}}">Add New Location</a>
+        <hr>
       <div class="form-group">
         <label for="locid">Select Equipment Location :</label>
         <select name="locid" data-role="select" class="metro-input success">

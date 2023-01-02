@@ -2,22 +2,23 @@
 
 {% block content %}
 <div class="container">
-    <div class="text-danger font-weight-bold">
+  
           {% for error in errors %}
-            <li>{{error}}</li>
+          <div class="remark warning">  <li>{{error}}</li></div>
+          
           {% endfor %}
-      </div>
-      <div class="remark warning">
+      
+      
         {% if msg %}
-          <li>{{msg}}</li>
+        <div class="remark warning">  <li>{{msg}}</li></div>
         {% endif %}
-    </div>
+    
       
       <h2 class="span1">add Equipment Model</h2>
       <hr>
       <form  action="/equipmentmodel"  method="post">
         <label for="equipment_model">Equipment Model:</label>
-        <input type="text" name="equipment_model" class="metro-input success">
+        <input type="text" name="equipment_model" class="metro-input success" required >
         <div class="form-group ">
        <label for="eid">Select Equipment Type:</label>
         <select  name="eid" data-role="select" class="metro-input success">

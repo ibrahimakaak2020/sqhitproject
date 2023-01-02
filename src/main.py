@@ -12,6 +12,7 @@ from fastapi.security.utils import get_authorization_scheme_param
 from api.route_login import get_current_user_from_token
 from api.route_login import login_for_access_token
 from db.schemas.schemas import UserShow
+from web.createlocation import createlocationroot 
 from web.loginform import LoginForm
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -39,6 +40,7 @@ app.include_router(signuproot)
 app.include_router(equipmentstatusroot)
 app.include_router(changepasswordproot)
 app.include_router(createequipmenmodeltroot)
+app.include_router(createlocationroot)
 
 
 @app.get('/')
