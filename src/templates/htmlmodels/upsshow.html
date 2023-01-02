@@ -10,5 +10,5 @@
     
       <tr>
         <td colspan="5" class="activityh text-left">
-          <span class="label"> Recieved From Company :</span>{{activity.recieve_date}}  <span class="label">By :</span>{{get_user(activity.recieve_by).staffname }}<span class="label"> Maintenence status:</span>{%if activity.maintaince_status=='RR'%}Repaired{%else%}Not Repaired{%endif%}   <span class="label">Maintenance Note:</span>{{activity.recieve_note}}  </td></tr>
+          <span class="label"> Recieved From Company :</span>{{activity.date_of_recievefrom}}  <span class="label">By :</span>{{get_user(activity.recieve_by).staffname }}<span class="label"> Maintenence status:</span>{%if activity.maintaince_status=='RR'%}Repaired{%else%}Not Repaired{%endif%}   <span class="label">Maintenance Note:</span>{{activity.recieve_note}}  </td></tr>
    
