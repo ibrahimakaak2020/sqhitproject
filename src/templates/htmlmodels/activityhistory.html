@@ -29,7 +29,11 @@
           {%elif activity.activity_status=='UPS'%}
           {% include 'htmlmodels/upsshow.html' %}
           {%elif activity.activity_status=='WFD'%}
+
           {% include 'htmlmodels/wfdshow.html' %}
+          {%if activity.date_of_returnback %}
+          {% include 'htmlmodels/wfrshow.html' %}
+              {%endif%}
           {%elif activity.activity_status=='WFS'%}
           {% include 'htmlmodels/wfsshow.html' %}
           {%else%}
