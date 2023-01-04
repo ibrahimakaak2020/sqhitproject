@@ -116,3 +116,7 @@ async def createequipmentmain(request: Request,db: Session = Depends(get_db),sn:
             return templates.TemplateResponse("index.html", form.__dict__,{"request": request,"locations":locations,"equipmnetmodel":equipmentmodels,"errors":form.__dict__['errors']})
     return templates.TemplateResponse("index.html",{"request": request,"locations":locations,"equipmnetmodel":equipmentmodels, "errors":form.__dict__['errors']})
 
+
+
+
+

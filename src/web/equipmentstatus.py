@@ -46,6 +46,11 @@ def equipmentincompany(request: Request,db: Session=Depends(get_db),sn:str=None)
 
 @equipmentstatusroot.get("/equipmentwaitingforsend")
 def equipmentwaitingforsend(request: Request,db: Session=Depends(get_db),sn:str=None):
+    eqincompany=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"next_activity":"T","activity_status":"WFS","place_of_maintaince":"L"}).all()
+ 
+    
+        
+    
     
     
     token = request.cookies.get("access_token")
@@ -60,8 +65,7 @@ def equipmentwaitingforsend(request: Request,db: Session=Depends(get_db),sn:str=
         )  # scheme will hold "Bearer" and param will hold actual token value
         print(param, "param")
         current_user: User = get_current_user_from_token(token=param, db=db)
-        register_by=current_user.staffno
-        return templates.TemplateResponse("equipmentwaitingforsend.html", {"request": request,"register_by":register_by})
+        return templates.TemplateResponse("activityequipmentshownew.html", {"request": request ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
@@ -69,6 +73,9 @@ def equipmentwaitingforsend(request: Request,db: Session=Depends(get_db),sn:str=
 
 @equipmentstatusroot.get("/equipmentinlocal")
 def equipmentinlocal(request: Request,db: Session=Depends(get_db),sn:str=None):
+    eqincompany=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"next_activity":"T","activity_status":"UPL","place_of_maintaince":"L"}).all()
+ 
+    
         
     
     token = request.cookies.get("access_token")
@@ -84,7 +91,7 @@ def equipmentinlocal(request: Request,db: Session=Depends(get_db),sn:str=None):
         print(param, "param")
         current_user: User = get_current_user_from_token(token=param, db=db)
         register_by=current_user.staffno
-        return templates.TemplateResponse("equipmentinlocal.html", {"request": request,"register_by":register_by})
+        return templates.TemplateResponse("activityequipmentshownew.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
@@ -93,6 +100,9 @@ def equipmentinlocal(request: Request,db: Session=Depends(get_db),sn:str=None):
 
 @equipmentstatusroot.get("/equipmentwaitingforreturn")
 def equipmentwaitingforreturn(request: Request,db: Session=Depends(get_db),sn:str=None):
+    eqincompany=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"next_activity":"T","activity_status":"WFR","place_of_maintaince":"L"}).all()
+ 
+    
       
     token = request.cookies.get("access_token")
    
@@ -107,10 +117,46 @@ def equipmentwaitingforreturn(request: Request,db: Session=Depends(get_db),sn:st
         print(param, "param")
         current_user: User = get_current_user_from_token(token=param, db=db)
         register_by=current_user.staffno
-        return templates.TemplateResponse("equipmentinlocal.html", {"request": request,"register_by":register_by})
+        return templates.TemplateResponse("activityequipmentshownew.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
+
+
+@equipmentstatusroot.get("/equipmentwaitingfordecision")
+async def equipmentwaitingfordecision(request: Request,db: Session = Depends(get_db),sn:str=None):
+    eqincompany=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"next_activity":"T","activity_status":"WFD","place_of_maintaince":"L"}).all()
+ 
+    
+    token = request.cookies.get("access_token")
+   
+
+
+    print("cookies  ibrah:", token)
+    try:
+
+        scheme, param = get_authorization_scheme_param(
+            token
+        )  # scheme will hold "Bearer" and param will hold actual token value
+        print(param, "param")
+        current_user: User = get_current_user_from_token(token=param, db=db)
+        register_by=current_user.staffno
+
+
+        return templates.TemplateResponse("activityequipmentshownew.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
+    except Exception as e:
+        print(f'{e}')
+        raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
+
+
+
+
+
+
+
+
+
+
 
 
 

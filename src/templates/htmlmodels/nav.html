@@ -45,6 +45,7 @@
             <li class="nav__item "><a class="button info text-bold va-middle "  href="{{ url_for('equipmentincompany') }}">Equipments In Company</a></li>
             <li class="nav__item"><a  class="button info" href="{{ url_for('equipmentinlocal') }}">Equipments In IT WorkShop</a></li>
             <li class="nav__item"><a  class="button info" href="{{ url_for('equipmentwaitingforsend') }}">Equipments Waiting For Send</a></li>
+            <li class="nav__item"><a  class="button info" href="{{ url_for('equipmentwaitingfordecision') }}">Equipments Waiting For Decision</a></li>
             <li class="nav__item"><a  class="button info" href="{{ url_for('equipmentwaitingforreturn') }}">Equipments Waiting For ReturnBack</a></li>
             {%if user.admin_role==1%}
             <li class="nav__item"><a class="button yellow" href="{{ url_for('signup')}}">add New User</a></li>
