@@ -91,7 +91,7 @@ def equipmentinlocal(request: Request,db: Session=Depends(get_db),sn:str=None):
         print(param, "param")
         current_user: User = get_current_user_from_token(token=param, db=db)
         register_by=current_user.staffno
-        return templates.TemplateResponse("activityequipmentshownew.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
+        return templates.TemplateResponse("equipmentinlocal.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e

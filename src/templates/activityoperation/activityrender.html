@@ -1,3 +1,32 @@
+{%if equipmentactivities is iterable %}
+
+
+
+{%for  activity in equipmentactivities%}
+ {%if activity.next_activity=="T"%}
+      {%if activity.activity_status=="UPL"%}
+
+      {% include "/activityoperation/upl.html"%}
+      {%elif activity.activity_status=="UPS"%}
+      {% include "/activityoperation/ups.html"%}
+      {%elif activity.activity_status=="WFS"%}
+      {% include "/activityoperation/wfs.html"%}
+      {%elif activity.activity_status=="WFD"%}
+      {% include "/activityoperation/wfd.html"%}
+      {%elif activity.activity_status=="WFR"%}
+      {% include "/activityoperation/wfr.html"%}
+
+      {%endif%}
+    
+  {%else%}
+  {% include "activitydone.html"%}
+  {%endif%}
+
+  
+    
+    {%endfor%}
+ {%else%}   
+  
 {%with activity= equipmentactivities%}
  {%if activity.next_activity=="T"%}
       {%if activity.activity_status=="UPL"%}
@@ -21,6 +50,8 @@
   
     
     {%endwith%}
+
+    {%endif%}
     
   
     

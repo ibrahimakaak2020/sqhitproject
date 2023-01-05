@@ -1,0 +1,54 @@
+
+
+{%for  activity in equipmentactivities%}
+    <div class="container " style="padding: 10px;">
+      <div style="height:30vh ; overflow: scroll;">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="table-responsive" data-pattern="priority-columns">
+              <table summary="Take Desion " class="table table-bordered table-hover">
+                <caption class="text-center">Equipment UnderProcess In IT Workshop</caption>
+                
+                <thead>
+                  <tr>
+                    <th>Activity Date</th>
+                    <th data-priority="1">Follow By</th>
+                    <th data-priority="2">Maintenence Place</th>
+                  </tr>
+                </thead>
+                <tbody>
+    {%if activity.next_activity=="T"%}
+          {%if activity.activity_status=="UPL"%}
+
+          {% include "/activityoperation/uplo.html"%}
+          {%elif activity.activity_status=="UPS"%}
+          {% include "/activityoperation/upso.html"%}
+          {%elif activity.activity_status=="WFS"%}
+          {% include "/activityoperation/wfso.html"%}
+          {%elif activity.activity_status=="WFD"%}
+          {% include "/activityoperation/wfdo.html"%}
+          {%elif activity.activity_status=="WFR"%}
+          {% include "/activityoperation/wfro.html"%}
+
+          {%endif%}
+        </tbody>
+      </table>
+      </div><!--end of .table-responsive-->
+      </div>
+      </div>
+      </div>
+      </div>
+      {% include 'htmlmodels/crudpop.html' %}
+      {%else%}
+      {% include "activitydone.html"%}
+      {%endif%}
+
+      
+ 
+{%endfor%}
+
+
+
+
+
+ 

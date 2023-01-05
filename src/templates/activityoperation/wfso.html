@@ -1,0 +1,28 @@
+
+            <tr>
+              <td>{{activity.activity_date}}</td>
+              <td>{{activity.user.staffname}}</td>
+              <td>{%if activity.place_of_maintaince=='L'%}IT Workshop{%else%}{{activity.company_user.company_name_en}}{%endif%}</td>
+            </tr>
+            <tr>
+              <td colspan="5" class="text-center"><span>Follow By Notes:</span>{{activity.activity_desc}} </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" class="text-center">
+                
+                <div class="box " style="background-color: #ffe200 ;">
+                  {%for value , key in activityaction(activity).items()%}
+                  <a class="buttonmodal btn" href="#{{key}}">{{value}}</a>
+                  {%endfor%}
+                </div> 
+               
+                
+             </td>  
+             
+            </tr>
+          </tfoot>
+
+
+{% include 'htmlmodels/crudpop.html' %}
