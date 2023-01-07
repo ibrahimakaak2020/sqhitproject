@@ -39,7 +39,7 @@ def equipmentincompany(request: Request,db: Session=Depends(get_db),sn:str=None)
         register_by=current_user.staffno
 
 
-        return templates.TemplateResponse("activityequipmentshownew.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
+        return templates.TemplateResponse("equipmentincompany.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
@@ -65,7 +65,7 @@ def equipmentwaitingforsend(request: Request,db: Session=Depends(get_db),sn:str=
         )  # scheme will hold "Bearer" and param will hold actual token value
         print(param, "param")
         current_user: User = get_current_user_from_token(token=param, db=db)
-        return templates.TemplateResponse("activityequipmentshownew.html", {"request": request ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
+        return templates.TemplateResponse("equipmentinwaitinglistfors.html", {"request": request ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
@@ -117,7 +117,7 @@ def equipmentwaitingforreturn(request: Request,db: Session=Depends(get_db),sn:st
         print(param, "param")
         current_user: User = get_current_user_from_token(token=param, db=db)
         register_by=current_user.staffno
-        return templates.TemplateResponse("activityequipmentshownew.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
+        return templates.TemplateResponse("equipmentinwaitingforreturnback.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
@@ -143,7 +143,7 @@ async def equipmentwaitingfordecision(request: Request,db: Session = Depends(get
         register_by=current_user.staffno
 
 
-        return templates.TemplateResponse("activityequipmentshownew.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
+        return templates.TemplateResponse("equipmentfordecision.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
