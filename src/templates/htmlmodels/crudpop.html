@@ -142,8 +142,8 @@
           <div class="interior alert-successsqhit">
       <form action="/sentequipmenttoecompany?activityid={{activity.activityid}}&registerid={{activity.registerid}}" method="post">
           <div class="row alert-successsqhit">
-              <input name="sn" value="{{sn}}" hidden>
-              <input name="check" value="send" hidden>
+              <input name="sn" value="{{activity.equipmen_register.sn}}" hidden>
+              
               <label for="model"><b>Select Company User:</b></label>
               <select name="cid" data-role="select">
                   {% for cuser in companyuser%}

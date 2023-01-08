@@ -28,6 +28,7 @@ class SendToCompanyForm:
         self.activity_desc = form.get('activity_desc')
          
         self.sn = form.get('sn')
+        print("user ----------------",self.company_id)
         
         
 
@@ -35,17 +36,17 @@ class SendToCompanyForm:
     async def is_valid(self,registerid=None,db=None):
         
         company_id = QueryModelData(modeltable=Company_User, db=db, cols={"cid": self.company_id}).all()
-        equipment = QueryModelData(modeltable=Equipment, db=db, cols={"sn": self.sn}).all()
+        equipment = QueryModelData(modeltable=Equipment, db=db, cols={"sn": registerid.sn}).all()
+        print(equipment,'--------------------========================')
+        print(registerid.registerid,'--------------------========================')
         
-        if not company_id:
-        
-            self.errors.append("Comany User Not Exist")
+      
         if equipment:
-            register = QueryModelData(modeltable=EquipmentRegister,db=db , cols={"sn": self.sn,"register_status":"Y"} ).first()
+            register = QueryModelData(modeltable=EquipmentRegister,db=db , cols={"registerid": registerid.registerid,"register_status":"Y"} ).first()
             if not register:
                 self.errors.append("Register Equipment For Maintenance")
             if register:
-                if activityfound := QueryModelData(modeltable=EquipmentActivity, db=db, cols={"registerid": registerid, "next_activity":"T","activity_status":"UPS"}).first():
+                if activityfound := QueryModelData(modeltable=EquipmentActivity, db=db, cols={"registerid": registerid.registerid, "next_activity":"T","activity_status":"UPS"}).first():
                     self.errors.append("The Equipment Already in  Maintenance Mode")
         else:
             self.errors.append(" The Equipment  Not added Do Want To add ")

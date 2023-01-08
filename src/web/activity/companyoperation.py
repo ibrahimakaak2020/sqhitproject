@@ -94,6 +94,7 @@ async def sendequipmenttoecompany(request: Request,db: Session = Depends(get_db)
    
     form = SendToCompanyForm(request)
     token = request.cookies.get("access_token")
+    companyuser=QueryModelData(modeltable=Company_User,db=db).all()
     scheme, param = get_authorization_scheme_param(
             token
         )  # scheme will hold "Bearer" and param will hold actual token value
@@ -103,16 +104,16 @@ async def sendequipmenttoecompany(request: Request,db: Session = Depends(get_db)
     
     await form.load_data()
     sn=form.__dict__['sn']
-    registerid=None
+    registerid11=registerid
     if registerid:
-        registerid=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"registerid":registerid,"register_status":"Y"}).first()
+        registerid=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"registerid":registerid11,"register_status":"Y"}).first()
     else:
         registerid=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"Y"}).first()
 
     activityT=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"activityid":activityid,"next_activity":"T"}).first()
     if activityT:       
     
-        if await form.is_valid(registerid=registerid.registerid ,db=db):
+        if await form.is_valid(registerid=registerid ,db=db):
             try:
                     
 

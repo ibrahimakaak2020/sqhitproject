@@ -2,7 +2,7 @@ import datetime
 from fastapi import FastAPI, Form, status, HTTPException, Depends
 # from fastapi.responses import RedirectResponse
 from fastapi import APIRouter, Request, Response
-from db.models.models import Equipment, EquipmentActivity, EquipmentRegister, User
+from db.models.models import Company_User, Equipment, EquipmentActivity, EquipmentRegister, User
 from sqlalchemy.orm import Session
 from db.database.database import get_db
 from fastapi.security.utils import get_authorization_scheme_param
@@ -47,6 +47,7 @@ def equipmentincompany(request: Request,db: Session=Depends(get_db),sn:str=None)
 @equipmentstatusroot.get("/equipmentwaitingforsend")
 def equipmentwaitingforsend(request: Request,db: Session=Depends(get_db),sn:str=None):
     eqincompany=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"next_activity":"T","activity_status":"WFS","place_of_maintaince":"L"}).all()
+    companyuser=QueryModelData(modeltable=Company_User,db=db).all()
  
     
         
@@ -65,7 +66,7 @@ def equipmentwaitingforsend(request: Request,db: Session=Depends(get_db),sn:str=
         )  # scheme will hold "Bearer" and param will hold actual token value
         print(param, "param")
         current_user: User = get_current_user_from_token(token=param, db=db)
-        return templates.TemplateResponse("equipmentinwaitinglistfors.html", {"request": request ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
+        return templates.TemplateResponse("equipmentinwaitinglistfors.html", {"request": request ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user,"companyuser":companyuser})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
@@ -101,6 +102,7 @@ def equipmentinlocal(request: Request,db: Session=Depends(get_db),sn:str=None):
 @equipmentstatusroot.get("/equipmentwaitingforreturn")
 def equipmentwaitingforreturn(request: Request,db: Session=Depends(get_db),sn:str=None):
     eqincompany=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"next_activity":"T","activity_status":"WFR","place_of_maintaince":"L"}).all()
+    companyuser=QueryModelData(modeltable=Company_User,db=db).all()
  
     
       
@@ -117,7 +119,7 @@ def equipmentwaitingforreturn(request: Request,db: Session=Depends(get_db),sn:st
         print(param, "param")
         current_user: User = get_current_user_from_token(token=param, db=db)
         register_by=current_user.staffno
-        return templates.TemplateResponse("equipmentinwaitingforreturnback.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
+        return templates.TemplateResponse("equipmentinwaitingforreturnback.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user,"company_user":companyuser})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
@@ -126,7 +128,7 @@ def equipmentwaitingforreturn(request: Request,db: Session=Depends(get_db),sn:st
 @equipmentstatusroot.get("/equipmentwaitingfordecision")
 async def equipmentwaitingfordecision(request: Request,db: Session = Depends(get_db),sn:str=None):
     eqincompany=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"next_activity":"T","activity_status":"WFD","place_of_maintaince":"L"}).all()
- 
+    companyuser=QueryModelData(modeltable=Company_User,db=db).all()
     
     token = request.cookies.get("access_token")
    
@@ -143,7 +145,7 @@ async def equipmentwaitingfordecision(request: Request,db: Session = Depends(get
         register_by=current_user.staffno
 
 
-        return templates.TemplateResponse("equipmentfordecision.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user})
+        return templates.TemplateResponse("equipmentfordecision.html", {"request": request,"register_by":register_by ,"equipmentactivities":eqincompany,"activityaction":actions,"user":current_user,"companyuser":companyuser})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
