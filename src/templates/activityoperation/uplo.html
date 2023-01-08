@@ -1,27 +1,26 @@
 
-            <tr class="span1">
+            <tr>
+              <td>{{activity.equipmen_register.sn}}</td>
               <td>{{activity.activity_date}}</td>
               <td>{{activity.user.staffname}}</td>
               <td>{%if activity.place_of_maintaince=='L'%}IT Workshop{%else%}{{activity.company_user.company_name_en}}{%endif%}</td>
-            </tr>
-            <tr>
-              <td colspan="5" class="span1 "><span >Serial Number: <span class="activitysn">{{activity.equipmen_register.sn}}</span></span>  <span class="span1"></span><span>Follow By Notes:{{activity.activity_desc}} </span></td>
-            </tr>
-            <tr>
-              <td colspan="5" class="text-center">
-                
-                  {%for value , key in activityaction(activity).items()%}
-                  <a class="buttonmodal btn" href="#{{key}}">{{value}}</a>
-                  {%endfor%}
+              <td >{{activity.activity_desc}} </td>
+              <td >{{activity.equipmen_register.equipments.locations.loc_name}} </td>
+              <td >{{activity.equipmen_register.equipments.locations.building}} </td>
              
-               
                 
-             </td>  
-            
-             
-            </tr>
-          
-                
-           
         
+                {%for value , key in activityaction(activity).items()%}
+                <td >
+                <a class="button info" href="#{{key}}">{{value}}</a>
+              </td>
+                {%endfor%}
+           
+             
+              
           
+            </tr>
+   
+
+
+{% include 'htmlmodels/crudpop.html' %}
