@@ -19,6 +19,9 @@ def actions(activity:EquipmentActivity=None):
     else:
         return {'Send To Company': 'send','Waiting for Send':'waitingfor', 'Repaire On IT Workshop': 'Workshop'}
 
+def actionsone():
+    
 
+        return {'take action': 'send'}
 
           

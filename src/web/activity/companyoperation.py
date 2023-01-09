@@ -25,6 +25,7 @@ from web.activity.repairedcompanyform import CreateRepairedCompanyUpdateForm
 from web.activity.repaireupdate import CreateRepairedUpdateForm
 from web.activity.senttocompanyform import SendToCompanyForm
 from web.activity.waitingform import WaitingForm
+from fastapi.encoders import jsonable_encoder
 
 
 activityroot = APIRouter()
@@ -104,21 +105,27 @@ async def sendequipmenttoecompany(request: Request,db: Session = Depends(get_db)
     
     await form.load_data()
     sn=form.__dict__['sn']
-    registerid11=registerid
+    print(form.__dict__,"------------------------------from send form")
+    # print(form.__dict__['company_id'],"------------------------------from send form")
+    # print(form.__dict__['activity_desc'],"------------------------------from send form")
+    register=None
     if registerid:
-        registerid=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"registerid":registerid11,"register_status":"Y"}).first()
+        register=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"SN":registerid,"register_status":"Y"}).first()
     else:
-        registerid=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"Y"}).first()
+        register=QueryModelData(modeltable=EquipmentRegister,db=db,cols={"sn":sn,"register_status":"Y"}).first()
+    
+    print(register,"register from sent")
 
-    activityT=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"activityid":activityid,"next_activity":"T"}).first()
+    activityT=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"registerid":register.registerid,"next_activity":"T"}).first()
+    print(activityT,"activityT from sent")
     if activityT:       
     
-        if await form.is_valid(registerid=registerid ,db=db):
+        if await form.is_valid(registerid=register ,db=db):
             try:
                     
 
                 # CreateModelData(modeltable=EquipmentRegister,db=db, modelcreate=equipmentregister)
-                equipmentregister=EquipmentActivityCreate(**form.__dict__,create_by=userid,registerid=registerid.registerid,activity_status="UPS",activity_date=datetime.datetime.now(),place_of_maintaince="S",next_activity='T')
+                equipmentregister=EquipmentActivityCreate(**form.__dict__,create_by=userid,registerid=register.registerid,activity_status="UPS",activity_date=datetime.datetime.now(),place_of_maintaince="S",next_activity='T')
                 
                 print("check ibrahim",equipmentregister)
     
@@ -138,12 +145,12 @@ async def sendequipmenttoecompany(request: Request,db: Session = Depends(get_db)
                 return templates.TemplateResponse("sendtocompany.html", form.__dict__,{"request": request,"errors":form.__dict__['errors'],"sn":form.__dict__['sn'],"user":current_user})
         return templates.TemplateResponse("sendtocompany.html",{"request": request, "errors":form.__dict__['errors'],"sn":form.__dict__['sn'],"user":current_user})
     else:
-        if await form.is_valid(registerid=registerid.registerid ,db=db):
+        if await form.is_valid(registerid=register ,db=db):
             try:
                     
 
                 # CreateModelData(modeltable=EquipmentRegister,db=db, modelcreate=equipmentregister)
-                equipmentregister=EquipmentActivityCreate(**form.__dict__,create_by=userid,registerid=registerid.registerid,activity_status="UPS",activity_date=datetime.datetime.now(),place_of_maintaince="S",next_activity='T')
+                equipmentregister=EquipmentActivityCreate(**form.__dict__,create_by=userid,registerid=register.registerid,activity_status="UPS",activity_date=datetime.datetime.now(),place_of_maintaince="S",next_activity='T')
                 
                 print("check ibrahim",equipmentregister)
                 CreateModelData(modeltable=EquipmentActivity,db=db, modelcreate=equipmentregister)
@@ -193,6 +200,11 @@ async def waiting(request: Request,db: Session = Depends(get_db),activityid:int=
 @activityroot.post("/actionstatusnew")
 async def actionstatusnew(request: Request,db: Session=Depends(get_db),activityid:int=None):
     form=UpdateActivityForm(request)
+    form_data = await request.form()
+    # if "maintaince_status" not in form_data or "recieve_note" not in form_data:
+    #     raise HTTPException(422, "Missing fields")
+    data = jsonable_encoder(form_data)
+    print("**********************************************(data from )",data)
     activity=QueryModelData(modeltable=EquipmentActivity,db=db,cols={"activityid":activityid,"maintaince_status":None,"next_activity":"T","date_of_returnback":None}).first()
     activitycreate=None
     print("----------------from actionstatusnew ------{}-----------------".format(activity.activityid))
@@ -203,7 +215,13 @@ async def actionstatusnew(request: Request,db: Session=Depends(get_db),activityi
     print(param, "param")
     current_user: User = get_current_user_from_token(token=param, db=db)
     await form.load_data(activity=activity)
-    print('recieve_note ----------------',form.__dict__['recieve_note'])
+    for a in form.__dict__:
+        if isinstance(a, list):
+            for l  in a :
+                 print("ibrahim check instance of list ******************************************",l)
+        print("ibrahim check instance not dict of ****************************************** ",form.__dict__[a])
+    
+    
     try:
        
           
@@ -253,7 +271,7 @@ async def activityhistory(request: Request,db: Session=Depends(get_db),sn:str=No
     try:
 
         current_user: User = get_current_user_from_token(token=param, db=db)
-        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentah":Queryactivityhistory,"Equipmentregisteryh":Equipmentregisteryh,"user":current_user,"statust":Status,"RStatus":RStatus,"get_user":get_recieveuser})
+        return templates.TemplateResponse("/htmlmodels/activityhistory.html",{"request": request,"equipmentah":Queryactivityhistory,"Equipmentregisteryh":Equipmentregisteryh,"user":current_user,"statust":Status,"RStatus":RStatus,"get_user":get_recieveuser,"sn":sn})
        
     
     except Exception as e:

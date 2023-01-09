@@ -17,17 +17,21 @@ class SendToCompanyForm:
         self.sn:str
         self.company_id:int=None
         self.activity_desc:str
+        self.desc:str
         
        
 
 
     async def load_data(self):
         form = await self.request.form()
+        self.sn = form.get('sn')
+      
         self.company_id = form.get('cid')
+        
          
         self.activity_desc = form.get('activity_desc')
          
-        self.sn = form.get('sn')
+        
         print("user ----------------",self.company_id)
         
         

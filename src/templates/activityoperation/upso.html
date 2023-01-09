@@ -12,7 +12,7 @@
         
                 {%for value , key in activityaction(activity).items()%}
                 <td >
-                <a class="button info" href="#{{key}}">{{value}}</a>
+                <a class="button info" href="{{ url_for('home')}}?sn={{activity.equipmen_register.sn}}">{{value}}</a><span>#{{key}}</span>
               </td>
                 {%endfor%}
            
@@ -23,4 +23,3 @@
    
 
 
-{% include 'htmlmodels/crudpop.html' %}
