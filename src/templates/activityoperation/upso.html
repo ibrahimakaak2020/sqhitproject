@@ -10,11 +10,10 @@
              
                 
         
-                {%for value , key in activityaction(activity).items()%}
-                <td >
-                <a class="button info" href="{{ url_for('home')}}?sn={{activity.equipmen_register.sn}}">{{value}}</a><span>#{{key}}</span>
+              <td>
+                <a class="button info" href="{{ url_for('home')}}?sn={{activity.equipmen_register.sn}}">Take Action</a>
               </td>
-                {%endfor%}
+                
            
              
               
