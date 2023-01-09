@@ -105,7 +105,7 @@ class updateactivitycompany(BaseModel):
     recieve_by:str=None
     recieve_note:str=None
     billid:str="0"
-    billamount:condecimal(max_digits=5, decimal_places=3) = 0.0
+    billamount:condecimal(max_digits=6, decimal_places=3) = 0.0
 
 
 class updateactivitywaiting(BaseModel):
