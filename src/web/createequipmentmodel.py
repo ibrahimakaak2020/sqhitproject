@@ -72,7 +72,9 @@ async def createequipmentmodel(request: Request,db: Session=Depends(get_db),msg:
         
             CreateModelData(modeltable=Equipment_Model,db=db, modelcreate=equipmentmodel)
             
-            return templates.TemplateResponse("registerequipmentmodel.html", {"request": request,"manuf":manuf,"equipmenttypenew":equipmenttypenew,"user":current_user,"msg":"Model Register Succusfull"})
+            # return templates.TemplateResponse("createequipment.html", {"request": request,"manuf":manuf,"equipmenttypenew":equipmenttypenew,"user":current_user,"msg":"Model Register Succusfull"})
+            return RedirectResponse('/' + '?sn=' +sn, status_code=status.HTTP_302_FOUND)
+        
         except Exception as e:
             print(f'{e}')
             raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e

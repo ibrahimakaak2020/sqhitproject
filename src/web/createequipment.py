@@ -2,7 +2,7 @@ from tkinter import E
 from fastapi import FastAPI, status, HTTPException, Depends
 # from fastapi.responses import RedirectResponse
 from fastapi import APIRouter, Request, Response
-from db.models.models import Equipment, Equipment_Model, EquipmentRegister, Location, User
+from db.models.models import Equipment, Equipment_Model, Equipment_Type, EquipmentRegister, Location, Manufacture, User
 from sqlalchemy.orm import Session
 from db.database.database import get_db
 from fastapi.security.utils import get_authorization_scheme_param
@@ -22,9 +22,12 @@ def equipment(request: Request,db: Session=Depends(get_db),msg:str=None,sn:str=N
    
     # locations=QueryModelData(modeltable=Location,db=db).all()
     # equipmentmodels=QueryModelData(modeltable=Equipment_Model,db=db).all()
+    manuf=QueryModelData(modeltable=Manufacture,db=db).all()
+    equipmenttypenew=QueryModelData(modeltable=Equipment_Type,db=db).all()
     token = request.cookies.get("access_token")
 
     print("cookies  ibrah:", token)
+    print("from get equipment: *************************************")
     try:
 
         scheme, param = get_authorization_scheme_param(
@@ -33,7 +36,7 @@ def equipment(request: Request,db: Session=Depends(get_db),msg:str=None,sn:str=N
         print(param, "param")
         current_user: User = get_current_user_from_token(token=param, db=db)
         
-        return templates.TemplateResponse("equipmentregister.html", {"request": request})
+        return templates.TemplateResponse("equipmentregister.html", {"request": request,"manuf":manuf,"equipmenttypenew":equipmenttypenew})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
@@ -46,9 +49,12 @@ def createequipment(request: Request,db: Session=Depends(get_db),msg:str=None,sn
    
     locations=QueryModelData(modeltable=Location,db=db).all()
     equipmentmodels=QueryModelData(modeltable=Equipment_Model,db=db).all()
+    manuf=QueryModelData(modeltable=Manufacture,db=db).all()
+    equipmenttypenew=QueryModelData(modeltable=Equipment_Type,db=db).all()
     token = request.cookies.get("access_token")
 
     print("cookies  ibrah:", token)
+    print("from post equipment: *************************************")
     try:
 
         scheme, param = get_authorization_scheme_param(
@@ -57,7 +63,7 @@ def createequipment(request: Request,db: Session=Depends(get_db),msg:str=None,sn
         print(param, "param")
         current_user: User = get_current_user_from_token(token=param, db=db)
         register_by=current_user.staffno
-        return templates.TemplateResponse("createequipment.html", {"request": request,"register_by":register_by,"locations":locations,"equipmnetmodel":equipmentmodels})
+        return templates.TemplateResponse("createequipment.html", {"request": request,"manuf":manuf,"equipmenttypenew":equipmenttypenew,"register_by":register_by,"locations":locations,"equipmnetmodel":equipmentmodels})
     except Exception as e:
         print(f'{e}')
         raise HTTPException(status_code=302, detail="Not authorized", headers={"Location": "/login"}) from e
@@ -68,6 +74,9 @@ def createequipment(request: Request,db: Session=Depends(get_db),msg:str=None,sn
 async def createequipment(request: Request,db: Session = Depends(get_db)):
     locations=QueryModelData(modeltable=Location,db=db).all()
     equipmentmodels=QueryModelData(modeltable=Equipment_Model,db=db).all()
+    manuf=QueryModelData(modeltable=Manufacture,db=db).all()
+    equipmenttypenew=QueryModelData(modeltable=Equipment_Type,db=db).all()
+    print("from  get createequipment: *************************************")
     form = CreateEquipmentForm(request)
 
     await form.load_data()
@@ -79,7 +88,7 @@ async def createequipment(request: Request,db: Session = Depends(get_db)):
             
             
             # return RedirectResponse('/' + '?msg=' + "Equipment Registered  ", status_code=status.HTTP_302_FOUND)
-            return templates.TemplateResponse("createequipment.html",{"request": request,"locations":locations,"equipmnetmodel":equipmentmodels,"msg":"succusd sdfs fs  sdfasfs"})
+            return templates.TemplateResponse("createequipment.html",{"request": request,"manuf":manuf,"equipmenttypenew":equipmenttypenew,"locations":locations,"equipmnetmodel":equipmentmodels,"msg":"succusd sdfs fs  sdfasfs"})
         except HTTPException:
             form.__dict__.update(msg="Optional[str] = None")
             form.__dict__.get("errors").append("Equipment Already in Registered")
@@ -91,6 +100,9 @@ async def createequipment(request: Request,db: Session = Depends(get_db)):
 async def createequipmentmain(request: Request,db: Session = Depends(get_db),sn:str=None):
     locations=QueryModelData(modeltable=Location,db=db).all()
     equipmentmodels=QueryModelData(modeltable=Equipment_Model,db=db).all()
+    manuf=QueryModelData(modeltable=Manufacture,db=db).all()
+    equipmenttypenew=QueryModelData(modeltable=Equipment_Type,db=db).all()
+    print("from post createequipmentmain: *************************************")
     form = CreateEquipmentForm(request)
     
     print("request",request.__dict__)

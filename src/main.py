@@ -3,15 +3,17 @@ from fastapi import FastAPI, status, HTTPException, Depends
 from fastapi.responses import RedirectResponse
 from fastapi import FastAPI, Request, Response,Form
 from api.base import api_router
-from db.models.models import Company_User, Equipment, Equipment_Model, EquipmentRegister, Location, User
+from db.models.models import Company_User, Equipment, Equipment_Model, Equipment_Type, EquipmentRegister, Location, Manufacture, User
 from sqlalchemy.orm import Session
 from db.database.database import get_db
+from databases import Database
 from db.datacreator import QueryModelData,QueryModelDataActivity
 from db.models.models import EquipmentActivity
 from fastapi.security.utils import get_authorization_scheme_param
 from api.route_login import get_current_user_from_token
 from api.route_login import login_for_access_token
 from db.schemas.schemas import UserShow
+from db.utils import check_db_connected, check_db_disconnected
 from web.createlocation import createlocationroot 
 from web.loginform import LoginForm
 from fastapi.templating import Jinja2Templates
@@ -43,11 +45,23 @@ app.include_router(createequipmenmodeltroot)
 app.include_router(createlocationroot)
 
 
+@app.on_event("startup")
+async def app_startup():
+    await check_db_connected()
+
+
+@app.on_event("shutdown")
+async def app_shutdown():
+    await check_db_disconnected()
+
+
 @app.get('/')
 async def home(request: Request, db: Session=Depends(get_db),msg:str=None,search:str=None,sn:str=None,error:str=None):
     locations=QueryModelData(modeltable=Location,db=db).all()
     equipmentmodels=QueryModelData(modeltable=Equipment_Model,db=db).all()
     companyuser=QueryModelData(modeltable=Company_User,db=db).all()
+    manuf=QueryModelData(modeltable=Manufacture,db=db).all()
+    equipmenttypenew=QueryModelData(modeltable=Equipment_Type,db=db).all()
    
     if search:
         sn=search or sn
@@ -85,7 +99,7 @@ async def home(request: Request, db: Session=Depends(get_db),msg:str=None,search
            equipment=None
         print("check ibrahi activity",equipmentactivities)
         contents = {"request": request, "equipment": equipment, "equipmentregister": equipmentregister,
-         "equipmentactivities": equipmentactivities, "search": sn, "locations": locations,
+         "equipmentactivities": equipmentactivities, "search": sn, "locations": locations,"manuf":manuf,"equipmenttypenew":equipmenttypenew,
           "equipmnetmodel": equipmentmodels, "user": current_user,"companyuser":companyuser,
            "sn": sn,"activityaction":actions,"equipmentactivitieshistory":equipmentactivitieshistory,"error":error}
 
@@ -101,6 +115,8 @@ async def home(request: Request, db: Session=Depends(get_db),msg:str=None,sn:str
     locations=QueryModelData(modeltable=Location,db=db).all()
     equipmentmodels=QueryModelData(modeltable=Equipment_Model,db=db).all()
     companyuser=QueryModelData(modeltable=Company_User,db=db).all()
+    manuf=QueryModelData(modeltable=Manufacture,db=db).all()
+    equipmenttypenew=QueryModelData(modeltable=Equipment_Type,db=db).all()
    
 
     token = request.cookies.get("access_token")
@@ -134,7 +150,7 @@ async def home(request: Request, db: Session=Depends(get_db),msg:str=None,sn:str
                 
         print("check ibrahi activity",equipmentactivities)
         contents={"request": request, "user": current_user,"equipment":equipment
-                 ,"equipmentregister":equipmentregister,"companyuser":companyuser,
+                 ,"equipmentregister":equipmentregister,"companyuser":companyuser,"manuf":manuf,"equipmenttypenew":equipmenttypenew,
                 "equipmentactivities":equipmentactivities,"search":search,"sn":sn
                 ,"locations":locations,"equipmnetmodel":equipmentmodels,"activityaction":actions,"equipmentactivitieshistory":equipmentactivitieshistory ,"error":error}
 

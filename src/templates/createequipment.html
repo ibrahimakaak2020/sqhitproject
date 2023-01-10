@@ -10,7 +10,8 @@
       <hr>
       <form  action="/createequipmentmain"  method="post">
         <input type="text" name="sn" value="{{search}}" hidden>
-        <a class="button info" href="{{ url_for('createequipmentmodel')}}">Create New Model</a>
+        
+        <a class="button info" href="#createmodel">Add Model</a>
         <hr>
         <div class="form-group ">
          
@@ -43,7 +44,62 @@
 
 
 
+    <div id="createmodel" class="overlay">
+      <div class="popup">
+        <h2> Return Equipement</h2>
+        <a class="close" href="#">&times;</a>
+        <hr>
+        <div class="content alert-successsqhit">
+          <div class="interior alert-successsqhit">
+
+    <div class="container">
   
+      {% for error in errors %}
+      <div class="remark warning">  <li>{{error}}</li></div>
+      
+      {% endfor %}
+  
+  
+    {% if msg %}
+    <div class="remark warning">  <li>{{msg}}</li></div>
+    {% endif %}
+
+  
+  <h2 class="span1">add Equipment Model</h2>
+  <hr>
+  <form  action="/equipmentmodel"  method="post">
+    <label for="equipment_model">Equipment Model:</label>
+    <input type="text" name="equipment_model" class="metro-input success" required >
+    <div class="form-group ">
+   <label for="eid">Select Equipment Type:</label>
+    <select  name="eid" data-role="select" class="metro-input success">
+        {% for etype in equipmenttypenew%}
+            <option value="{{etype.eid}}">{{etype.equipment_type}}</option>
+
+        {% endfor %}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="mid">Select Manufacture:</label>
+    <select name="mid" data-role="select" class="metro-input success">
+      {% for man in manuf%}
+          <option value="{{man.mid}}">{{man.company_name}}</option>
+
+      {% endfor %}
+  </select>
+  </div>
+
+
+
+  <button class="button " type="submit">Add Equipment</button>
+</form>
+
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
    
 
 {% endblock %}
