@@ -58,12 +58,17 @@ padding-right: 10px;
 }
 
 .cardscontainer {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-}
+ 
+    display: flex;
+    
+    flex-wrap: wrap;
+    align-content: space-between;
+    max-height: 200vh; 
+  }
+
 .cardequipmentshow {
   flex: 0 0 200px;
+  width: 300px;
   margin: 10px;
   border: 1px solid #ccc;
   box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);

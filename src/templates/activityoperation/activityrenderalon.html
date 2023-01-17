@@ -5,10 +5,10 @@
 <input id='myInput' onkeyup='searchTable()' type='text' name="myInput" class="metro-input">
 </div>
 <hr>
-<div>
+
   
     {%if equipmentactivities%}
-    <div class="cardscontainer">    
+    <div class="cardscontainer">   
     {%for  activity in equipmentactivities%}
     {%if activity.next_activity=="T"%}
           {%if activity.activity_status=="UPL"%}
@@ -20,7 +20,9 @@
           {% include "/activityoperation/wfso.html"%}
           {%elif activity.activity_status=="WFD"%}
           {% include "/activityoperation/wfdo.html"%}
+         
           {%elif activity.activity_status=="WFR"%}
+        
           {% include "/activityoperation/wfro.html"%}
 
           {%endif%}
@@ -32,8 +34,7 @@
           
      
     {%endfor%}
-  </div>  
-</div>
+    </div>
 
       {%else%}
 
