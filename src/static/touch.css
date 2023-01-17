@@ -33,31 +33,6 @@ th {
 
 
 
-.cardshow {
-  color: black;
-  background-color: #cfcdbf;
-  padding: 10px;
-  padding-bottom: 0px;
-  border-radius: 10px;
-  margin: 10px;
-  height: 200px;
-}
-.cardshow p {
-  padding-bottom: 10px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: .9em;
-}
-.cardContainer1{
-  display: flex ;
-  justify-content: space-between;
-  flex-flow: row wrap;
-  background-color: #d9f0f7;
-}
-@media screen and (max-width: 800px) {
-  .cardshow {
-     width: 100%;
-  }
-}
 
 .card-label {
 /* background: linear-gradient(to bottom,  hsl(220, 65%, 25%), hsl(220, 65%, 20%)); hsl(20, 65%, 25%); */
@@ -82,3 +57,20 @@ padding-right: 10px;
 
 }
 
+.cardscontainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.cardequipmentshow {
+  flex: 0 0 200px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+} 
+.cardequipmentshow img {
+  max-width: 100%;
+}
+.cardequipmentshow .text {
+  padding: 0 20px 20px;
+}
