@@ -59,23 +59,27 @@ padding-right: 10px;
 
 .cardscontainer {
  
-    display: flex;
-    
-    flex-wrap: wrap;
-    align-content: space-between;
-    max-height: 200vh; 
+  display: flex;
+  background-color: #c3e6cb;
+  flex-flow: row wrap; 
+  align-items: flex-start;
+  
   }
 
 .cardequipmentshow {
-  flex: 0 0 200px;
-  width: 300px;
+ 
+ background-color: azure;
   margin: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
   border: 1px solid #ccc;
   box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
 } 
-.cardequipmentshow img {
-  max-width: 100%;
+.cardequipmentshow p ,a{
+  margin: 20px ;
+ 
 }
+
 .cardequipmentshow .text {
   padding: 0 20px 20px;
 }

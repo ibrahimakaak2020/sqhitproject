@@ -9,30 +9,10 @@
   
     {%if equipmentactivities%}
     <div class="cardscontainer">   
-    {%for  activity in equipmentactivities%}
-    {%if activity.next_activity=="T"%}
-          {%if activity.activity_status=="UPL"%}
-
-          {% include "/activityoperation/uplo.html"%}
-          {%elif activity.activity_status=="UPS"%}
-          {% include "/activityoperation/upso.html"%}
-          {%elif activity.activity_status=="WFS"%}
-          {% include "/activityoperation/wfso.html"%}
-          {%elif activity.activity_status=="WFD"%}
-          {% include "/activityoperation/wfdo.html"%}
-         
-          {%elif activity.activity_status=="WFR"%}
+    {%for  activity in equipmentactivities%} 
         
           {% include "/activityoperation/wfro.html"%}
-
-          {%endif%}
-          {% include 'htmlmodels/crudpop.html' %}
-          {%else%}
-          {% include "activitydone.html"%}
-          {%endif%}
-    
-          
-     
+                   
     {%endfor%}
     </div>
 
