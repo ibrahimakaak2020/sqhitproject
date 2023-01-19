@@ -99,3 +99,29 @@ padding-right: 10px;
 .is-hidden{
   display: None;
 }
+#myDivId{
+  height: 65vh;
+  overflow-y:auto;
+}
+
+/* width */
+#myDivId::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+#myDivId::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+#myDivId::-webkit-scrollbar-thumb {
+  background: rgb(169, 194, 226); 
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+#myDivId::-webkit-scrollbar-thumb:hover {
+  background:rgb(169, 194, 226); 
+}
