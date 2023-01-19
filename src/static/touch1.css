@@ -22,3 +22,9 @@ table caption {
   padding-top: 140px;
   font-size: 14px;
 }
+
+.header {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  padding: 10px 10px;
+}

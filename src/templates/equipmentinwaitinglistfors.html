@@ -1,25 +1,9 @@
-
-
 {% extends "base.html" %}
 
 
 {% block content %}
-{%if equipmentactivities%}
-{% include '/activityoperation/activityrenderalon.html' %}
-{%else%}
-<div data-role="carousel">
-    <div class="p-2 pl-10 pr-10">
-        <div class="row flex-align-center h-100">
 
-            <div class="cell-md-8">
-                <h1 class="text-light">Equipment In Company</h1>
-                <!-- <p class="mt-4 mb-4">No Equipment In Company..</p> -->
-                <h2>No Equipment In Company</h2>
-                <a class="button alert" href="{{ url_for('home')}}">Home</a>
-            </div>
-        </div>
-    </div>
-</div>
-{%endif%}
+{% include '/activityoperation/activityrenderwfro.html' %}
+
 
 {%endblock content%}

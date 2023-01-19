@@ -1,0 +1,31 @@
+
+              
+<div >
+      <label for="myInput" style="font-size: large;">Search</label>
+      <input id='searchbox' onkeyup='searchTable()' type='text' name="myInput" class="metro-input">
+      </div>
+      <hr>
+      
+        
+          {%if equipmentactivities%}
+          <div id="myDivId" class="cardscontainer">   
+          {%for  activity in equipmentactivities%} 
+              
+                {% include "/activityoperation/uplo.html"%}
+                         
+          {%endfor%}
+          </div>
+      
+            {%else%}
+      
+            <p>No Equipment </p>
+            {%endif%}
+      
+      
+
+      
+
+
+
+
+ 
