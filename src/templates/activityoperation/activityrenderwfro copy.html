@@ -1,0 +1,31 @@
+
+              
+<div style="width: 50%;">
+<label for="myInput" style="font-size: large;">Search</label>
+<input id='myInput' onkeyup='searchTable()' type='text' name="myInput" class="metro-input">
+</div>
+<hr>
+
+  
+    {%if equipmentactivities%}
+    <div class="cardscontainer">   
+    {%for  activity in equipmentactivities%} 
+        
+          {% include "/activityoperation/wfro.html"%}
+                   
+    {%endfor%}
+    </div>
+
+      {%else%}
+
+      <p>No Equipment </p>
+      {%endif%}
+
+      
+
+      
+
+
+
+
+ 

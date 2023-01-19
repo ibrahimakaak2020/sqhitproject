@@ -1,11 +1,13 @@
- <div class="cardequipmentshow">
-     <div class="card-label">Serial Number :{{activity.equipmen_register.sn}}</div>
-     <p c>Create Date: {{activity.activity_date}}  Create By : {{activity.user.staffname}}</p>
+ <span class="cardequipmentshow">
+     <span class="card-label">Serial Number :{{activity.equipmen_register.sn}}</span>
+     <p c>Ready For Return  From : {{activity.activity_date}} </p>
      <p >Place :{%if activity.place_of_maintaince=='L'%}IT Workshop{%else%}{{activity.company_user.company_name_en}}{%endif%}</p>
-     <p >Location: {{activity.equipmen_register.equipments.locations.loc_name}}  Building:{{activity.equipmen_register.equipments.locations.building}}   Contact Number:{{activity.equipmen_register.equipments.locations.contact_number}}    </p>
+     <p class="equipmentlocation">Building:{{activity.equipmen_register.equipments.locations.building}}</p>
+     <p>Equipment Location: {{activity.equipmen_register.equipments.locations.loc_name}}  </p>
+     <p>   Contact Number:{{activity.equipmen_register.equipments.locations.contact_number}}    </p>
      <p >Activity Note:{{activity.activity_desc}}</p>
      <a class="button info" href="{{ url_for('home')}}?sn={{activity.equipmen_register.sn}}">Take Action</a>
- </div>
+ </span>
  
               
           
