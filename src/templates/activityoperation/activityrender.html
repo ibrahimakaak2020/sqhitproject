@@ -25,6 +25,7 @@
   
     
     {%endfor%}
+  
  {%else%}   
   
 {%with activity= equipmentactivities%}
@@ -47,12 +48,19 @@
   {% include "activitydone.html"%}
   {%endif%}
 
+
   
     
     {%endwith%}
 
     {%endif%}
+   
+    {% if equipmentactivitieshistory  is iterable %}
+   {%for activity in equipmentactivitieshistory%}
+
+   {%endfor%}
     
-  
+
+    {%endif%}
     
   
