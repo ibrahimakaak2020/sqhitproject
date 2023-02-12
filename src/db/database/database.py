@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 DATABASE_URL = "mysql+mysqldb://root:root123@localhost/sqhit"
 
 
-db_engine = create_engine(DATABASE_URL)
+db_engine = create_engine(DATABASE_URL,pool_recycle=60 * 5, pool_pre_ping=True)
 SessionLocal = sessionmaker(bind=db_engine)
 
 Base = declarative_base()
